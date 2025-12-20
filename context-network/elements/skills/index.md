@@ -52,6 +52,21 @@ None yet
 
 None yet
 
+## Technical Requirements
+
+All skills with scripts must follow these requirements:
+
+| Requirement | Details |
+|-------------|---------|
+| Runtime | Deno/TypeScript only |
+| Imports | Direct `jsr:` with pinned versions |
+| Portability | Scripts must work without project deno.json |
+| Permissions | Document in script header |
+
+**Decision record**: `../../decisions/deno-runtime-requirement.md`
+**Script template**: `../../meta/templates/deno-script-template.ts`
+**Full details**: `../../foundation/technical-stack.md`
+
 ## Adding a New Skill
 
 1. **Plan first**: Create a planning document in the appropriate domain folder
@@ -78,9 +93,10 @@ This catalog should be updated:
 ## Metadata
 
 - **Created:** 2025-12-19
-- **Last Updated:** 2025-12-19
-- **Updated By:** Claude (via Context Network Template Adjustment)
+- **Last Updated:** 2025-12-20
+- **Updated By:** Claude
 
 ## Change History
 
+- 2025-12-20: Added Technical Requirements section (Deno runtime)
 - 2025-12-19: Initial creation of skills catalog

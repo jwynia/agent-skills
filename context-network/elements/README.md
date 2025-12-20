@@ -1,81 +1,59 @@
 # Elements
 
-This directory contains information about the various elements that make up the project. Each element represents a distinct area or component of the project.
+This directory contains lightweight tracking and metadata for individual skills being developed in this project. Each skill is an "element" that we track through its lifecycle from planning to completion.
 
 ## Purpose
 
-The elements directory serves as a container for detailed information about specific project elements. This allows for a modular approach to documenting the project structure, with each element having its own dedicated documentation.
+The elements directory tracks individual skills without duplicating their actual content (which lives in `/skills/`). This allows the context network to maintain planning, decisions, and status information separate from the skill deliverables.
 
 ## Structure
 
-Each element should have its own subdirectory, containing documentation specific to that element. The structure within each element directory should follow a consistent pattern:
+For this agent skills project, elements are organized by the skills being created:
 
 ```
 elements/
-├── [element-name]/
-│   ├── overview.md            # Overview of the element
-│   ├── structure.md           # Detailed structure of the element
-│   ├── interfaces.md          # Interfaces with other elements
-│   └── [other element-specific documentation]
+└── skills/
+    ├── index.md                      # Master catalog of all skills
+    ├── [domain]/                     # e.g., data-processing, web, code-analysis
+    │   ├── index.md                  # Domain-level skill catalog
+    │   └── [skill-name].md           # Lightweight tracking for specific skill
+    └── templates/
+        └── skill-tracking.md         # Template for skill tracking files
 ```
 
-## Element Types
+## What Gets Tracked
 
-Elements can represent various aspects of a project, depending on the project type. Examples include:
+For each skill, we track:
 
-### For Software Projects
-- Frontend components
-- Backend services
-- Data storage
-- Infrastructure
-- External integrations
+- **Status**: planning | in-progress | validating | complete
+- **Location**: Path in `/skills/` directory
+- **Validation Results**: Pass/fail from skills-ref
+- **Key Decisions**: Important choices made during development
+- **Dependencies**: Related skills, external tools, etc.
+- **Notes**: Special considerations, lessons learned
 
-### For Research Projects
-- Literature review
-- Methodology
-- Data collection
-- Analysis
-- Findings
+## What Does NOT Get Tracked Here
 
-### For Creative Projects
-- Characters
-- Settings
-- Plot elements
-- Themes
-- Visual design
+- **Actual skill content**: Lives in `/skills/[domain]/[category]/[skill-name]/`
+- **Detailed instructions**: In the SKILL.md file itself
+- **Code/scripts**: In the skill's `scripts/` directory
+- **Reference docs**: In the skill's `references/` directory
 
-### For Knowledge Bases
-- Core concepts
-- Procedures
-- References
-- Applications
-- Case studies
+## Creating Skill Tracking
 
-### For Career Management
-- Skills inventory
-- Experience record
-- Network connections
-- Opportunity tracking
-- Growth planning
+Before creating a skill:
 
-## Adding New Elements
+1. Document intent in a planning file here: `elements/skills/[domain]/[skill-name]-planning.md`
+2. Create the actual skill in `/skills/[domain]/[category]/[skill-name]/`
+3. Update the tracking file as you work
+4. Update the catalog indexes (`elements/skills/index.md` and `elements/skills/[domain]/index.md`)
 
-To add a new element:
+## Why Separate Tracking from Skills?
 
-1. Create a new directory under `elements/` with the element name
-2. Create an `overview.md` file that describes the element's purpose and key characteristics
-3. Add additional documentation as needed for the specific element
-4. Update any cross-element dependencies in the `connections/` directory
-
-## Element Documentation Guidelines
-
-When documenting elements:
-
-1. Focus on the element's purpose and responsibilities
-2. Clearly define interfaces with other elements
-3. Document key decisions related to the element
-4. Include relevant diagrams or visual representations
-5. Maintain consistency with the project's overall principles and structure
+1. **Context network stays lightweight**: Agents don't load full skill content when reviewing planning
+2. **Clear separation**: Planning/meta vs. deliverables
+3. **Session resilience**: Context network always reflects current state
+4. **Independent evolution**: Can reorganize skills without breaking tracking
 
 ## Relationships
 

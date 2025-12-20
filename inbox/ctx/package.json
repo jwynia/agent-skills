@@ -1,0 +1,15 @@
+{
+  "name": "dev-context-cli",
+  "version": "1.0.0",
+  "description": "CLI tool for development context network",
+  "scripts": {
+    "ctx": "bun ctx.ts"
+  },
+  "dependencies": {
+    "@jwynia/corticai": "^1.0.0",
+    "@mastra/core": "^0.24.8"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}

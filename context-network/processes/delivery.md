@@ -1,372 +1,151 @@
-# Delivery Process
+# Skill Delivery Process
 
 ## Purpose
-This document outlines the delivery process for the project, including strategies, methods, and best practices.
+
+This document defines the export and deployment process for transforming nested development skills into flat runtime structure.
 
 ## Classification
 - **Domain:** Process
-- **Stability:** Semi-stable
+- **Stability:** Dynamic
 - **Abstraction:** Structural
-- **Confidence:** Established
+- **Confidence:** Evolving
 
 ## Content
 
-### Delivery Overview
+### Current Status
 
-[Provide a high-level overview of the delivery approach for the project]
+**Export tooling**: To be developed when needed
+**Current process**: Manual export if required
 
-```mermaid
-graph TD
-    A[Validated Deliverables] --> B[Delivery Planning]
-    B --> C[Delivery Preparation]
-    C --> D[Pre-delivery Validation]
-    D --> E[Delivery Execution]
-    E --> F[Post-delivery Validation]
-    F --> G[Monitoring and Support]
-    G --> H[Feedback Collection]
-    H --> I[Continuous Improvement]
-    I --> A
+### Nested to Flat Transformation
+
+**Development Structure** (current):
+```
+skills/
+├── data-processing/
+│   └── csv/
+│       └── csv-analyzer/
+│           └── SKILL.md (name: csv-analyzer)
 ```
 
-### Delivery Principles
+**Runtime Structure** (export target):
+```
+exported-skills/
+└── csv-analyzer/  (or prefixed: data-csv-analyzer/)
+    └── SKILL.md
+```
 
-[Describe the key principles that guide the delivery approach]
+### Export Strategies (To Be Decided)
 
-1. **[Principle 1]**
-   [Description of Principle 1]
+Three potential approaches documented for future export tool development:
 
-2. **[Principle 2]**
-   [Description of Principle 2]
+**1. Prefix Approach**
+- Add domain prefix to skill name
+- Example: `csv-analyzer` → `data-csv-analyzer`
+- Pros: Clear namespace, prevents collisions
+- Cons: Longer names, may hit 64 char limit
 
-3. **[Principle 3]**
-   [Description of Principle 3]
+**2. Short Code Approach**
+- Define 2-3 char codes per category
+- Example: `dp-csv-analyzer` (dp = data-processing)
+- Pros: Shorter names, systematic
+- Cons: Requires code registry, less readable
 
-### Delivery Environments
+**3. Manifest-Based Bundling**
+- Export with original names
+- Bundle manifest tracks source paths
+- Pros: Preserves short names, flexible bundling
+- Cons: Requires manifest management
 
-#### Staging Environment
+**Decision**: Deferred until we have enough skills to evaluate real-world needs
 
-**Purpose:**
-[Describe the purpose of the staging environment]
+### Manual Export Process (Current)
 
-**Configuration:**
-[Describe the configuration of the staging environment]
+Until export tool exists:
 
-**Access:**
-[Instructions for accessing the staging environment]
+1. **Copy skill folder** to target location
+2. **Rename if needed** to avoid collisions
+3. **Preserve all files** (SKILL.md, scripts/, references/, assets/)
+4. **Document mapping** in context network
 
-**Usage Guidelines:**
-[Guidelines for using the staging environment]
+### Future Export Tool Requirements
 
-#### Production Environment
+When building the export tool, it should:
 
-**Purpose:**
-[Describe the purpose of the production environment]
+**Requirements**:
+- Flatten nested structure while preserving functionality
+- Apply chosen namespace/prefix strategy
+- Generate bundle manifests
+- Validate exported skills (run skills-ref)
+- Document transformation mapping
+- Handle name collisions
+- Preserve file permissions for scripts
 
-**Configuration:**
-[Describe the configuration of the production environment]
+**Input**: `skills/` directory (nested)
+**Output**: Flat directory + manifest
 
-**Access:**
-[Instructions for accessing the production environment]
+**Validation**: All exported skills must pass skills-ref validation
 
-**Usage Guidelines:**
-[Guidelines for using the production environment]
+### Bundling
 
-### Delivery Process Steps
+**Purpose**: Group related skills for specific use cases.
 
-#### 1. Delivery Planning
+**Future Capabilities**:
+- Select skills by domain/category
+- Create bundle manifests
+- Version bundles
+- Distribute as packages
 
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
+**Current**: Manual selection and copying
 
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
+### Export Considerations
 
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
+**Documented in Skill Tracking**:
+Each skill's tracking file includes:
+- Estimated export name
+- Name length check
+- Namespace prefix needs
+- Collision potential
 
-#### 2. Delivery Preparation
+**Example from Tracking File**:
+```markdown
+## Export Considerations
+**Estimated Export Name**: data-csv-analyzer
+**Name Length**: 18 characters / 64 max
+**Namespace Prefix Needed**: yes (to distinguish from other analyzers)
+```
 
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
+### Distribution
 
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
+**Current**: Not implemented
+**Future**: Package manager, git repos, download bundles
 
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
+## Process Steps (When Tool Exists)
 
-#### 3. Pre-delivery Validation
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 4. Delivery Execution
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 5. Post-delivery Validation
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 6. Monitoring and Support
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 7. Feedback Collection
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 8. Continuous Improvement
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-### Delivery Strategies
-
-#### Phased Delivery
-
-**Description:**
-[Describe the phased delivery strategy]
-
-**When to Use:**
-[Describe when to use phased delivery]
-
-**Process:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Benefits:**
-- [Benefit 1]
-- [Benefit 2]
-- [Benefit 3]
-
-**Challenges:**
-- [Challenge 1]
-- [Challenge 2]
-- [Challenge 3]
-
-#### Full Delivery
-
-**Description:**
-[Describe the full delivery strategy]
-
-**When to Use:**
-[Describe when to use full delivery]
-
-**Process:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Benefits:**
-- [Benefit 1]
-- [Benefit 2]
-- [Benefit 3]
-
-**Challenges:**
-- [Challenge 1]
-- [Challenge 2]
-- [Challenge 3]
-
-#### Canary Delivery
-
-**Description:**
-[Describe the canary delivery strategy]
-
-**When to Use:**
-[Describe when to use canary delivery]
-
-**Process:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Benefits:**
-- [Benefit 1]
-- [Benefit 2]
-- [Benefit 3]
-
-**Challenges:**
-- [Challenge 1]
-- [Challenge 2]
-- [Challenge 3]
-
-### Delivery Automation
-
-[Describe the approach to delivery automation]
-
-#### Continuous Delivery Pipeline
-
-[Describe the continuous delivery pipeline]
-
-**Components:**
-- [Component 1]
-- [Component 2]
-- [Component 3]
-
-**Setup:**
-[Instructions for setting up the continuous delivery pipeline]
-
-**Usage:**
-[Guidelines for using the continuous delivery pipeline]
-
-### Rollback Procedures
-
-[Describe the procedures for rolling back a delivery if issues are encountered]
-
-#### Rollback Triggers
-
-[Describe the triggers that would initiate a rollback]
-
-#### Rollback Process
-
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-#### Rollback Testing
-
-[Describe how rollback procedures are tested]
-
-### Delivery Documentation
-
-[Describe the documentation requirements for delivery]
-
-#### Delivery Plans
-
-[Describe the requirements for delivery plans]
-
-#### Release Notes
-
-[Describe the requirements for release notes]
-
-#### Delivery Reports
-
-[Describe the requirements for delivery reports]
-
-### Compliance and Governance
-
-[Describe any compliance and governance requirements related to delivery]
-
-#### Regulatory Requirements
-
-[Describe any regulatory requirements that must be met]
-
-#### Approval Processes
-
-[Describe any approval processes that must be followed]
-
-#### Audit Trails
-
-[Describe the requirements for maintaining audit trails]
+1. **Select skills** for export
+2. **Run export tool** with chosen strategy
+3. **Validate exported skills** (skills-ref)
+4. **Generate bundle manifest**
+5. **Document transformation** mapping
+6. **Distribute** via chosen method
 
 ## Relationships
-- **Parent Nodes:** [processes/validation.md]
+- **Parent Nodes:** processes/creation.md
 - **Child Nodes:** None
-- **Related Nodes:** 
-  - [processes/creation.md] - precedes - Creation precedes delivery
-  - [foundation/principles.md] - guided-by - Delivery follows project principles
-  - [foundation/structure.md] - delivers - Delivery implements the project structure
+- **Related Nodes:**
+  - decisions/naming-strategy.md - informs export naming
+  - foundation/structure.md - defines source structure
 
 ## Navigation Guidance
-- **Access Context:** Use this document when planning or executing delivery activities
-- **Common Next Steps:** After reviewing delivery processes, typically explore specific delivery strategies or tools
-- **Related Tasks:** Delivery planning, delivery execution, monitoring, feedback collection
-- **Update Patterns:** This document should be updated when delivery processes change or are refined
+- **Access Context:** Use when ready to export/deploy skills
+- **Common Next Steps:** Build export tool when sufficient skills exist
+- **Related Tasks:** Bundling, distribution, deployment
+- **Update Patterns:** Update when export tool is developed or strategy chosen
 
 ## Metadata
-- **Created:** 5/16/2025
-- **Last Updated:** 5/16/2025
-- **Updated By:** Context Network Update
+- **Created:** 2025-12-19
+- **Last Updated:** 2025-12-19
+- **Updated By:** Claude (via Context Network Template Adjustment)
 
 ## Change History
-- 5/16/2025: Created from deployment.md template with more generic terminology
+- 2025-12-19: Created delivery process documentation with deferred tooling

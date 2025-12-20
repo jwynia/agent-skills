@@ -1,0 +1,36 @@
+{
+  "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"],
+      "include": ["explicit-function-return-type"]
+    },
+    "exclude": ["**/node_modules/**", "**/inbox/**", "reference/**"]
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 100,
+    "indentWidth": 2,
+    "singleQuote": false,
+    "proseWrap": "preserve"
+  },
+  "tasks": {
+    "check": "deno check skills/**/*.ts",
+    "lint": "deno lint skills/",
+    "fmt": "deno fmt skills/",
+    "fmt:check": "deno fmt --check skills/",
+    "test": "deno test --allow-env --allow-read skills/"
+  },
+  "exclude": [
+    "node_modules",
+    "inbox",
+    "reference",
+    ".git"
+  ]
+}

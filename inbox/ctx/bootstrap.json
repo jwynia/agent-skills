@@ -1,0 +1,25 @@
+{
+  "project": {
+    "name": "mastra-coding-agent",
+    "description": "A Hono web app with Mastra AI agents, using corticai for context network management. The app exposes context APIs for runtime use, while this CLI manages development context separately.",
+    "purpose": "Testing and developing corticai context network patterns for AI agent workflows"
+  },
+  "structure": {
+    "src/": "Hono web app with Mastra agents (runtime context at src/data/context.json)",
+    "scripts/ctx/": "Standalone dev context CLI (this tool)",
+    "scripts/research/": "Tavily-based web search CLI (Deno)",
+    "data/": "Dev context storage (gitignored)"
+  },
+  "keyFiles": [
+    "CLAUDE.md - AI assistant instructions and context network workflow",
+    ".context-network.md - Quick reference for context CLI usage",
+    "src/src/index.ts - Hono server entry point",
+    "src/src/mastra/index.ts - Mastra agent configuration"
+  ],
+  "conventions": [
+    "Use corticai subpath imports to avoid MCP auto-init bug",
+    "Dev context separate from app runtime context",
+    "Check context network before starting work",
+    "Store decisions and discoveries as you work"
+  ]
+}

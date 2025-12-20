@@ -1,0 +1,36 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+	"name": "Node.js & TypeScript",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"build": {
+		"dockerfile": "Dockerfile" // Reference the Dockerfile in the same directory
+	},
+	"containerEnv": {
+		"XDG_CONFIG_HOME": "/workspaces/agent-skills/.agents/config",
+		"XDG_DATA_HOME": "/workspaces/agent-skills/.agents/data",
+		"XDG_CACHE_HOME": "/workspaces/agent-skills/.agents/cache",
+		"XDG_STATE_HOME": "/workspaces/agent-skills/.agents/state",
+		"CLAUDE_CONFIG_DIR": "/workspaces/agent-skills/.claude",
+		"TAVILY_API_KEY": "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"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"visualjj.visualjj",
+				"laurencebahiirwa.deno-std-lib-snippets",
+				"oven.bun-vscode"
+			]
+		}
+	},
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "yarn install",
+	// Configure tool-specific properties.
+	// "customizations": {},
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

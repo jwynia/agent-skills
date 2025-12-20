@@ -1,44 +1,141 @@
-# Bare Context Network
-This project is a starter template for a generic context-network (more info at https://jwynia.github.io/context-networks/). It can be used as a collaboration context manager for a wide range of projects. They are used for software projects, writing projects of all kinds (fiction, non-fiction, marketing, technical, etc.), building knowledge bases, managing research and analysis and more.
+# Agent Skills Development
 
-This particular template repository is generic so that it isn't aimed at any one of those project types. Other templates exist (or will soon) that are aimed at common project types. Look at those and use one if it seems like a good match. But, if not, use this one.
+This project creates a collection of reusable [Agent Skills](https://agentskills.io) following the official specification. Agent Skills are a lightweight, open format for extending AI agent capabilities with specialized knowledge and workflows.
 
-## Getting Started
-Context networks are intended to be used with an LLM agent that has file access to all of the files in the project folder. For people in software development professions, that can be agents they write. But, for most people, the easiest access to such agents is via IDE coding tools.
+Each skill is a folder containing a `SKILL.md` file with instructions and metadata, plus optional supporting resources (scripts, references, assets). Skills use progressive disclosure to stay context-efficient while providing detailed guidance when needed.
 
-Set up the prompts (see below) and start a planning conversation and describe your project, your goals, your constraints, etc. When the plan looks good, let it enhance the context network. Then start with real tasks for the project.
+## Project Structure
 
-## Cost
-Because context networks are a relatively cutting-edge approach to collaboration with LLM AI agents, these tools do cost money and some of the best of them can cost more money than you may be expecting. The costs on such things are dropping and much of what we're doing with context networks is figuring out the ways to work that will be more widespread next year and beyond, when these costs drop. If these tools are too expensive for your budget, that probably means you need to wait a bit.
+- **`skills/`** - Actual skill deliverables organized in nested folders by domain
+- **`context-network/`** - Planning, processes, decisions, and progress tracking
+- **`reference/agentskills/`** - Official specification and validation tools
+- **`CLAUDE.md` / `AGENTS.md`** - Collaboration protocols for AI agents
 
-## Tools
-Cursor (https://www.cursor.com/) is an all-in-one that comes with LLM chat and an agent that can act on the files.
+## Quick Links
 
-Cursor is built on VSCode (https://code.visualstudio.com/), which is a more generic code/text editor that can have plugins added. One we use a lot with context networks is Cline (https://cline.bot/). Cline's agent can be pointed at a wide range of LLM APIs that you use your own keys/billing for or their own management of that. A popular solution is to use OpenRouter (https://openrouter.ai/) which lets you use most of the LLM models available today.
+- **Specification**: `reference/agentskills/docs/specification.mdx`
+- **Creation Process**: `context-network/processes/creation.md`
+- **Validation**: `context-network/processes/validation.md`
+- **Skills Catalog**: `context-network/elements/skills/index.md`
+- **Project Principles**: `context-network/foundation/principles.md`
 
-## Patterns
-### Prompts
-For whatever agent you use, you need to include instructions in the system prompt or custom instructions that tell it about context networks and how to navigate them. The prompt in /inbox/custom-instructions-prompt.md is the one a lot of people are using for Cline with Claude Sonnet as the model.
+## Development vs. Runtime
 
-Add it in either your agent's configuration screen or via it's file-based prompt management system.
+**Development** (this repo):
+- Nested folder organization (`skills/domain/category/skill-name/`)
+- Human-friendly structure for maintainability
+- Tracked in context network
 
-### Plan/Act and Specific Scope
-Cline and many other agents have multiple modes, usually offering one that lets you have a conversation with it separate from it taking action on files. In Cline, that's "Plan". In that mode, it won't make any changes to your files.
+**Runtime** (export target):
+- Flat folder structure (spec requirement)
+- Export tooling to be developed
+- Naming strategy to be finalized
 
-Use that mode aggressively to get to a specific plan for what will happen when you toggle to act. That plan should have a clear definition of what "done" will look like, should be as close to a single action as possible.
+## Creating a Skill
 
-That often means that the action is to detail out a list of tasks that you'll actually have the agent do separately, one at a time. The "do one thing" can mean break the existing scope down another level to get to a more detailed plan. 
+1. **Plan First** - Document intent in `context-network/elements/skills/[domain]/[skill-name]-planning.md`
+2. **Create Structure** - Make folder in `skills/[domain]/[category]/[skill-name]/`
+3. **Write SKILL.md** - Use template in `context-network/meta/templates/skill-md-starter.md`
+4. **Validate** - Run `skills-ref validate ./skills/path/to/skill`
+5. **Document** - Update tracking file and catalog indexes
 
-Basically, the more specific the action that Act mode or its equivalent is given, the better job it will do at managing token budget, at not volunteering to do a bunch of extra things,  and the more likely it does something you've already had a chance to approve.
+See `context-network/processes/creation.md` for detailed workflow.
 
-### Monitor and Interrupt
-The more you actually read and monitor what your agent is doing for anything that you disagree with or sounds incorrect and step in to interrupt, the better your context network will mature. Like hiring a new assistant, where for the first few weeks, you have to tell them your preferences and ways you want things done, it pays off over the long haul.
+## Validation
 
-Interrupt, flip to Plan mode, and ask things like:
+**All skills MUST pass validation before completion:**
 
-* How can we document into the context network a way of working so we don't repeat (the problem/misunderstanding above)?
-* I'd really prefer we always write out a plan with tasks before doing things ad hoc. How can we clarify what's in the context network to make that our process going forward?
+```bash
+cd reference/agentskills/skills-ref
+skills-ref validate ../../skills/[domain]/[category]/[skill-name]
+```
 
+See `context-network/processes/validation.md` for validation procedures.
 
-### Retrospective
-At the end of tasks and periodically AS a new task, ask how things could be improved. For task end, "What from this conversation and task should be documented in the context network?" For periodic retrospectives, "What have we learned in this project that could be used to improve the context network for our efforts going forward?"
+## Key Principles
+
+- **Specification Compliance** - All skills follow agentskills.io spec
+- **Validation-First** - Run skills-ref early and often
+- **Progressive Disclosure** - Keep SKILL.md < 500 lines, details in references
+- **Atomic Skills** - Each skill does one thing well
+- **Intent-Before-Action** - Document in context network before creating
+- **Quality Over Quantity** - Thorough validation beats rapid expansion
+
+See `context-network/foundation/principles.md` for complete principles.
+
+## Context Network
+
+This project uses a [context network](https://jwynia.github.io/context-networks/) for planning, coordination, and session resilience. The context network ensures:
+
+- Plans are documented before execution
+- Progress survives session resets
+- Decisions are recorded with rationale
+- Quality standards are maintained
+
+See `.context-network.md` for location and `context-network/discovery.md` for navigation.
+
+## Agent Collaboration
+
+This project is designed to work with AI agents (Claude Code, Cursor, Cline, etc.) that have file access. Agents should:
+
+1. Read `CLAUDE.md` or `AGENTS.md` for collaboration protocols
+2. Check context network before starting work
+3. Document intent before taking action
+4. Update tracking as work progresses
+5. Validate all skills before marking complete
+
+**Agent platforms** that work well with this project:
+- [Claude Code](https://claude.com/code) - CLI tool from Anthropic
+- [Cursor](https://cursor.com) - AI-native IDE
+- [Cline](https://cline.bot/) - VS Code extension
+- Any agent with file system access and context network support
+
+**Validation tooling**:
+- `reference/agentskills/skills-ref/` - Official validation library
+- Python-based CLI for validating SKILL.md files
+
+## Current Skills
+
+See `context-network/elements/skills/index.md` for the complete skills catalog.
+
+**Status**: Project template configured, ready for skill development.
+
+## Contributing
+
+### Before Creating a Skill
+
+1. Check the catalog - avoid duplicates
+2. Review principles - ensure alignment
+3. Plan first - use the planning template
+4. Get approval - discuss scope and approach
+
+### Creating Your First Skill
+
+Start with the creation process:
+1. Read `context-network/processes/creation.md`
+2. Use `context-network/meta/templates/skill-planning-template.md`
+3. Follow the validation requirements
+4. Update the catalog when complete
+
+### Questions?
+
+- **Process questions**: See `context-network/processes/`
+- **Decision rationale**: See `context-network/decisions/`
+- **Quality standards**: See `context-network/foundation/principles.md`
+- **Specification details**: See `reference/agentskills/docs/specification.mdx`
+
+## License
+
+[Specify project license]
+
+## References
+
+- [Agent Skills Specification](https://agentskills.io)
+- [Context Networks](https://jwynia.github.io/context-networks/)
+- [skills-ref Validation Tool](reference/agentskills/skills-ref/)
+
+## Metadata
+
+- **Created**: 2025-12-19
+- **Last Updated**: 2025-12-19
+- **Status**: Template configured, ready for skill development

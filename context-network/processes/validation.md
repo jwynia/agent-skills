@@ -1,7 +1,8 @@
-# Validation Process
+# Skill Validation Process
 
 ## Purpose
-This document outlines the validation process for the project, including strategies, methods, and best practices.
+
+This document defines the validation procedures for ensuring agent skills meet all requirements and function correctly.
 
 ## Classification
 - **Domain:** Process
@@ -11,418 +12,96 @@ This document outlines the validation process for the project, including strateg
 
 ## Content
 
-### Validation Overview
+### Validation Philosophy
 
-[Provide a high-level overview of the validation approach for the project]
+**Validation-First**: Run validation early and often. Don't wait until the end to discover spec violations or usability issues.
 
-```mermaid
-graph TD
-    A[Requirements/Expectations] --> B[Validation Planning]
-    B --> C[Validation Design]
-    C --> D[Validation Implementation]
-    D --> E[Validation Execution]
-    E --> F[Issue Tracking]
-    F --> G[Issue Resolution]
-    G --> E
-    E --> H[Validation Reporting]
-    H --> I[Acceptance]
+## Validation Types
+
+### 1. Automated Validation (skills-ref)
+
+**Purpose**: Verify spec compliance using the official reference implementation.
+
+**When to Run**:
+- After creating initial SKILL.md structure
+- After making changes to frontmatter
+- Before marking skill as complete
+- As part of final verification
+
+**Command**:
+```bash
+# From reference implementation directory
+cd reference/agentskills/skills-ref
+skills-ref validate ../../skills/[domain]/[category]/[skill-name]
 ```
 
-### Validation Principles
-
-[Describe the key principles that guide the validation approach]
-
-1. **[Principle 1]**
-   [Description of Principle 1]
-
-2. **[Principle 2]**
-   [Description of Principle 2]
-
-3. **[Principle 3]**
-   [Description of Principle 3]
-
-### Validation Types
-
-#### Unit Validation
-
-**Purpose:**
-[Describe the purpose of unit validation]
-
-**Scope:**
-[Describe what is included in unit validation]
-
-**Responsibility:**
-[Describe who is responsible for unit validation]
-
-**Process:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### Integration Validation
-
-**Purpose:**
-[Describe the purpose of integration validation]
-
-**Scope:**
-[Describe what is included in integration validation]
-
-**Responsibility:**
-[Describe who is responsible for integration validation]
-
-**Process:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### System Validation
-
-**Purpose:**
-[Describe the purpose of system validation]
-
-**Scope:**
-[Describe what is included in system validation]
-
-**Responsibility:**
-[Describe who is responsible for system validation]
-
-**Process:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### Acceptance Validation
-
-**Purpose:**
-[Describe the purpose of acceptance validation]
-
-**Scope:**
-[Describe what is included in acceptance validation]
-
-**Responsibility:**
-[Describe who is responsible for acceptance validation]
-
-**Process:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-### Validation Environments
-
-#### Local Validation Environment
-
-[Describe the local validation environment]
-
-**Setup:**
-[Instructions for setting up the local validation environment]
-
-**Usage:**
-[Guidelines for using the local validation environment]
-
-#### Shared Validation Environment
-
-[Describe the shared validation environment]
-
-**Access:**
-[Instructions for accessing the shared validation environment]
-
-**Usage:**
-[Guidelines for using the shared validation environment]
-
-#### Production-like Validation Environment
-
-[Describe the production-like validation environment]
-
-**Access:**
-[Instructions for accessing the production-like validation environment]
-
-**Usage:**
-[Guidelines for using the production-like validation environment]
-
-### Validation Process
-
-#### 1. Validation Planning
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 2. Validation Design
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 3. Validation Implementation
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 4. Validation Execution
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 5. Issue Tracking
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 6. Issue Resolution
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 7. Validation Reporting
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-### Validation Strategies
-
-#### Functional Validation
-
-[Describe the approach to functional validation]
-
-**Techniques:**
-- [Technique 1]
-- [Technique 2]
-- [Technique 3]
-
-**Best Practices:**
-- [Best Practice 1]
-- [Best Practice 2]
-- [Best Practice 3]
-
-#### Performance Validation
-
-[Describe the approach to performance validation]
-
-**Techniques:**
-- [Technique 1]
-- [Technique 2]
-- [Technique 3]
-
-**Best Practices:**
-- [Best Practice 1]
-- [Best Practice 2]
-- [Best Practice 3]
-
-#### Security Validation
-
-[Describe the approach to security validation]
-
-**Techniques:**
-- [Technique 1]
-- [Technique 2]
-- [Technique 3]
-
-**Best Practices:**
-- [Best Practice 1]
-- [Best Practice 2]
-- [Best Practice 3]
-
-#### Usability Validation
-
-[Describe the approach to usability validation]
-
-**Techniques:**
-- [Technique 1]
-- [Technique 2]
-- [Technique 3]
-
-**Best Practices:**
-- [Best Practice 1]
-- [Best Practice 2]
-- [Best Practice 3]
-
-### Validation Automation
-
-[Describe the approach to validation automation]
-
-#### Automated Validation Framework
-
-[Describe the automated validation framework]
-
-**Components:**
-- [Component 1]
-- [Component 2]
-- [Component 3]
-
-**Setup:**
-[Instructions for setting up the automated validation framework]
-
-**Usage:**
-[Guidelines for using the automated validation framework]
-
-#### Continuous Validation
-
-[Describe the continuous validation approach]
-
-**Integration with CI/CD:**
-[Describe how validation is integrated with CI/CD]
-
-**Validation Gates:**
-[Describe the validation gates in the CI/CD pipeline]
-
-### Validation Metrics
-
-[Describe the metrics used to measure validation effectiveness]
-
-#### Coverage Metrics
-
-- [Metric 1]
-- [Metric 2]
-- [Metric 3]
-
-#### Quality Metrics
-
-- [Metric 1]
-- [Metric 2]
-- [Metric 3]
-
-#### Efficiency Metrics
-
-- [Metric 1]
-- [Metric 2]
-- [Metric 3]
-
-### Validation Documentation
-
-[Describe the documentation requirements for validation]
-
-#### Validation Plans
-
-[Describe the requirements for validation plans]
-
-#### Validation Cases
-
-[Describe the requirements for validation cases]
-
-#### Validation Reports
-
-[Describe the requirements for validation reports]
-
-## Relationships
-- **Parent Nodes:** [processes/creation.md]
-- **Child Nodes:** None
-- **Related Nodes:** 
-  - [processes/delivery.md] - follows - Delivery follows validation
-  - [foundation/principles.md] - guided-by - Validation follows project principles
-  - [foundation/structure.md] - validates - Validation ensures structure is implemented correctly
-
-## Navigation Guidance
-- **Access Context:** Use this document when planning or performing validation activities
-- **Common Next Steps:** After reviewing validation processes, typically explore specific validation strategies or tools
-- **Related Tasks:** Validation planning, validation execution, issue resolution, validation reporting
-- **Update Patterns:** This document should be updated when validation processes change or are refined
+**What It Checks**:
+- YAML frontmatter is valid
+- Required fields (`name`, `description`) present
+- Name follows conventions (lowercase, hyphens, max 64 chars)
+- Description is 1-1024 characters
+- Folder name matches `name` field
+
+**Common Errors and Fixes**:
+- "Name must be lowercase" → Use only lowercase in frontmatter and folder
+- "Name contains invalid characters" → Remove uppercase/underscores, use only `a-z 0-9 -`
+- "Folder name doesn't match" → Rename folder to match `name` field exactly
+- "Description too long" → Reduce to under 1024 characters
+
+### 2. Manual Validation
+
+**Purpose**: Verify the skill is actually usable.
+
+**Checklist**:
+- [ ] Description states what + when + keywords
+- [ ] Instructions are actionable and complete
+- [ ] Examples included with expected outputs
+- [ ] Edge cases documented
+- [ ] Progressive disclosure (SKILL.md < 500 lines)
+- [ ] Name length works with export prefix
+- [ ] Manual testing completed
+
+### 3. Name Validation
+
+Keep base name short enough for potential prefixes (suggest < 40 chars base).
+
+## Full Validation Checklist
+
+From skill tracking template:
+
+**Automated (skills-ref)**:
+- [ ] Frontmatter valid
+- [ ] Name follows conventions
+- [ ] Name matches folder name
+- [ ] Description clear and complete
+
+**Manual**:
+- [ ] Instructions actionable and tested
+- [ ] Examples with expected outputs
+- [ ] Edge cases documented
+- [ ] Progressive disclosure followed
+- [ ] Referenced files created if needed
+- [ ] Manual testing completed
+
+## Validation Results Documentation
+
+Record in tracking file:
+```markdown
+## Validation Results
+**Last Validation**: 2025-12-19
+**Result**: pass
+**Command Used**: `skills-ref validate ./skills/[path]`
+**Issues Found**: None
+```
+
+## Quality Over Speed
+
+Better to have one thoroughly validated skill than multiple unverified ones.
 
 ## Metadata
-- **Created:** [Date]
-- **Last Updated:** [Date]
-- **Updated By:** [Role/Agent]
+- **Created:** 2025-12-19
+- **Last Updated:** 2025-12-19
+- **Updated By:** Claude (via Context Network Template Adjustment)
 
 ## Change History
-- [Date]: Initial creation of validation process document
+- 2025-12-19: Created agent skills validation process

@@ -13,104 +13,120 @@ This document outlines the core principles and standards that guide decision-mak
 
 ### Core Values
 
-[List and describe the fundamental values that drive the project]
+The project is guided by these fundamental values:
 
-1. **[Value 1]**
-   [Description of Value 1]
+1. **Quality Over Quantity**
+   Skills must be well-crafted, validated, and genuinely useful. We prioritize thorough development over rapid expansion.
 
-2. **[Value 2]**
-   [Description of Value 2]
+2. **Clarity Over Cleverness**
+   Instructions should be clear and actionable. Simple, explicit guidance is better than concise but ambiguous directions.
 
-3. **[Value 3]**
-   [Description of Value 3]
+3. **Maintainability Over Minimalism**
+   Nested folder structure for human understanding is more valuable than minimal file count. We optimize for long-term maintenance.
 
 ### Design Principles
 
-[List and describe the key principles that guide design decisions]
+1. **Specification Compliance**
+   All skills MUST conform to the agentskills.io specification. This ensures compatibility across agent implementations.
 
-1. **[Design Principle 1]**
-   [Description of Design Principle 1]
-   
-   *Example:* [Concrete example of this principle in action]
+   *Example:* Every SKILL.md includes valid YAML frontmatter with required `name` and `description` fields, validated by skills-ref.
 
-2. **[Design Principle 2]**
-   [Description of Design Principle 2]
-   
-   *Example:* [Concrete example of this principle in action]
+2. **Progressive Disclosure**
+   Structure skills for efficient context use: metadata first (lightweight), then instructions (detailed), then resources (on-demand).
 
-3. **[Design Principle 3]**
-   [Description of Design Principle 3]
-   
-   *Example:* [Concrete example of this principle in action]
+   *Example:* A PDF processing skill keeps the main SKILL.md under 500 lines, moving detailed API documentation to `references/pdf-api.md`.
+
+3. **Atomic Skills**
+   Each skill does one thing well. Complex workflows are achieved by composing multiple focused skills, not by creating monolithic instructions.
+
+   *Example:* Separate skills for "extract-pdf-text", "extract-pdf-tables", and "merge-pdfs" rather than one "pdf-processing" mega-skill.
+
+4. **Clear Descriptions**
+   Skill descriptions must indicate both WHAT the skill does and WHEN to use it, including relevant keywords for agent discovery.
+
+   *Example:* "Extracts text and tables from PDF files. Use when working with PDF documents or when the user mentions PDFs, forms, or document extraction."
+
+5. **Intent-Before-Action**
+   ALWAYS document what you're going to do in the context network BEFORE doing it. This ensures context accuracy across session resets and provides a recoverable plan if work is interrupted.
+
+   *Example:* Before creating a new skill, write a planning document in `context-network/elements/skills/[domain]/[skill-name]-planning.md`. Only after the plan is documented should you create the actual SKILL.md file.
 
 ### Standards and Guidelines
 
-[List and describe the standards and guidelines that the project adheres to]
-
 #### Quality Standards
 
-- [Standard 1]
-- [Standard 2]
-- [Standard 3]
+- **Validation-First**: All skills MUST pass skills-ref validation before completion
+- **Examples Required**: Every skill must include concrete examples of inputs, actions, and expected outputs
+- **Edge Cases Documented**: Common issues and error scenarios must be addressed in instructions
+- **Manual Testing**: Instructions must be tested by following them step-by-step before finalization
 
 #### Structural Standards
 
-- [Standard 1]
-- [Standard 2]
-- [Standard 3]
+- **Naming Conventions**: Skill names must be lowercase, use hyphens (not underscores), max 64 characters
+- **File Organization**: Follow SKILL.md + optional `scripts/`, `references/`, `assets/` structure
+- **Context Budget**: Main SKILL.md under 500 lines (recommended), detailed content in reference files
+- **Nested Development**: Organize by domain/category, export to flat structure for runtime
 
-#### Safety and Security Standards
+#### Documentation Standards
 
-- [Standard 1]
-- [Standard 2]
-- [Standard 3]
+- **Context Network First**: Document intent in context network before creating/modifying skills
+- **Decision Records**: All significant decisions must be captured in context network
+- **Tracking Updates**: Skill status and validation results tracked in context network
+- **Change Attribution**: Update metadata and change history for all modifications
 
-#### Performance and Efficiency Standards
+#### Discoverability Standards
 
-- [Standard 1]
-- [Standard 2]
-- [Standard 3]
+- **Rich Descriptions**: Include what, when, and keywords in description field
+- **Domain Organization**: Logical categorization by domain and subcategory
+- **Catalog Maintenance**: Keep skills catalog index up-to-date
+- **Cross-References**: Link related skills and dependencies
 
 ### Process Principles
 
-[List and describe the principles that guide development and operational processes]
+1. **Validation-First Development**
+   Run skills-ref validation early and often during skill development. Don't wait until the end to discover spec violations.
 
-1. **[Process Principle 1]**
-   [Description of Process Principle 1]
+2. **Incremental Documentation**
+   Update the context network as you work, not just at completion. Document discoveries and decisions in real-time.
 
-2. **[Process Principle 2]**
-   [Description of Process Principle 2]
-
-3. **[Process Principle 3]**
-   [Description of Process Principle 3]
+3. **Collaborative Decision-Making**
+   Pause for user input when facing design choices, architectural decisions, or ambiguous requirements.
 
 ### Decision-Making Framework
 
-[Describe the framework used for making decisions in the project]
+When making decisions about skills, consider:
 
 #### Decision Criteria
 
-- [Criterion 1]
-- [Criterion 2]
-- [Criterion 3]
+- **Spec Compliance**: Does this comply with agentskills.io specification?
+- **Agent Usability**: Will agents be able to follow these instructions effectively?
+- **Maintainability**: Can humans understand and modify this later?
+- **Exportability**: Will this work when transformed to flat structure?
+- **Context Efficiency**: Does this follow progressive disclosure principles?
 
 #### Trade-off Considerations
 
-- [Trade-off 1]
-- [Trade-off 2]
-- [Trade-off 3]
+- **Detail vs. Brevity**: Prefer clarity over conciseness when instructions are ambiguous
+- **Nesting vs. Flatness**: Use nesting for development maintainability, flatten for runtime
+- **Atomicity vs. Convenience**: Split complex skills even if it means more total files
+- **Validation vs. Speed**: Always run validation even if it slows development
 
 ### Principle Application
 
-[Describe how these principles should be applied in practice]
-
 #### When Principles Conflict
 
-[Guidance on how to resolve situations where principles may conflict with each other]
+1. **Spec compliance always wins**: If a principle conflicts with the agentskills.io spec, follow the spec
+2. **Quality over speed**: If maintaining quality requires more time, take the time
+3. **User intent over assumptions**: When unclear, ask rather than assume
+4. **Document the conflict**: Record the conflict and resolution in a decision record
 
 #### Exceptions to Principles
 
-[Circumstances under which exceptions to these principles may be considered]
+Exceptions should be rare and well-documented:
+
+- **Context Budget**: May exceed 500 lines if skill genuinely requires it and cannot be split
+- **Naming Length**: No exception - 64 char limit is a hard constraint from the spec
+- **Validation**: No exception - all skills must pass skills-ref validation
 
 ## Relationships
 - **Parent Nodes:** [foundation/project_definition.md]
@@ -127,9 +143,9 @@ This document outlines the core principles and standards that guide decision-mak
 - **Update Patterns:** This document should be updated rarely, only when fundamental principles change
 
 ## Metadata
-- **Created:** [Date]
-- **Last Updated:** [Date]
-- **Updated By:** [Role/Agent]
+- **Created:** 2025-12-19
+- **Last Updated:** 2025-12-19
+- **Updated By:** Claude (via Context Network Template Adjustment)
 
 ## Change History
-- [Date]: Initial creation of principles template
+- 2025-12-19: Updated from generic template to agent skills principles

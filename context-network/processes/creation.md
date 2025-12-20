@@ -1,7 +1,8 @@
-# Creation Process
+# Skill Creation Process
 
 ## Purpose
-This document outlines the creation process for the project, including workflows, standards, and best practices.
+
+This document defines the step-by-step process for creating agent skills following the agentskills.io specification.
 
 ## Classification
 - **Domain:** Process
@@ -9,339 +10,307 @@ This document outlines the creation process for the project, including workflows
 - **Abstraction:** Structural
 - **Confidence:** Established
 
-## Content
+## CRITICAL: Intent-Before-Action
 
-### Creation Workflow
+**Before starting ANY step, document your intent in the context network.** This creates a recoverable trail if the session resets. See `workflow-pattern.md` for details.
 
-[Provide a high-level overview of the creation workflow]
+## Creation Workflow
 
 ```mermaid
 graph TD
-    A[Idea/Need Identification] --> B[Planning]
-    B --> C[Creation]
-    C --> D[Review]
+    A[Ideation] --> B[Planning]
+    B --> C[Structure Setup]
+    C --> D[Development]
     D --> E[Validation]
-    E --> F[Integration]
-    F --> G[Delivery]
-    G --> H[Feedback]
-    H --> A
+    E --> F[Documentation]
+    F --> G[Complete]
 ```
 
-### Work Environments
+## Process Steps
 
-#### Local Work Environment
+### 1. Ideation
 
-[Describe the setup and configuration of the local work environment]
+**Purpose**: Identify the need for a skill and define its scope.
 
-**Prerequisites:**
-- [Prerequisite 1]
-- [Prerequisite 2]
-- [Prerequisite 3]
+**Activities**:
+- Identify a specific task that agents need help with
+- Check if a similar skill already exists (search catalog)
+- Define the skill's single, focused purpose
+- Verify it aligns with project principles (atomic, spec-compliant)
 
-**Setup Instructions:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
+**Outputs**:
+- Clear statement of skill purpose
+- Initial thoughts on scope
+- Confirmation no duplicate exists
 
-**Working Locally:**
-```
-[Instructions for working in the local environment]
-```
+**Tools**:
+- `context-network/elements/skills/index.md` - Check existing skills
+- `context-network/foundation/principles.md` - Verify alignment
 
-#### Collaborative Environment
+**Document**:
+- Note in planning file or decision record why this skill is needed
 
-[Describe the shared collaborative environment]
+### 2. Planning
 
-**Access:**
-[Instructions for accessing the collaborative environment]
+**Purpose**: Create a detailed plan before writing any code.
 
-**Usage Guidelines:**
-[Guidelines for using the collaborative environment]
+**Activities**:
+- Create planning document in context network
+- Define precise scope (what's in/out)
+- Choose domain and category location
+- Identify structure needs (scripts, references, assets)
+- List key decisions to be made
+- Consider export name and length
+- Identify dependencies
 
-#### Validation Environment
+**Outputs**:
+- Planning document: `context-network/elements/skills/[domain]/[skill-name]-planning.md`
+- Clear understanding of what will be built
+- Identified decision points
 
-[Describe the validation environment]
+**Tools**:
+- `context-network/meta/templates/skill-planning-template.md` - Use this template
+- `reference/agentskills/docs/specification.mdx` - Verify spec requirements
 
-**Access:**
-[Instructions for accessing the validation environment]
+**Document**:
+- Use skill planning template
+- Get user approval before proceeding
 
-**Usage Guidelines:**
-[Guidelines for using the validation environment]
+### 3. Structure Setup
 
-#### Pre-release Environment
+**Purpose**: Create the folder structure and initial files.
 
-[Describe the pre-release environment]
+**Activities**:
+- Create skill folder in `skills/[domain]/[category]/[skill-name]/`
+- Create SKILL.md with valid frontmatter
+- Create subdirectories if needed (`scripts/`, `references/`, `assets/`)
+- Create tracking file in context network
+- Update catalogs
 
-**Access:**
-[Instructions for accessing the pre-release environment]
+**Outputs**:
+- Skill folder structure created
+- SKILL.md with frontmatter (empty body is OK for now)
+- Tracking file: `context-network/elements/skills/[domain]/[skill-name].md`
+- Updated: `context-network/elements/skills/index.md`
+- Updated: `context-network/elements/skills/[domain]/index.md`
 
-**Usage Guidelines:**
-[Guidelines for using the pre-release environment]
+**Tools**:
+- `context-network/meta/templates/skill-md-starter.md` - SKILL.md template
+- `context-network/elements/skills/templates/skill-tracking.md` - Tracking template
 
-#### Release Environment
+**Naming Rules**:
+- Folder name MUST match `name` field in SKILL.md frontmatter
+- 1-64 characters, lowercase, hyphens only
+- No consecutive hyphens, no leading/trailing hyphens
 
-[Describe the release environment]
+**Document**:
+- Update tracking file with status: "in-progress"
+- Update catalog indexes
 
-**Access:**
-[Instructions for accessing the release environment]
+### 4. Development
 
-**Usage Guidelines:**
-[Guidelines for using the release environment]
+**Purpose**: Write the skill instructions and supporting files.
 
-### Creation Process Steps
+**Activities**:
+- Write clear, actionable instructions in SKILL.md
+- Add concrete examples (input → action → output)
+- Document edge cases and error scenarios
+- Create scripts if needed
+- Create reference docs if needed
+- Create assets/templates if needed
+- Keep main SKILL.md under 500 lines (recommended)
 
-#### 1. Planning
+**Outputs**:
+- Complete SKILL.md with:
+  - Clear description (what + when)
+  - Step-by-step instructions
+  - Examples with expected outputs
+  - Edge case handling
+- Supporting files as needed
 
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
+**Tools**:
+- `reference/agentskills/docs/specification.mdx` - Spec reference
+- `context-network/foundation/principles.md` - Progressive disclosure guidance
 
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
+**Best Practices**:
+- Write instructions as if explaining to someone unfamiliar
+- Use concrete examples, not abstract descriptions
+- Test your own instructions by following them
+- Move detailed content to reference files
 
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
+**Document**:
+- Update tracking file as you work
+- Record decisions in tracking file
+- Note any discoveries or challenges
 
-#### 2. Creation
+### 5. Validation
 
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
+**Purpose**: Ensure the skill meets all requirements and works correctly.
 
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
+**Activities**:
+- Run skills-ref validation
+- Fix any spec violations
+- Manual testing: follow instructions step-by-step
+- Verify name length (consider export prefix)
+- Check progressive disclosure (file sizes)
+- Review against principles checklist
+- Test edge cases
 
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
+**Outputs**:
+- Passing skills-ref validation
+- Manually verified instructions
+- Updated tracking file with validation results
 
-#### 3. Review
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 4. Validation
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 5. Integration
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 6. Delivery
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-#### 7. Feedback
-
-**Activities:**
-- [Activity 1]
-- [Activity 2]
-- [Activity 3]
-
-**Outputs:**
-- [Output 1]
-- [Output 2]
-- [Output 3]
-
-**Tools:**
-- [Tool 1]
-- [Tool 2]
-- [Tool 3]
-
-### Quality Standards
-
-[Describe the quality standards for the project]
-
-#### General Guidelines
-
-- [Guideline 1]
-- [Guideline 2]
-- [Guideline 3]
-
-#### Domain-Specific Guidelines
-
-**[Domain 1]:**
-- [Guideline 1]
-- [Guideline 2]
-- [Guideline 3]
-
-**[Domain 2]:**
-- [Guideline 1]
-- [Guideline 2]
-- [Guideline 3]
-
-### Version Control
-
-#### Versioning Strategy
-
-[Describe the versioning strategy for the project]
-
-```mermaid
-gitGraph
-    commit
-    branch develop
-    checkout develop
-    commit
-    branch feature/feature-name
-    checkout feature/feature-name
-    commit
-    commit
-    checkout develop
-    merge feature/feature-name
-    branch release/1.0.0
-    checkout release/1.0.0
-    commit
-    checkout main
-    merge release/1.0.0
-    commit tag:"v1.0.0"
+**Tools**:
+```bash
+# From reference implementation
+cd reference/agentskills/skills-ref
+skills-ref validate ../../skills/[domain]/[category]/[skill-name]
 ```
 
-#### Change Tracking Guidelines
+**Validation Checklist** (also in tracking template):
+- [ ] Frontmatter valid (skills-ref)
+- [ ] Name follows conventions (lowercase, hyphens, max 64 chars)
+- [ ] Name matches folder name
+- [ ] Description clear and complete (what + when)
+- [ ] Instructions actionable and tested
+- [ ] Examples included with expected outputs
+- [ ] Edge cases documented
+- [ ] Progressive disclosure followed (SKILL.md < 500 lines)
+- [ ] Referenced files created if needed
+- [ ] Manual testing completed
 
-[Describe the guidelines for tracking changes]
+**Document**:
+- Update tracking file with validation date and results
+- Record any issues found and how they were fixed
+- Update status to "validating"
 
-#### Review Process
+### 6. Documentation
 
-[Describe the process for reviewing and approving changes]
+**Purpose**: Complete all context network documentation.
 
-### Validation Strategy
+**Activities**:
+- Update tracking file completeness checklist
+- Document key decisions made during development
+- Update skill catalog indexes
+- Note any patterns or learnings
+- Verify export considerations documented
 
-[Describe the validation strategy for the project]
+**Outputs**:
+- Complete tracking file
+- Updated catalog indexes
+- Decision records if needed
+- Noted patterns for future skills
 
-#### Unit Validation
+**Tools**:
+- `context-network/elements/skills/[domain]/[skill-name].md` - Tracking file
+- `context-network/elements/skills/index.md` - Master catalog
+- `context-network/elements/skills/[domain]/index.md` - Domain catalog
 
-[Describe the approach to validating individual units of work]
+**Document**:
+- All checkboxes in tracking file completed
+- Status updated to "complete"
+- Catalog indexes reflect new skill
 
-#### Integration Validation
+### 7. Complete
 
-[Describe the approach to validating integrated components]
+**Purpose**: Verify everything is done and documented.
 
-#### Comprehensive Validation
+**Final Checklist**:
+- [ ] Skill passes skills-ref validation
+- [ ] Manual testing completed successfully
+- [ ] All examples work as documented
+- [ ] Tracking file complete with all metadata
+- [ ] Catalog indexes updated
+- [ ] Decision records created if needed
+- [ ] Export considerations documented
+- [ ] Status set to "complete"
 
-[Describe the approach to comprehensive validation]
+**Next Steps**:
+- Skill is ready for use
+- Can be included in export/bundling
+- Patterns can inform future skills
 
-#### Performance Validation
+## Common Patterns
 
-[Describe the approach to performance validation]
+### Creating Supporting Files
 
-### Documentation
-
-[Describe the documentation requirements and processes]
-
-#### Work Documentation
-
-[Describe the requirements for documenting the work]
-
-#### Interface Documentation
-
-[Describe the requirements for documenting interfaces]
-
-#### User Documentation
-
-[Describe the requirements for user documentation]
-
-### Continuous Integration/Continuous Delivery
-
-[Describe the CI/CD pipeline for the project]
-
-```mermaid
-graph TD
-    A[Change Submission] --> B[Build]
-    B --> C[Unit Validation]
-    C --> D[Quality Analysis]
-    D --> E[Integration Validation]
-    E --> F[Artifact Creation]
-    F --> G[Deployment to Dev]
-    G --> H[Automated Validation in Dev]
-    H --> I[Deployment to Test]
-    I --> J[Automated Validation in Test]
-    J --> K[Manual Validation]
-    K --> L[Deployment to Staging]
-    L --> M[Automated Validation in Staging]
-    M --> N[Deployment to Production]
-    N --> O[Monitoring]
+If your skill needs scripts:
 ```
+skills/[domain]/[category]/[skill-name]/
+├── SKILL.md
+└── scripts/
+    ├── analyze.py
+    └── validate.sh
+```
+
+Reference them in SKILL.md:
+```markdown
+Run the analysis script:
+```bash
+python scripts/analyze.py input.csv
+```
+```
+
+If your skill needs detailed reference docs:
+```
+skills/[domain]/[category]/[skill-name]/
+├── SKILL.md
+└── references/
+    ├── REFERENCE.md
+    └── api-details.md
+```
+
+Reference them in SKILL.md:
+```markdown
+See [detailed API documentation](references/api-details.md) for complete reference.
+```
+
+### Handling Complex Skills
+
+If a skill is becoming too complex:
+1. Consider splitting into multiple atomic skills
+2. Move detailed content to reference files
+3. Keep SKILL.md focused on "how to use"
+4. Reference files contain "complete details"
+
+### Decision Points
+
+Pause and document decisions for:
+- Domain/category placement
+- Naming choices
+- Scope boundaries (what's in/out)
+- Script language choices
+- Reference organization
+- Export name strategy
+
+## Quality Standards
+
+- **Spec Compliance**: MUST pass skills-ref validation
+- **Clarity**: Instructions must be unambiguous
+- **Examples**: Must include concrete examples
+- **Testing**: Must be manually tested
+- **Documentation**: Must be tracked in context network
 
 ## Relationships
-- **Parent Nodes:** [foundation/principles.md]
-- **Child Nodes:** 
-  - [processes/validation.md]
-  - [processes/delivery.md]
-- **Related Nodes:** 
-  - [planning/roadmap.md] - implements - Creation process implements roadmap items
-  - [foundation/structure.md] - follows - Creation follows structural guidelines
+- **Parent Nodes:** foundation/principles.md
+- **Child Nodes:**
+  - processes/validation.md - detailed validation procedures
+  - processes/delivery.md - export and delivery
+- **Related Nodes:**
+  - foundation/structure.md - overall project structure
+  - elements/skills/index.md - catalog of skills
 
 ## Navigation Guidance
-- **Access Context:** Use this document when onboarding new team members or when needing to understand or follow the creation process
-- **Common Next Steps:** After reviewing the creation process, typically explore specific aspects like validation or delivery
-- **Related Tasks:** Element creation, issue resolution, review, validation
-- **Update Patterns:** This document should be updated when creation processes change or are refined
+- **Access Context:** Use when creating new skills
+- **Common Next Steps:** After creation, see validation.md for detailed validation
+- **Related Tasks:** Skill development, specification compliance
+- **Update Patterns:** Update when process improvements identified
 
 ## Metadata
-- **Created:** [Date]
-- **Last Updated:** [Date]
-- **Updated By:** [Role/Agent]
+- **Created:** 2025-12-19
+- **Last Updated:** 2025-12-19
+- **Updated By:** Claude (via Context Network Template Adjustment)
 
 ## Change History
-- [Date]: Initial creation of creation process document
+- 2025-12-19: Created agent skills-specific creation process

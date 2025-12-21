@@ -8,11 +8,11 @@ Maintains a central registry of skills with their current status, location, and 
 
 ## Quick Stats
 
-- **Total Skills**: 0
+- **Total Skills**: 2
 - **Planning**: 0
 - **In Progress**: 0
 - **Validating**: 0
-- **Complete**: 0
+- **Complete**: 2
 
 ## Skills by Domain
 
@@ -34,6 +34,15 @@ See [code-analysis/index.md](code-analysis/index.md) for skills in this domain.
 
 - No skills yet
 
+### Research
+
+See [research/index.md](research/index.md) for skills in this domain.
+
+| Skill | Category | Status | Description |
+|-------|----------|--------|-------------|
+| web-search | search | Complete | Web search via Tavily API |
+| research-workflow | workflow | Complete | Structured research methodology |
+
 ## Skills by Status
 
 ### Planning
@@ -50,7 +59,10 @@ None yet
 
 ### Complete
 
-None yet
+| Skill | Domain | Location |
+|-------|--------|----------|
+| web-search | research | `skills/research/search/web-search/` |
+| research-workflow | research | `skills/research/workflow/research-workflow/` |
 
 ## Technical Requirements
 
@@ -98,5 +110,6 @@ This catalog should be updated:
 
 ## Change History
 
+- 2025-12-20: Added Research domain with web-search and research-workflow skills
 - 2025-12-20: Added Technical Requirements section (Deno runtime)
 - 2025-12-19: Initial creation of skills catalog

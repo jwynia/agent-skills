@@ -5,3 +5,4 @@ node_modules
 .jj
 .claude/.claude.json
 .claude/.claude.json.backup
+.claude/.claude.json

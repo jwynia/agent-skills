@@ -3,6 +3,3 @@ node_modules
 .agents/
 .claude/
 .jj
-.claude/.claude.json
-.claude/.claude.json.backup
-.claude/.claude.json

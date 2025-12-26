@@ -58,6 +58,20 @@ Contains all planning documents, processes, decisions, and tracking. Does NOT co
 - `decisions/` - Key architectural decisions
 - `meta/` - Templates and network maintenance docs
 
+#### `collections/` - External Skill Collections
+Contains external skill repositories added as git submodules. These are reference collections for discovery, direct use, and curation into local skills:
+```
+collections/
+├── README.md                    # Usage guide and curation workflow
+└── awesome-claude-skills/       # Git submodule (external repo)
+```
+
+**Key distinction from `/skills/`**:
+- `/skills/` = local development (our work product, Deno/TypeScript only)
+- `/collections/` = external references (upstream repos, may contain Python)
+
+When curating skills from collections, convert any Python scripts to Deno/TypeScript.
+
 #### `reference/agentskills/` - Specification and Validation
 Contains the official agentskills.io spec, documentation, and skills-ref validation library. This is source material, not our work product.
 
@@ -159,8 +173,9 @@ The project follows these phases:
 
 ## Metadata
 - **Created:** 2025-12-19
-- **Last Updated:** 2025-12-19
-- **Updated By:** Claude (via Context Network Template Adjustment)
+- **Last Updated:** 2025-12-26
+- **Updated By:** Claude
 
 ## Change History
+- 2025-12-26: Added collections/ directory for external skill collections
 - 2025-12-19: Updated from generic template to agent skills project structure

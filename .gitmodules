@@ -1,0 +1,3 @@
+[submodule "collections/awesome-claude-skills"]
+	path = collections/awesome-claude-skills
+	url = https://github.com/ComposioHQ/awesome-claude-skills.git

@@ -15,7 +15,11 @@ This document serves as an index of all key decisions made for the project, prov
 
 | ID | Title | Status | Date | Domain | Summary |
 |----|-------|--------|------|--------|---------|
-| [Template] | [Decision Title] | [Status] | [Date] | [Domain] | [Brief summary of the decision] |
+| organization-structure-001 | Nested Dev Structure with Flat Export | Accepted | 2025-12-19 | Architecture | Use nested folders for development, flat for runtime |
+| deno-runtime-requirement-001 | Deno/TypeScript for Scripts | Accepted | 2025-12-19 | Architecture | All skill scripts must use Deno/TypeScript only |
+| validation-integration-001 | skills-ref Validation | Accepted | 2025-12-19 | Process | Use skills-ref CLI for validating all skills |
+| naming-strategy-001 | Naming Strategy | Deferred | 2025-12-19 | Architecture | Namespace/prefix strategy deferred until 10-15 skills |
+| external-collections-001 | External Collections via Submodules | Accepted | 2025-12-26 | Architecture | Use git submodules in /collections/ for external skill repos |
 
 ### Decision Status Legend
 
@@ -79,9 +83,10 @@ This document serves as an index of all key decisions made for the project, prov
 - **Update Patterns:** This index should be updated whenever a new decision is added or a decision status changes
 
 ## Metadata
-- **Created:** [Date]
-- **Last Updated:** [Date]
-- **Updated By:** [Role/Agent]
+- **Created:** 2025-12-19
+- **Last Updated:** 2025-12-26
+- **Updated By:** Claude
 
 ## Change History
-- [Date]: Initial creation of decision index
+- 2025-12-26: Added external-collections-001, populated decision table
+- 2025-12-19: Initial creation of decision index

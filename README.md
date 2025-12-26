@@ -7,6 +7,7 @@ Each skill is a folder containing a `SKILL.md` file with instructions and metada
 ## Project Structure
 
 - **`skills/`** - Actual skill deliverables organized in nested folders by domain
+- **`collections/`** - External skill collections as git submodules (reference/curation)
 - **`context-network/`** - Planning, processes, decisions, and progress tracking
 - **`reference/agentskills/`** - Official specification and validation tools
 - **`CLAUDE.md` / `AGENTS.md`** - Collaboration protocols for AI agents
@@ -30,6 +31,25 @@ Each skill is a folder containing a `SKILL.md` file with instructions and metada
 - Flat folder structure (spec requirement)
 - Export tooling to be developed
 - Naming strategy to be finalized
+
+## External Collections
+
+External skill collections are tracked as git submodules in `/collections/`. These provide:
+- Reference implementations for learning
+- Source material for curation into local skills
+- Direct use if compatible with your platform
+
+**Current collections**:
+- `collections/awesome-claude-skills/` - ComposioHQ curated skills (25+)
+
+**After cloning, initialize submodules**:
+```bash
+git submodule update --init --recursive
+```
+
+**Curation note**: This project uses Deno/TypeScript exclusively for scripts. When curating skills from external collections, convert any Python scripts to Deno/TypeScript before importing.
+
+See `collections/README.md` for detailed usage and curation workflow.
 
 ## Creating a Skill
 
@@ -137,5 +157,5 @@ Start with the creation process:
 ## Metadata
 
 - **Created**: 2025-12-19
-- **Last Updated**: 2025-12-19
+- **Last Updated**: 2025-12-26
 - **Status**: Template configured, ready for skill development

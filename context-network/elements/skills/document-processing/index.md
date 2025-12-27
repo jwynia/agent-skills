@@ -17,6 +17,7 @@ This domain covers skills that work with document formats including:
 | [pptx-generator](pptx-generator.md) | presentation | Complete | Create and manipulate PowerPoint PPTX files |
 | [docx-generator](docx-generator.md) | document | Complete | Create and manipulate Word DOCX files |
 | [xlsx-generator](xlsx-generator.md) | spreadsheet | Complete | Create and manipulate Excel XLSX files |
+| [pdf-generator](pdf-generator.md) | pdf | Complete | Create and manipulate PDF files |
 
 ## Categories
 
@@ -35,10 +36,10 @@ Skills for working with spreadsheet files.
 
 - **xlsx-generator**: Full-featured XLSX generation with template and scratch modes
 
-### PDF (Planned)
+### PDF
 Skills for working with PDF documents.
 
-- *pdf-generator*: (Planned) Create and manipulate PDF files
+- **pdf-generator**: Full-featured PDF generation with template and scratch modes
 
 ## Technical Notes
 
@@ -52,4 +53,4 @@ All document processing skills use:
 
 - **Created:** 2025-12-27
 - **Last Updated:** 2025-12-27
-- **Skills Count:** 3
+- **Skills Count:** 4

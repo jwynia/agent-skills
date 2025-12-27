@@ -8,11 +8,11 @@ Maintains a central registry of skills with their current status, location, and 
 
 ## Quick Stats
 
-- **Total Skills**: 5
+- **Total Skills**: 6
 - **Planning**: 0
 - **In Progress**: 0
 - **Validating**: 0
-- **Complete**: 5
+- **Complete**: 6
 
 ## Skills by Domain
 
@@ -31,6 +31,7 @@ See [document-processing/index.md](document-processing/index.md) for skills in t
 | pptx-generator | presentation | Complete | Create and manipulate PowerPoint PPTX files |
 | docx-generator | document | Complete | Create and manipulate Word DOCX files |
 | xlsx-generator | spreadsheet | Complete | Create and manipulate Excel XLSX files |
+| pdf-generator | pdf | Complete | Create and manipulate PDF files |
 
 ### Web
 
@@ -76,6 +77,7 @@ None yet
 | pptx-generator | document-processing | `skills/document-processing/presentation/pptx-generator/` |
 | docx-generator | document-processing | `skills/document-processing/word/docx-generator/` |
 | xlsx-generator | document-processing | `skills/document-processing/spreadsheet/xlsx-generator/` |
+| pdf-generator | document-processing | `skills/document-processing/pdf/pdf-generator/` |
 
 ## Technical Requirements
 
@@ -123,6 +125,7 @@ This catalog should be updated:
 
 ## Change History
 
+- 2025-12-27: Added pdf-generator skill to Document Processing
 - 2025-12-27: Added docx-generator and xlsx-generator skills to Document Processing
 - 2025-12-27: Added Document Processing domain with pptx-generator skill
 - 2025-12-20: Added Research domain with web-search and research-workflow skills

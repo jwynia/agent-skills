@@ -1,0 +1,327 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PPTX Presentation Specification",
+  "description": "JSON schema for defining PowerPoint presentations to be generated from scratch",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Presentation title (metadata)"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Presentation subject (metadata)"
+    },
+    "author": {
+      "type": "string",
+      "description": "Author name (metadata)"
+    },
+    "company": {
+      "type": "string",
+      "description": "Company name (metadata)"
+    },
+    "layout": {
+      "type": "object",
+      "description": "Presentation dimensions",
+      "properties": {
+        "width": {
+          "type": "number",
+          "description": "Width in inches",
+          "default": 10
+        },
+        "height": {
+          "type": "number",
+          "description": "Height in inches",
+          "default": 5.625
+        }
+      }
+    },
+    "slides": {
+      "type": "array",
+      "description": "Array of slide specifications",
+      "items": {
+        "$ref": "#/definitions/SlideSpec"
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["slides"],
+  "definitions": {
+    "SlideSpec": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string",
+          "enum": ["blank", "title", "titleAndContent", "section", "twoColumn"],
+          "description": "Slide layout type"
+        },
+        "background": {
+          "type": "object",
+          "properties": {
+            "color": {
+              "type": "string",
+              "pattern": "^[0-9A-Fa-f]{6}$",
+              "description": "Background color as 6-digit hex (no # prefix)"
+            },
+            "image": {
+              "type": "string",
+              "description": "Path to background image file"
+            }
+          }
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ElementSpec"
+          }
+        }
+      },
+      "required": ["elements"]
+    },
+    "ElementSpec": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["text", "image", "table", "shape", "chart"],
+          "description": "Element type"
+        },
+        "x": {
+          "type": "number",
+          "description": "X position in inches"
+        },
+        "y": {
+          "type": "number",
+          "description": "Y position in inches"
+        },
+        "w": {
+          "type": "number",
+          "description": "Width in inches"
+        },
+        "h": {
+          "type": "number",
+          "description": "Height in inches"
+        },
+        "options": {
+          "oneOf": [
+            { "$ref": "#/definitions/TextOptions" },
+            { "$ref": "#/definitions/ImageOptions" },
+            { "$ref": "#/definitions/TableOptions" },
+            { "$ref": "#/definitions/ShapeOptions" },
+            { "$ref": "#/definitions/ChartOptions" }
+          ]
+        }
+      },
+      "required": ["type", "x", "y", "w", "h", "options"]
+    },
+    "TextOptions": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Text content"
+        },
+        "fontSize": {
+          "type": "number",
+          "description": "Font size in points"
+        },
+        "fontFace": {
+          "type": "string",
+          "description": "Font family name"
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$",
+          "description": "Text color as 6-digit hex"
+        },
+        "bold": {
+          "type": "boolean"
+        },
+        "italic": {
+          "type": "boolean"
+        },
+        "underline": {
+          "type": "boolean"
+        },
+        "align": {
+          "type": "string",
+          "enum": ["left", "center", "right", "justify"]
+        },
+        "valign": {
+          "type": "string",
+          "enum": ["top", "middle", "bottom"]
+        },
+        "bullet": {
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string" },
+                "code": { "type": "string" }
+              }
+            }
+          ]
+        },
+        "paraSpaceAfter": {
+          "type": "number",
+          "description": "Space after paragraph in points"
+        },
+        "paraSpaceBefore": {
+          "type": "number",
+          "description": "Space before paragraph in points"
+        }
+      },
+      "required": ["text"]
+    },
+    "ImageOptions": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to image file"
+        },
+        "data": {
+          "type": "string",
+          "description": "Base64-encoded image data"
+        },
+        "sizing": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["contain", "cover", "crop"]
+            },
+            "w": { "type": "number" },
+            "h": { "type": "number" }
+          }
+        },
+        "hyperlink": {
+          "type": "object",
+          "properties": {
+            "url": { "type": "string", "format": "uri" }
+          }
+        }
+      }
+    },
+    "TableOptions": {
+      "type": "object",
+      "properties": {
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                { "type": "string" },
+                { "$ref": "#/definitions/TableCell" }
+              ]
+            }
+          },
+          "description": "2D array of table cells"
+        },
+        "colW": {
+          "type": "array",
+          "items": { "type": "number" },
+          "description": "Column widths in inches"
+        },
+        "rowH": {
+          "type": "array",
+          "items": { "type": "number" },
+          "description": "Row heights in inches"
+        },
+        "border": {
+          "type": "object",
+          "properties": {
+            "pt": { "type": "number" },
+            "color": { "type": "string", "pattern": "^[0-9A-Fa-f]{6}$" }
+          }
+        },
+        "fill": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$"
+        },
+        "fontSize": { "type": "number" },
+        "fontFace": { "type": "string" },
+        "color": { "type": "string", "pattern": "^[0-9A-Fa-f]{6}$" },
+        "align": { "type": "string", "enum": ["left", "center", "right"] },
+        "valign": { "type": "string", "enum": ["top", "middle", "bottom"] }
+      },
+      "required": ["rows"]
+    },
+    "TableCell": {
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "options": {
+          "type": "object",
+          "properties": {
+            "bold": { "type": "boolean" },
+            "color": { "type": "string", "pattern": "^[0-9A-Fa-f]{6}$" },
+            "fill": { "type": "string", "pattern": "^[0-9A-Fa-f]{6}$" },
+            "fontSize": { "type": "number" },
+            "align": { "type": "string", "enum": ["left", "center", "right"] },
+            "valign": { "type": "string", "enum": ["top", "middle", "bottom"] },
+            "colspan": { "type": "integer", "minimum": 1 },
+            "rowspan": { "type": "integer", "minimum": 1 }
+          }
+        }
+      },
+      "required": ["text"]
+    },
+    "ShapeOptions": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["rect", "roundRect", "ellipse", "triangle", "line", "arrow", "star"]
+        },
+        "fill": { "type": "string", "pattern": "^[0-9A-Fa-f]{6}$" },
+        "line": {
+          "type": "object",
+          "properties": {
+            "color": { "type": "string", "pattern": "^[0-9A-Fa-f]{6}$" },
+            "width": { "type": "number" },
+            "dashType": { "type": "string" }
+          }
+        },
+        "text": { "type": "string" },
+        "fontSize": { "type": "number" },
+        "fontFace": { "type": "string" },
+        "color": { "type": "string", "pattern": "^[0-9A-Fa-f]{6}$" },
+        "align": { "type": "string", "enum": ["left", "center", "right"] },
+        "valign": { "type": "string", "enum": ["top", "middle", "bottom"] }
+      },
+      "required": ["type"]
+    },
+    "ChartOptions": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["bar", "line", "pie", "doughnut", "area", "scatter"]
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "labels": { "type": "array", "items": { "type": "string" } },
+              "values": { "type": "array", "items": { "type": "number" } }
+            },
+            "required": ["name", "labels", "values"]
+          }
+        },
+        "title": { "type": "string" },
+        "showLegend": { "type": "boolean" },
+        "legendPos": { "type": "string", "enum": ["b", "l", "r", "t", "tr"] },
+        "showTitle": { "type": "boolean" },
+        "showValue": { "type": "boolean" },
+        "catAxisTitle": { "type": "string" },
+        "valAxisTitle": { "type": "string" }
+      },
+      "required": ["type", "data"]
+    }
+  }
+}

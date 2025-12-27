@@ -8,11 +8,11 @@ Maintains a central registry of skills with their current status, location, and 
 
 ## Quick Stats
 
-- **Total Skills**: 2
+- **Total Skills**: 5
 - **Planning**: 0
 - **In Progress**: 0
 - **Validating**: 0
-- **Complete**: 2
+- **Complete**: 5
 
 ## Skills by Domain
 
@@ -21,6 +21,16 @@ Maintains a central registry of skills with their current status, location, and 
 See [data-processing/index.md](data-processing/index.md) for skills in this domain.
 
 - No skills yet
+
+### Document Processing
+
+See [document-processing/index.md](document-processing/index.md) for skills in this domain.
+
+| Skill | Category | Status | Description |
+|-------|----------|--------|-------------|
+| pptx-generator | presentation | Complete | Create and manipulate PowerPoint PPTX files |
+| docx-generator | document | Complete | Create and manipulate Word DOCX files |
+| xlsx-generator | spreadsheet | Complete | Create and manipulate Excel XLSX files |
 
 ### Web
 
@@ -63,6 +73,9 @@ None yet
 |-------|--------|----------|
 | web-search | research | `skills/research/search/web-search/` |
 | research-workflow | research | `skills/research/workflow/research-workflow/` |
+| pptx-generator | document-processing | `skills/document-processing/presentation/pptx-generator/` |
+| docx-generator | document-processing | `skills/document-processing/word/docx-generator/` |
+| xlsx-generator | document-processing | `skills/document-processing/spreadsheet/xlsx-generator/` |
 
 ## Technical Requirements
 
@@ -105,11 +118,13 @@ This catalog should be updated:
 ## Metadata
 
 - **Created:** 2025-12-19
-- **Last Updated:** 2025-12-20
+- **Last Updated:** 2025-12-27
 - **Updated By:** Claude
 
 ## Change History
 
+- 2025-12-27: Added docx-generator and xlsx-generator skills to Document Processing
+- 2025-12-27: Added Document Processing domain with pptx-generator skill
 - 2025-12-20: Added Research domain with web-search and research-workflow skills
 - 2025-12-20: Added Technical Requirements section (Deno runtime)
 - 2025-12-19: Initial creation of skills catalog

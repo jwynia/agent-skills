@@ -1,0 +1,55 @@
+# Document Processing Skills
+
+Skills for creating, reading, and manipulating document files.
+
+## Overview
+
+This domain covers skills that work with document formats including:
+- Presentations (PPTX, ODP)
+- Word documents (DOCX, ODT)
+- Spreadsheets (XLSX, ODS)
+- PDFs
+
+## Skills in this Domain
+
+| Skill | Category | Status | Description |
+|-------|----------|--------|-------------|
+| [pptx-generator](pptx-generator.md) | presentation | Complete | Create and manipulate PowerPoint PPTX files |
+| [docx-generator](docx-generator.md) | document | Complete | Create and manipulate Word DOCX files |
+| [xlsx-generator](xlsx-generator.md) | spreadsheet | Complete | Create and manipulate Excel XLSX files |
+
+## Categories
+
+### Presentation
+Skills for working with presentation files (PowerPoint, Keynote, etc.)
+
+- **pptx-generator**: Full-featured PPTX generation with template and scratch modes
+
+### Document
+Skills for working with word processing documents.
+
+- **docx-generator**: Full-featured DOCX generation with template and scratch modes
+
+### Spreadsheet
+Skills for working with spreadsheet files.
+
+- **xlsx-generator**: Full-featured XLSX generation with template and scratch modes
+
+### PDF (Planned)
+Skills for working with PDF documents.
+
+- *pdf-generator*: (Planned) Create and manipulate PDF files
+
+## Technical Notes
+
+All document processing skills use:
+- Deno runtime with TypeScript
+- NPM packages via `npm:` prefix for Office format handling
+- JSZip for OOXML package manipulation
+- Direct XML manipulation for format-specific operations
+
+## Metadata
+
+- **Created:** 2025-12-27
+- **Last Updated:** 2025-12-27
+- **Skills Count:** 3

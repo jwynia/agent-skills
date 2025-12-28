@@ -1,0 +1,203 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Design Token Specification",
+  "description": "Schema for comprehensive design token generation",
+  "type": "object",
+  "required": ["name", "tokens", "outputFormats"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Design system name",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the design system"
+    },
+    "tokens": {
+      "type": "object",
+      "description": "Token definitions by category",
+      "properties": {
+        "color": {
+          "type": "object",
+          "description": "Color tokens",
+          "additionalProperties": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "object", "additionalProperties": { "type": "string" } }
+            ]
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "description": "Spacing scale tokens",
+          "additionalProperties": { "type": "string" }
+        },
+        "typography": {
+          "type": "object",
+          "properties": {
+            "fontFamilies": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            },
+            "fontSizes": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            },
+            "fontWeights": {
+              "type": "object",
+              "additionalProperties": { "type": "number" }
+            },
+            "lineHeights": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            },
+            "letterSpacing": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            }
+          }
+        },
+        "shadow": {
+          "type": "object",
+          "description": "Box shadow tokens",
+          "additionalProperties": { "type": "string" }
+        },
+        "border": {
+          "type": "object",
+          "properties": {
+            "radius": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            },
+            "width": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            }
+          }
+        },
+        "animation": {
+          "type": "object",
+          "properties": {
+            "duration": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            },
+            "easing": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            }
+          }
+        },
+        "zIndex": {
+          "type": "object",
+          "description": "Z-index scale",
+          "additionalProperties": { "type": "number" }
+        }
+      }
+    },
+    "outputFormats": {
+      "type": "array",
+      "description": "Output formats to generate",
+      "items": {
+        "type": "string",
+        "enum": ["css", "scss", "json", "js", "ts", "tailwind", "style-dictionary"]
+      },
+      "minItems": 1
+    }
+  },
+  "examples": [
+    {
+      "name": "my-design-system",
+      "description": "A modern design system for web applications",
+      "tokens": {
+        "color": {
+          "primary": "#2563eb",
+          "primary-light": "#3b82f6",
+          "primary-dark": "#1d4ed8",
+          "secondary": "#64748b",
+          "background": "#ffffff",
+          "surface": "#f8fafc",
+          "text": "#1e293b",
+          "text-muted": "#64748b"
+        },
+        "spacing": {
+          "xs": "0.25rem",
+          "sm": "0.5rem",
+          "md": "1rem",
+          "lg": "1.5rem",
+          "xl": "2rem",
+          "2xl": "3rem"
+        },
+        "typography": {
+          "fontFamilies": {
+            "display": "Playfair Display, serif",
+            "body": "Inter, sans-serif",
+            "mono": "JetBrains Mono, monospace"
+          },
+          "fontSizes": {
+            "xs": "0.75rem",
+            "sm": "0.875rem",
+            "base": "1rem",
+            "lg": "1.125rem",
+            "xl": "1.25rem",
+            "2xl": "1.5rem",
+            "3xl": "1.875rem",
+            "4xl": "2.25rem"
+          },
+          "fontWeights": {
+            "normal": 400,
+            "medium": 500,
+            "semibold": 600,
+            "bold": 700
+          },
+          "lineHeights": {
+            "tight": "1.25",
+            "normal": "1.5",
+            "relaxed": "1.75"
+          }
+        },
+        "shadow": {
+          "sm": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+          "md": "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+          "lg": "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+          "xl": "0 20px 25px -5px rgb(0 0 0 / 0.1)"
+        },
+        "border": {
+          "radius": {
+            "sm": "0.25rem",
+            "md": "0.5rem",
+            "lg": "1rem",
+            "full": "9999px"
+          },
+          "width": {
+            "thin": "1px",
+            "medium": "2px",
+            "thick": "4px"
+          }
+        },
+        "animation": {
+          "duration": {
+            "fast": "150ms",
+            "normal": "300ms",
+            "slow": "500ms"
+          },
+          "easing": {
+            "ease-in": "cubic-bezier(0.4, 0, 1, 1)",
+            "ease-out": "cubic-bezier(0, 0, 0.2, 1)",
+            "ease-in-out": "cubic-bezier(0.4, 0, 0.2, 1)"
+          }
+        },
+        "zIndex": {
+          "dropdown": 1000,
+          "sticky": 1020,
+          "modal": 1030,
+          "popover": 1040,
+          "tooltip": 1050
+        }
+      },
+      "outputFormats": ["css", "scss", "tailwind", "ts"]
+    }
+  ]
+}

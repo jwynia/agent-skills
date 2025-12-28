@@ -1,0 +1,158 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Component Specification",
+  "description": "Schema for component template generation",
+  "type": "object",
+  "required": ["name", "framework"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Component name (PascalCase)",
+      "pattern": "^[A-Z][a-zA-Z0-9]*$",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "type": {
+      "type": "string",
+      "description": "Component type for template selection",
+      "enum": ["button", "card", "input", "modal", "navigation", "hero", "custom"],
+      "default": "custom"
+    },
+    "framework": {
+      "type": "string",
+      "description": "Target framework",
+      "enum": ["react", "vue", "svelte", "html"]
+    },
+    "styling": {
+      "type": "string",
+      "description": "Styling approach",
+      "enum": ["css", "tailwind", "css-modules", "styled-components", "emotion"],
+      "default": "css"
+    },
+    "aesthetic": {
+      "type": "object",
+      "description": "Aesthetic configuration",
+      "properties": {
+        "style": {
+          "type": "string",
+          "description": "Visual style",
+          "enum": ["minimal", "bold", "organic", "brutalist", "glassmorphism", "neumorphism"]
+        },
+        "animation": {
+          "type": "string",
+          "description": "Animation level",
+          "enum": ["none", "subtle", "expressive"],
+          "default": "subtle"
+        },
+        "darkMode": {
+          "type": "boolean",
+          "description": "Include dark mode support",
+          "default": false
+        }
+      }
+    },
+    "tokens": {
+      "type": "string",
+      "description": "Path to design tokens file for styling"
+    },
+    "props": {
+      "type": "object",
+      "description": "Component props definition",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "TypeScript type"
+          },
+          "default": {
+            "type": "string",
+            "description": "Default value"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether prop is required",
+            "default": false
+          }
+        },
+        "required": ["type"]
+      }
+    },
+    "slots": {
+      "type": "array",
+      "description": "Named slots (for Vue/Svelte) or children patterns (for React)",
+      "items": { "type": "string" }
+    },
+    "variants": {
+      "type": "array",
+      "description": "Style variants to generate",
+      "items": { "type": "string" }
+    }
+  },
+  "examples": [
+    {
+      "name": "Button",
+      "type": "button",
+      "framework": "react",
+      "styling": "tailwind",
+      "aesthetic": {
+        "style": "bold",
+        "animation": "subtle",
+        "darkMode": true
+      },
+      "props": {
+        "variant": {
+          "type": "'primary' | 'secondary' | 'ghost'",
+          "default": "'primary'"
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": "false"
+        }
+      },
+      "variants": ["primary", "secondary", "ghost"]
+    },
+    {
+      "name": "Card",
+      "type": "card",
+      "framework": "vue",
+      "styling": "css-modules",
+      "aesthetic": {
+        "style": "glassmorphism",
+        "animation": "expressive"
+      },
+      "slots": ["header", "default", "footer"],
+      "props": {
+        "elevated": {
+          "type": "boolean",
+          "default": "false"
+        }
+      }
+    },
+    {
+      "name": "Input",
+      "type": "input",
+      "framework": "svelte",
+      "styling": "css",
+      "aesthetic": {
+        "style": "minimal"
+      },
+      "props": {
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    }
+  ]
+}

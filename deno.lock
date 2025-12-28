@@ -2,7 +2,9 @@
   "version": "5",
   "specifiers": {
     "jsr:@std/cli@1.0.9": "1.0.9",
+    "jsr:@std/fs@1.0.8": "1.0.8",
     "jsr:@std/path@1.0.8": "1.0.8",
+    "jsr:@std/path@^1.0.8": "1.0.8",
     "npm:@xmldom/xmldom@0.9.6": "0.9.6",
     "npm:jszip@3.10.1": "3.10.1",
     "npm:pptxgenjs@3.12.0": "3.12.0"
@@ -10,6 +12,12 @@
   "jsr": {
     "@std/cli@1.0.9": {
       "integrity": "557e5865af000efbf3f737dcfea5b8ab86453594f4a9cd8d08c9fa83d8e3f3bc"
+    },
+    "@std/fs@1.0.8": {
+      "integrity": "161c721b6f9400b8100a851b6f4061431c538b204bb76c501d02c508995cffe0",
+      "dependencies": [
+        "jsr:@std/path@^1.0.8"
+      ]
     },
     "@std/path@1.0.8": {
       "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"

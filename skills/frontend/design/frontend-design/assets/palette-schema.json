@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Palette Specification",
+  "description": "Schema for color palette generation specifications",
+  "type": "object",
+  "properties": {
+    "seedColors": {
+      "type": "object",
+      "description": "Seed colors to build palette from",
+      "properties": {
+        "primary": {
+          "type": "string",
+          "description": "Primary brand color (hex format)",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+        },
+        "secondary": {
+          "type": "string",
+          "description": "Secondary color (hex format)",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+        },
+        "accent": {
+          "type": "string",
+          "description": "Accent color (hex format)",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+        }
+      }
+    },
+    "theme": {
+      "type": "string",
+      "description": "Overall theme direction",
+      "enum": ["warm", "cool", "neutral", "vibrant", "muted", "dark", "light"]
+    },
+    "style": {
+      "type": "string",
+      "description": "Design style influence",
+      "enum": ["minimalist", "bold", "organic", "corporate", "playful"]
+    },
+    "generateShades": {
+      "type": "boolean",
+      "description": "Generate 50-950 shade scale for each color",
+      "default": false
+    },
+    "generateSemantics": {
+      "type": "boolean",
+      "description": "Generate semantic colors (success, warning, error, info)",
+      "default": false
+    },
+    "contrastTarget": {
+      "type": "string",
+      "description": "WCAG contrast level to target",
+      "enum": ["AA", "AAA"],
+      "default": "AA"
+    },
+    "outputFormat": {
+      "type": "string",
+      "description": "Output format for the palette",
+      "enum": ["css", "scss", "tailwind", "tokens", "json"],
+      "default": "css"
+    }
+  },
+  "examples": [
+    {
+      "seedColors": {
+        "primary": "#2563eb",
+        "accent": "#f59e0b"
+      },
+      "theme": "cool",
+      "generateShades": true,
+      "generateSemantics": true,
+      "contrastTarget": "AA",
+      "outputFormat": "css"
+    },
+    {
+      "seedColors": {
+        "primary": "#8b5cf6"
+      },
+      "theme": "vibrant",
+      "style": "playful",
+      "generateShades": true,
+      "outputFormat": "tailwind"
+    }
+  ]
+}

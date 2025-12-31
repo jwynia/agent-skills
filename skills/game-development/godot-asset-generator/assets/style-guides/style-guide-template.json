@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Template for defining consistent art style across game assets",
+  "version": "1.0",
+  "template": {
+    "projectName": "My Game Project",
+    "description": "Brief description of the game and its visual style",
+    "artStyle": {
+      "type": "pixel-art",
+      "typeOptions": ["pixel-art", "hand-drawn", "painterly", "vector", "mixed"],
+      "resolution": {
+        "baseSize": 32,
+        "sizes": {
+          "character": 64,
+          "item": 32,
+          "tile": 32,
+          "ui": 48
+        },
+        "notes": "Base pixel size for sprites. Generate at 1024x1024 then downscale."
+      },
+      "aspectRatio": {
+        "characters": "1:1",
+        "backgrounds": "16:9",
+        "tiles": "1:1"
+      }
+    },
+    "colorPalette": {
+      "description": "Color scheme for the game",
+      "type": "limited",
+      "maxColors": 32,
+      "primary": [
+        {"name": "dark-bg", "hex": "#1a1a2e"},
+        {"name": "mid-bg", "hex": "#16213e"},
+        {"name": "light-bg", "hex": "#0f3460"}
+      ],
+      "accent": [
+        {"name": "gold", "hex": "#e8b923"},
+        {"name": "red", "hex": "#e74c3c"},
+        {"name": "blue", "hex": "#3498db"}
+      ],
+      "skin": [
+        {"name": "light", "hex": "#ffd5c8"},
+        {"name": "mid", "hex": "#f4a683"},
+        {"name": "dark", "hex": "#c67b5c"}
+      ],
+      "reference": "Optional: reference palette like PICO-8, NES, or custom"
+    },
+    "promptModifiers": {
+      "global": "16-bit pixel art, clean pixels, no anti-aliasing, limited color palette",
+      "characters": "game sprite, expressive pose, clear silhouette",
+      "enemies": "distinct from player, threatening but readable",
+      "items": "iconic design, recognizable at small size",
+      "environment": "atmospheric, supports gameplay clarity",
+      "ui": "clean edges, high contrast, readable"
+    },
+    "negativePrompts": {
+      "global": "blurry, anti-aliased, smooth gradients, realistic, photographic, 3d render",
+      "characters": "oversized, cluttered details, unclear pose",
+      "items": "complex, hard to identify"
+    },
+    "providerSettings": {
+      "preferred": "dalle",
+      "fallback": "replicate",
+      "dalle": {
+        "quality": "standard",
+        "style": "vivid",
+        "size": "1024x1024"
+      },
+      "replicate": {
+        "model": "stability-ai/sdxl",
+        "guidance_scale": 7.5
+      },
+      "fal": {
+        "model": "fal-ai/flux/schnell"
+      }
+    },
+    "godotSettings": {
+      "filterMode": "Nearest",
+      "compression": "Lossless",
+      "mipmaps": false,
+      "fixAlphaBorder": true,
+      "projectSettings": {
+        "defaultTextureFilter": "Nearest",
+        "stretchMode": "viewport",
+        "stretchAspect": "keep"
+      }
+    },
+    "namingConventions": {
+      "characters": "{character}-{action}-{frame}",
+      "items": "item-{category}-{name}",
+      "tiles": "tile-{tileset}-{variant}",
+      "ui": "ui-{element}-{state}",
+      "examples": [
+        "player-walk-01",
+        "item-weapon-sword",
+        "tile-grass-center",
+        "ui-button-hover"
+      ]
+    },
+    "animations": {
+      "idle": {"frames": 4, "fps": 6, "loop": true},
+      "walk": {"frames": 4, "fps": 10, "loop": true},
+      "run": {"frames": 6, "fps": 12, "loop": true},
+      "attack": {"frames": 4, "fps": 14, "loop": false},
+      "hurt": {"frames": 2, "fps": 8, "loop": false},
+      "death": {"frames": 4, "fps": 8, "loop": false}
+    },
+    "consistency": {
+      "characterSheets": "Generate front, side, back views for each character",
+      "lighting": "Top-down light source, consistent shadows",
+      "outlines": "1px dark outline on all sprites",
+      "highlights": "Subtle 1px highlights on top edges"
+    },
+    "references": {
+      "games": ["Stardew Valley", "Celeste", "Undertale"],
+      "palettes": ["PICO-8", "Endesga 32"],
+      "artists": [],
+      "moodBoard": "Link to mood board or reference images"
+    }
+  },
+  "exampleStyleGuide": {
+    "projectName": "Fantasy Quest",
+    "description": "A top-down action RPG with 16-bit inspired pixel art",
+    "artStyle": {
+      "type": "pixel-art",
+      "resolution": {
+        "baseSize": 32,
+        "sizes": {
+          "character": 48,
+          "item": 24,
+          "tile": 32,
+          "ui": 32
+        }
+      }
+    },
+    "colorPalette": {
+      "type": "limited",
+      "maxColors": 32,
+      "primary": [
+        {"name": "grass", "hex": "#4a7c3e"},
+        {"name": "stone", "hex": "#7c7c7c"},
+        {"name": "wood", "hex": "#8b5a2b"}
+      ],
+      "accent": [
+        {"name": "gold", "hex": "#ffd700"},
+        {"name": "magic", "hex": "#9b59b6"}
+      ]
+    },
+    "promptModifiers": {
+      "global": "16-bit pixel art, SNES RPG style, clean pixels, fantasy game",
+      "characters": "expressive, clear silhouette, 3/4 top-down view"
+    }
+  }
+}

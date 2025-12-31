@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Pixel art prompt templates for AI image generation",
+  "version": "1.0",
+  "baseModifiers": {
+    "style": "pixel art, 16-bit style, clean pixels, no anti-aliasing",
+    "background": "transparent background",
+    "quality": "game sprite, limited color palette, retro game aesthetic"
+  },
+  "negativePrompt": "blurry, anti-aliased, smooth, gradient, realistic, 3d render, photorealistic, soft edges, high resolution photography",
+  "templates": {
+    "character": {
+      "description": "Character sprite templates",
+      "idle": {
+        "prompt": "{style}, {character_description}, idle standing pose, {view_direction} view, {background}, {quality}",
+        "variables": {
+          "character_description": "knight warrior with sword and shield",
+          "view_direction": "front"
+        },
+        "example": "pixel art, 16-bit style, clean pixels, no anti-aliasing, knight warrior with sword and shield, idle standing pose, front view, transparent background, game sprite, limited color palette, retro game aesthetic"
+      },
+      "walk": {
+        "prompt": "{style}, {character_description}, walking animation frame {frame} of {total_frames}, {view_direction} view, {background}, {quality}, consistent style",
+        "variables": {
+          "character_description": "knight warrior",
+          "frame": "1",
+          "total_frames": "4",
+          "view_direction": "side"
+        }
+      },
+      "attack": {
+        "prompt": "{style}, {character_description}, attack pose, {attack_type}, dynamic action, {view_direction} view, {background}, {quality}",
+        "variables": {
+          "character_description": "knight warrior",
+          "attack_type": "sword swing",
+          "view_direction": "side"
+        }
+      },
+      "hurt": {
+        "prompt": "{style}, {character_description}, hurt reaction pose, taking damage, {view_direction} view, {background}, {quality}",
+        "variables": {
+          "character_description": "knight warrior",
+          "view_direction": "front"
+        }
+      }
+    },
+    "enemy": {
+      "description": "Enemy sprite templates",
+      "basic": {
+        "prompt": "{style}, {enemy_description}, game enemy sprite, {pose}, {view_direction} view, {background}, {quality}",
+        "variables": {
+          "enemy_description": "slime monster blob creature",
+          "pose": "idle bouncing",
+          "view_direction": "front"
+        }
+      },
+      "boss": {
+        "prompt": "{style}, {enemy_description}, boss enemy sprite, large imposing, {pose}, {view_direction} view, {background}, {quality}, detailed",
+        "variables": {
+          "enemy_description": "dragon creature",
+          "pose": "threatening stance",
+          "view_direction": "front"
+        }
+      }
+    },
+    "items": {
+      "description": "Item and pickup sprite templates",
+      "weapon": {
+        "prompt": "{style}, {weapon_description}, weapon item sprite, isolated object, {background}, {quality}, iconic design",
+        "variables": {
+          "weapon_description": "steel longsword with golden hilt"
+        }
+      },
+      "consumable": {
+        "prompt": "{style}, {item_description}, consumable item sprite, isolated object, {background}, {quality}, recognizable shape",
+        "variables": {
+          "item_description": "red health potion in glass bottle"
+        }
+      },
+      "collectible": {
+        "prompt": "{style}, {item_description}, collectible pickup sprite, glowing effect, isolated object, {background}, {quality}",
+        "variables": {
+          "item_description": "golden coin"
+        }
+      }
+    },
+    "environment": {
+      "description": "Environment and tile templates",
+      "tile": {
+        "prompt": "seamless {style}, {tile_description}, {view} view, 32x32 pixels, tileable pattern, game tileset, clean edges",
+        "variables": {
+          "tile_description": "grass ground with small flowers",
+          "view": "top-down"
+        }
+      },
+      "prop": {
+        "prompt": "{style}, {prop_description}, environment prop, {background}, {quality}, game decoration",
+        "variables": {
+          "prop_description": "wooden barrel"
+        }
+      },
+      "platform": {
+        "prompt": "{style}, {platform_description}, platformer game tile, side view, {background}, {quality}",
+        "variables": {
+          "platform_description": "stone platform block"
+        }
+      }
+    },
+    "ui": {
+      "description": "UI element templates",
+      "icon": {
+        "prompt": "{style}, {icon_description}, game UI icon, simple clear design, {background}, clean edges",
+        "variables": {
+          "icon_description": "heart health icon"
+        }
+      },
+      "button": {
+        "prompt": "{style}, {button_description}, game UI button, 9-patch compatible, {background}, clean edges",
+        "variables": {
+          "button_description": "wooden button frame"
+        }
+      },
+      "frame": {
+        "prompt": "{style}, {frame_description}, game UI frame border, 9-patch compatible, {background}",
+        "variables": {
+          "frame_description": "ornate golden frame"
+        }
+      }
+    },
+    "effects": {
+      "description": "Visual effect templates",
+      "explosion": {
+        "prompt": "{style}, {effect_description}, effect sprite frame {frame} of {total_frames}, {background}, {quality}",
+        "variables": {
+          "effect_description": "fire explosion",
+          "frame": "1",
+          "total_frames": "6"
+        }
+      },
+      "particle": {
+        "prompt": "{style}, {particle_description}, small particle sprite, {background}, simple shape",
+        "variables": {
+          "particle_description": "sparkle star"
+        }
+      }
+    }
+  }
+}

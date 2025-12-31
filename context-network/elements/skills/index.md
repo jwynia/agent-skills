@@ -8,11 +8,11 @@ Maintains a central registry of skills with their current status, location, and 
 
 ## Quick Stats
 
-- **Total Skills**: 6
+- **Total Skills**: 7
 - **Planning**: 0
 - **In Progress**: 0
 - **Validating**: 0
-- **Complete**: 6
+- **Complete**: 7
 
 ## Skills by Domain
 
@@ -54,6 +54,12 @@ See [research/index.md](research/index.md) for skills in this domain.
 | web-search | search | Complete | Web search via Tavily API |
 | research-workflow | workflow | Complete | Structured research methodology |
 
+### Game Development
+
+| Skill | Category | Status | Description |
+|-------|----------|--------|-------------|
+| godot-best-practices | godot | Complete | Godot 4.x GDScript coding best practices |
+
 ## Skills by Status
 
 ### Planning
@@ -78,6 +84,7 @@ None yet
 | docx-generator | document-processing | `skills/document-processing/word/docx-generator/` |
 | xlsx-generator | document-processing | `skills/document-processing/spreadsheet/xlsx-generator/` |
 | pdf-generator | document-processing | `skills/document-processing/pdf/pdf-generator/` |
+| godot-best-practices | game-development | `skills/game-development/godot-best-practices/` |
 
 ## Technical Requirements
 
@@ -120,11 +127,12 @@ This catalog should be updated:
 ## Metadata
 
 - **Created:** 2025-12-19
-- **Last Updated:** 2025-12-27
+- **Last Updated:** 2025-12-30
 - **Updated By:** Claude
 
 ## Change History
 
+- 2025-12-30: Added Game Development domain with godot-best-practices skill
 - 2025-12-27: Added pdf-generator skill to Document Processing
 - 2025-12-27: Added docx-generator and xlsx-generator skills to Document Processing
 - 2025-12-27: Added Document Processing domain with pptx-generator skill

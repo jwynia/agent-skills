@@ -1,28 +1,52 @@
 # Agent Skills Directory
 
-This directory contains the actual skill deliverables organized in a nested folder structure for maintainability during development.
+This directory contains **105 skills** organized by domain.
 
 ## Structure
 
-Skills are organized hierarchically by domain and category:
+Skills are organized by domain, with optional subcategories for large domains:
 
 ```
 skills/
-├── data-processing/
-│   ├── csv/
-│   │   └── csv-analyzer/
-│   │       ├── SKILL.md
-│   │       ├── scripts/
-│   │       ├── references/
-│   │       └── assets/
-│   └── json/
-│       └── json-validator/
-│           └── SKILL.md
-└── web/
-    └── scraping/
-        └── html-parser/
-            └── SKILL.md
+├── ai/                     # 1 skill
+│   └── mastra-hono/
+├── analysis/               # 1 skill
+│   └── technology-impact/
+├── communication/          # 2 skills
+│   ├── presentation-design/
+│   └── speech-adaptation/
+├── creative/               # 3 skills
+│   ├── joke-engineering/
+│   ├── lyric-diagnostic/
+│   └── musical-dna/
+├── development/            # 10 skills
+│   ├── agile-workflow/
+│   ├── skill-maker/
+│   └── ...
+├── document-processing/    # 5 skills
+├── education/              # 2 skills
+├── fiction/                # 54 skills (with subcategories)
+│   ├── core/
+│   ├── worldbuilding/
+│   ├── character/
+│   ├── structure/
+│   ├── craft/
+│   └── application/
+├── frontend/               # 4 skills
+├── game-development/       # 3 skills
+├── ideation/               # 2 skills
+├── meta/                   # 3 skills
+├── productivity/           # 1 skill
+├── research/               # 6 skills
+├── security/               # 4 skills
+└── writing/                # 4 skills
 ```
+
+Each skill folder contains:
+- **SKILL.md** (required): YAML frontmatter + markdown instructions
+- **scripts/** (optional): Executable Deno/TypeScript code
+- **references/** (optional): Additional documentation
+- **assets/** (optional): Templates, images, data files
 
 ## Skill Format
 

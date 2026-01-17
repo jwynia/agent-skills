@@ -1,0 +1,459 @@
+{
+  "$schema": "./lyric-dominance-rules.schema.json",
+  "version": "1.1",
+  "lastUpdated": "2026-01-02",
+  "source": "Refined after empirical testing with Suno-generated lyrics",
+
+  "rules": [
+    {
+      "term": "love",
+      "context": "as noun or primary topic",
+      "tier": 1,
+      "dominancePercentage": 98,
+      "triggeredCliches": ["love/above", "love/dove", "heart/apart", "forever/together"],
+      "lyricAlternatives": [
+        "specific action showing affection",
+        "concrete sensory memory",
+        "physical sensation without naming emotion",
+        "what the person does, not what they feel"
+      ],
+      "notes": "Triggers generic love song vocabulary. Replace with specific showing, not telling. Instead of 'I love you', show what love looks like in this specific situation."
+    },
+    {
+      "term": "heart",
+      "context": "as metaphor for emotions",
+      "tier": 1,
+      "dominancePercentage": 95,
+      "triggeredCliches": ["heart/apart", "heart/start", "heart/art", "broken heart"],
+      "lyricAlternatives": [
+        "chest, ribcage (physical)",
+        "specific physical sensation (tightness, warmth)",
+        "action the emotion causes",
+        "what the body does under emotion"
+      ],
+      "notes": "Triggers predictable rhyme pairs and abstract emotional vocabulary. Ground in physical sensation instead."
+    },
+    {
+      "term": "baby",
+      "context": "as term of address",
+      "tier": 1,
+      "dominancePercentage": 92,
+      "triggeredCliches": ["baby/maybe", "baby/crazy", "generic pop address"],
+      "lyricAlternatives": [
+        "character name or nickname",
+        "specific relationship term (stranger, friend, partner)",
+        "you (direct address without pet name)",
+        "no address, just action"
+      ],
+      "notes": "Triggers generic pop/R&B patterns. Specific names or relationship context create distinction."
+    },
+    {
+      "term": "forever",
+      "context": "as time reference",
+      "tier": 1,
+      "dominancePercentage": 90,
+      "triggeredCliches": ["forever/together", "forever/never", "forever/weather"],
+      "lyricAlternatives": [
+        "specific time reference (til the streetlights come on)",
+        "generational reference (til your grandkids forget)",
+        "physical duration (til the rust takes the car)",
+        "concrete ending point"
+      ],
+      "notes": "Abstract eternal time is generic. Specific, limited time references are more powerful and honest."
+    },
+    {
+      "term": "always",
+      "context": "as time/commitment reference",
+      "tier": 1,
+      "dominancePercentage": 88,
+      "triggeredCliches": ["always/hallways", "eternal commitment trope"],
+      "lyricAlternatives": [
+        "every time [specific action]",
+        "each morning when [concrete detail]",
+        "whenever [specific trigger]"
+      ],
+      "notes": "Like 'forever', abstract always triggers generic patterns. Specificity adds credibility."
+    },
+    {
+      "term": "dream",
+      "context": "as abstract concept",
+      "tier": 2,
+      "dominancePercentage": 78,
+      "triggeredCliches": ["dream/seem", "dream/stream", "living the dream"],
+      "lyricAlternatives": [
+        "specific aspiration (that house on the corner)",
+        "concrete image from actual dream",
+        "what success looks like specifically",
+        "action toward goal, not goal itself"
+      ],
+      "notes": "Abstract dreams trigger vague imagery. Concrete dreams (specific house, job, moment) have power."
+    },
+    {
+      "term": "tears",
+      "context": "as emotional indicator",
+      "tier": 2,
+      "dominancePercentage": 75,
+      "triggeredCliches": ["tears/fears", "tears/years", "crying in the rain"],
+      "lyricAlternatives": [
+        "physical manifestation (salt on collar)",
+        "action during grief (calling no one back)",
+        "what the room looks like during breakdown",
+        "what hands do when upset"
+      ],
+      "notes": "Tears are telling, not showing. Physical details of grief are more effective."
+    },
+    {
+      "term": "soul",
+      "context": "as spiritual/emotional core",
+      "tier": 2,
+      "dominancePercentage": 72,
+      "triggeredCliches": ["soul/whole", "soul/control", "soul/goal"],
+      "lyricAlternatives": [
+        "specific interiority (the quiet part of 3am)",
+        "what happens in silence",
+        "the thing no one sees",
+        "physical location of feeling"
+      ],
+      "notes": "Abstract soul triggers philosophical cliche. Ground in specific internal experience."
+    },
+    {
+      "term": "fire",
+      "context": "as metaphor for passion",
+      "tier": 2,
+      "dominancePercentage": 85,
+      "triggeredCliches": ["fire/desire", "fire/higher", "burning love"],
+      "lyricAlternatives": [
+        "specific heat sensation",
+        "what passion makes you do",
+        "the reckless action, not the feeling",
+        "consequences of intensity"
+      ],
+      "notes": "Fire/desire is the most predictable rhyme pair in English. Avoid completely or use slant rhyme."
+    },
+    {
+      "term": "night",
+      "context": "as time setting",
+      "tier": 2,
+      "dominancePercentage": 70,
+      "triggeredCliches": ["night/light", "night/right", "night/sight", "lonely night"],
+      "lyricAlternatives": [
+        "specific time (2:47am)",
+        "what night sounds like (refrigerator hum)",
+        "night-specific sensory details",
+        "what you're doing specifically at night"
+      ],
+      "notes": "Night/light is predictable. Specific night details (sounds, light quality, activities) are better."
+    },
+    {
+      "term": "rain",
+      "context": "as weather/emotional metaphor",
+      "tier": 2,
+      "dominancePercentage": 68,
+      "triggeredCliches": ["rain/pain", "rain/again", "crying in the rain"],
+      "lyricAlternatives": [
+        "specific weather detail (the smell before rain)",
+        "what rain sounds like on specific surface",
+        "action during rain (waiting under awning)",
+        "aftermath of rain (wet grass, puddles)"
+      ],
+      "notes": "Rain as sadness metaphor is exhausted. Specific rain details or subverting the metaphor work better."
+    },
+    {
+      "term": "eyes",
+      "context": "as window to soul/beauty",
+      "tier": 2,
+      "dominancePercentage": 65,
+      "triggeredCliches": ["eyes/skies", "eyes/lies", "eyes/realize"],
+      "lyricAlternatives": [
+        "what the eyes do (squint, avoid, search)",
+        "specific eye behavior (the way they drop)",
+        "what's seen through the eyes",
+        "eye-adjacent details (crow's feet, mascara)"
+      ],
+      "notes": "Eyes as beauty marker is generic. Eye behavior or specific details create character."
+    },
+    {
+      "term": "sky",
+      "context": "as setting/metaphor",
+      "tier": 3,
+      "dominancePercentage": 55,
+      "triggeredCliches": ["sky/high", "sky/fly", "sky/why", "blue sky"],
+      "lyricAlternatives": [
+        "specific sky (the gray before snow)",
+        "what's in the sky (contrails, hawks)",
+        "time-of-day sky (4pm October light)",
+        "weather-specific sky"
+      ],
+      "notes": "Generic sky triggers generic imagery. Specific skies (time, weather, contents) have distinction."
+    },
+    {
+      "term": "sun",
+      "context": "as positive metaphor",
+      "tier": 3,
+      "dominancePercentage": 50,
+      "triggeredCliches": ["sun/one", "sun/done", "you are my sunshine"],
+      "lyricAlternatives": [
+        "specific sun behavior (slanting through blinds)",
+        "time-of-day sun (late afternoon gold)",
+        "sun's effect on objects (bleached dashboard)",
+        "absence of sun (the shadow side)"
+      ],
+      "notes": "Sun as positive/hope is predictable. Specific sun moments or subversion work better."
+    },
+    {
+      "term": "moon",
+      "context": "as romantic/night setting",
+      "tier": 3,
+      "dominancePercentage": 52,
+      "triggeredCliches": ["moon/June", "moon/soon", "moon/tune", "by the light of the moon"],
+      "lyricAlternatives": [
+        "specific moon phase (waning crescent)",
+        "moon behavior (setting behind water tower)",
+        "moon's effect (silver on the windshield)",
+        "moon absence (new moon, no light)"
+      ],
+      "notes": "Moon/June is the classic cliche rhyme. Any use requires intentional approach."
+    },
+    {
+      "term": "time",
+      "context": "as abstract concept",
+      "tier": 3,
+      "dominancePercentage": 48,
+      "triggeredCliches": ["time/rhyme", "time/mine", "time/crime", "passage of time"],
+      "lyricAlternatives": [
+        "specific duration (three Januaries)",
+        "time marker (before the diagnosis)",
+        "measured time (forty-seven minutes)",
+        "time in objects (the calendar we never changed)"
+      ],
+      "notes": "Abstract time is vague. Specific time markers ground the song in reality."
+    }
+  ],
+
+  "safeTerms": {
+    "technical": [
+      "slant rhyme",
+      "internal rhyme",
+      "concrete imagery",
+      "sensory detail",
+      "iambic",
+      "conversational meter",
+      "sparse rhyme density"
+    ],
+    "descriptive": [
+      "monosyllabic",
+      "polysyllabic",
+      "enjambed",
+      "end-stopped",
+      "intimate register",
+      "confessional mode",
+      "observational distance"
+    ],
+    "semantic": [
+      "showing not telling",
+      "specific over general",
+      "physical sensation",
+      "action-based emotion",
+      "concrete anchor"
+    ]
+  },
+
+  "genreSpecificWarnings": {
+    "country": {
+      "highRisk": ["truck", "beer", "dirt road", "Friday night", "mama"],
+      "note": "These are expected but oversaturated. Use sparingly with specific detail."
+    },
+    "pop": {
+      "highRisk": ["baby", "tonight", "dance", "move"],
+      "note": "Functional genre words. Avoid stacking multiple in same verse."
+    },
+    "hipHop": {
+      "highRisk": ["real", "hustle", "grind", "game"],
+      "note": "Authenticity markers become cliche when overused. Earn each use."
+    },
+    "indie": {
+      "highRisk": ["vintage", "analog", "quiet", "small town"],
+      "note": "Aesthetic markers. One per song maximum."
+    }
+  },
+
+  "stockPhrases": [
+    {
+      "phrase": "screaming inside",
+      "category": "unexpressed anguish",
+      "tier": 1,
+      "alternatives": [
+        "specific physical manifestation of suppressed emotion",
+        "what the body does when holding it in",
+        "action that reveals internal state"
+      ],
+      "notes": "Every song about hidden pain uses this exact phrase. Show don't tell."
+    },
+    {
+      "phrase": "need you gone",
+      "category": "direct desire statement",
+      "tier": 2,
+      "alternatives": [
+        "action toward separation",
+        "what 'gone' would look like",
+        "the thing you'd do if they left"
+      ],
+      "notes": "States desire directly. Show what wanting distance looks like."
+    },
+    {
+      "phrase": "won't leave me alone",
+      "category": "persistence/haunting",
+      "tier": 1,
+      "alternatives": [
+        "specific intrusion moment",
+        "when the memory surfaces",
+        "what triggers the return"
+      ],
+      "notes": "Generic memory complaint. Make the haunting specific."
+    },
+    {
+      "phrase": "thought I died",
+      "category": "emotional death metaphor",
+      "tier": 2,
+      "alternatives": [
+        "specific physical sensation of shock",
+        "what stopped working",
+        "the moment before and after"
+      ],
+      "notes": "Overused intensity marker. Find a fresh metaphor for devastation."
+    },
+    {
+      "phrase": "look in your eyes",
+      "category": "connection/perception",
+      "tier": 2,
+      "alternatives": [
+        "what the eyes are doing specifically",
+        "what you see in them (concrete)",
+        "eye-adjacent detail"
+      ],
+      "notes": "Vague romantic gesture. Make the looking specific."
+    },
+    {
+      "phrase": "torn apart",
+      "category": "destruction/pain",
+      "tier": 2,
+      "alternatives": [
+        "specific breaking point",
+        "what actually broke",
+        "physical sensation of splitting"
+      ],
+      "notes": "Abstract violence metaphor. Ground in physical reality."
+    },
+    {
+      "phrase": "can't let go",
+      "category": "attachment",
+      "tier": 2,
+      "alternatives": [
+        "what you're holding onto specifically",
+        "the action of gripping",
+        "what letting go would require"
+      ],
+      "notes": "States the problem. Show the holding instead."
+    },
+    {
+      "phrase": "meant to be",
+      "category": "destiny/fate",
+      "tier": 1,
+      "alternatives": [
+        "specific coincidence or pattern",
+        "why this feels inevitable",
+        "the evidence of rightness"
+      ],
+      "notes": "Lazy fate invocation. Earn the sense of destiny through specifics."
+    }
+  ],
+
+  "lazyRhymePairs": [
+    {
+      "words": ["desire", "fire", "tired", "higher", "liar"],
+      "cluster": "fire-desire",
+      "tier": 1,
+      "notes": "These words cluster together constantly. Using any two triggers cliche. If you use 'fire', find a slant rhyme."
+    },
+    {
+      "words": ["inside", "died", "alive", "hide", "lied", "tried"],
+      "cluster": "interior-death",
+      "tier": 1,
+      "notes": "Death-interior cluster. 'Inside' almost always leads to 'died' or 'alive'."
+    },
+    {
+      "words": ["away", "stay", "day", "say", "way"],
+      "cluster": "motion-time",
+      "tier": 2,
+      "notes": "Motion-time cluster. Very common, not always avoidable, but be intentional."
+    },
+    {
+      "words": ["heart", "apart", "start", "part", "art"],
+      "cluster": "heart-destruction",
+      "tier": 1,
+      "notes": "Heart-destruction cluster. 'Heart' almost guarantees 'apart' follows."
+    },
+    {
+      "words": ["alone", "gone", "on", "dawn", "song"],
+      "cluster": "isolation",
+      "tier": 2,
+      "notes": "Isolation cluster. 'Alone' naturally drifts toward 'gone'."
+    },
+    {
+      "words": ["love", "above", "of", "dove"],
+      "cluster": "love-above",
+      "tier": 1,
+      "notes": "The original cliche rhyme. Any of these together triggers immediate recognition."
+    },
+    {
+      "words": ["pain", "rain", "again", "vain", "insane"],
+      "cluster": "suffering",
+      "tier": 2,
+      "notes": "Suffering cluster. 'Pain' reliably finds 'rain' or 'again'."
+    }
+  ],
+
+  "rhymeQualityWarnings": {
+    "gerundGerund": {
+      "pattern": "Two -ing words rhyming",
+      "examples": ["laughing/smiling", "crying/dying", "falling/calling"],
+      "problem": "Shared suffix, not real sonic relationship. Same semantic field makes it worse.",
+      "tier": 2
+    },
+    "sameSemanticField": {
+      "pattern": "Rhyming words from same category",
+      "examples": ["laughing/smiling (both expressions)", "walking/running (both motion)", "thinking/feeling (both cognition)"],
+      "problem": "No contrast. Rhyme should create unexpected connection, not confirm the obvious.",
+      "tier": 2
+    },
+    "suffixOnly": {
+      "pattern": "Rhyme only in suffix, not root",
+      "examples": ["-tion/-tion", "-ly/-ly", "-ness/-ness"],
+      "problem": "Grammatical rhyme, not sonic. Feels like accident.",
+      "tier": 3
+    }
+  },
+
+  "structuralCliches": {
+    "bridgeEqualsVerse": {
+      "pattern": "Bridge content identical or near-identical to a verse",
+      "problem": "Not a bridge at all. Bridge must shift perspective, time, or speaker.",
+      "fix": "Ask: what hasn't been said yet? Say that in the bridge."
+    },
+    "chorusExpansion": {
+      "pattern": "Chorus adds lines on later repeats without development",
+      "problem": "More words ≠ more meaning. Padding disguised as development.",
+      "fix": "Each chorus iteration should recontextualize through what came before, not through added words."
+    },
+    "hookWithoutExploration": {
+      "pattern": "Title/hook phrase repeated but never unpacked",
+      "problem": "We hear it but never learn what it means to the speaker.",
+      "fix": "Verses should show us different facets of the hook's meaning."
+    },
+    "noArc": {
+      "pattern": "Speaker's emotional state identical at end and beginning",
+      "problem": "Nothing happened. Why did we listen?",
+      "fix": "Something must change: realization, acceptance, escalation, or collapse."
+    }
+  }
+}

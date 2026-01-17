@@ -11,8 +11,7 @@
 		"XDG_DATA_HOME": "/workspaces/agent-skills/.agents/data",
 		"XDG_CACHE_HOME": "/workspaces/agent-skills/.agents/cache",
 		"XDG_STATE_HOME": "/workspaces/agent-skills/.agents/state",
-		"CLAUDE_CONFIG_DIR": "/workspaces/agent-skills/.claude",
-		"TAVILY_API_KEY": "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"
+		"CLAUDE_CONFIG_DIR": "/workspaces/agent-skills/.claude"
 	},
 	"customizations": {
 		"vscode": {

@@ -1,45 +1,108 @@
 # Agent Skills Directory
 
-This directory contains **105 skills** organized by domain.
+This directory contains **106 skills** organized by domain.
 
 ## Structure
 
-Skills are organized by domain, with optional subcategories for large domains:
+Skills are organized by domain with subcategories:
 
 ```
 skills/
-├── ai/                     # 1 skill
+├── ai/                         # 1 skill
 │   └── mastra-hono/
-├── analysis/               # 1 skill
+├── analysis/                   # 1 skill
 │   └── technology-impact/
-├── communication/          # 2 skills
+├── communication/              # 2 skills
 │   ├── presentation-design/
 │   └── speech-adaptation/
-├── creative/               # 3 skills
-│   ├── joke-engineering/
-│   ├── lyric-diagnostic/
-│   └── musical-dna/
-├── development/            # 10 skills
-│   ├── agile-workflow/
-│   ├── skill-maker/
-│   └── ...
-├── document-processing/    # 5 skills
-├── education/              # 2 skills
-├── fiction/                # 54 skills (with subcategories)
-│   ├── core/
-│   ├── worldbuilding/
+├── creative/                   # 3 skills
+│   ├── humor/
+│   │   └── joke-engineering/
+│   └── music/
+│       ├── lyric-diagnostic/
+│       └── musical-dna/
+├── development/                # 10 skills
+│   ├── architecture/
+│   │   ├── architecture-decision/
+│   │   ├── requirements-analysis/
+│   │   └── system-design/
+│   ├── quality/
+│   │   ├── code-review/
+│   │   └── task-decomposition/
+│   ├── tooling/
+│   │   ├── devcontainer/
+│   │   ├── skill-maker/
+│   │   └── typescript-best-practices/
+│   └── workflow/
+│       ├── agile-workflow/
+│       └── github-agile/
+├── document-processing/        # 5 skills
+│   ├── analysis/
+│   │   └── ebook-analysis/
+│   ├── pdf/
+│   │   └── pdf-generator/
+│   ├── presentation/
+│   │   └── pptx-generator/
+│   ├── spreadsheet/
+│   │   └── xlsx-generator/
+│   └── word/
+│       └── docx-generator/
+├── education/                  # 2 skills
+│   ├── competency/
+│   └── gentle-teaching/
+├── fiction/                    # 54 skills
+│   ├── application/
 │   ├── character/
-│   ├── structure/
+│   ├── core/
 │   ├── craft/
-│   └── application/
-├── frontend/               # 4 skills
-├── game-development/       # 3 skills
-├── ideation/               # 2 skills
-├── meta/                   # 3 skills
-├── productivity/           # 1 skill
-├── research/               # 6 skills
-├── security/               # 4 skills
-└── writing/                # 4 skills
+│   ├── orchestrators/
+│   ├── structure/
+│   └── worldbuilding/
+├── frontend/                   # 4 skills
+│   ├── design/
+│   │   ├── frontend-design/
+│   │   └── shadcn-layouts/
+│   └── pwa/
+│       ├── pwa-development/
+│       └── react-pwa/
+├── game-development/           # 3 skills
+│   ├── design/
+│   │   └── abstract-strategy/
+│   └── godot/
+│       ├── godot-asset-generator/
+│       └── godot-best-practices/
+├── ideation/                   # 2 skills
+│   ├── brainstorming/
+│   └── naming/
+├── meta/                       # 3 skills
+│   ├── context-network/
+│   ├── context-retrospective/
+│   └── skill-builder/
+├── productivity/               # 1 skill
+│   └── task-breakdown/
+├── research/                   # 7 skills
+│   ├── methodology/
+│   │   ├── research/
+│   │   └── research-workflow/
+│   ├── tools/
+│   │   ├── media-meta-analysis/
+│   │   ├── web-search/
+│   │   └── web-search-tavily/
+│   └── verification/
+│       ├── claim-investigation/
+│       └── fact-check/
+├── security/                   # 4 skills
+│   ├── config-scan/
+│   ├── dependency-scan/
+│   ├── secrets-scan/
+│   └── security-scan/
+└── writing/                    # 4 skills
+    ├── analysis/
+    │   ├── blind-spot-detective/
+    │   └── voice-analysis/
+    └── revision/
+        ├── non-fiction-revision/
+        └── summarization/
 ```
 
 Each skill folder contains:

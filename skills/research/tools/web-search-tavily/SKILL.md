@@ -1,6 +1,6 @@
 ---
-name: web-search
-description: "Search the web using Tavily API for high-quality, AI-optimized results. Use when the agent needs to find current information, verify facts, research topics, or answer questions requiring web data. Keywords: search, web, internet, lookup, find, research, current events, facts."
+name: web-search-tavily
+description: "Search the web using Tavily API for high-quality, AI-optimized results with advanced filtering options. Use when you need structured search results, domain filtering, relevance scores, or AI-generated answer summaries. Requires TAVILY_API_KEY. Keywords: tavily, advanced search, filtered search, domain filtering, relevance scoring."
 license: MIT
 compatibility: Requires TAVILY_API_KEY environment variable and internet access
 metadata:
@@ -8,9 +8,11 @@ metadata:
   version: "1.0"
 ---
 
-# Web Search
+# Web Search (Tavily API)
 
-Search the web using Tavily's AI-optimized search API. Returns high-quality results designed for LLM consumption.
+Search the web using Tavily's AI-optimized search API. Returns high-quality, structured results with relevance scores and optional AI-generated summaries.
+
+**Note:** This skill requires a Tavily API key. For basic web search using the agent's built-in capability, see `web-search`.
 
 ## When to Use This Skill
 

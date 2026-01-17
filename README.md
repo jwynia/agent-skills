@@ -1,6 +1,6 @@
 # Agent Skills Collection
 
-**105 reusable [Agent Skills](https://agentskills.io)** for AI coding assistants. Each skill provides specialized knowledge and workflows that extend agent capabilities.
+**106 reusable [Agent Skills](https://agentskills.io)** for AI coding assistants. Each skill provides specialized knowledge and workflows that extend agent capabilities.
 
 ## Installing Skills
 
@@ -26,7 +26,7 @@ npx add-skill https://github.com/jwynia/agent-skills/tree/main/skills/developmen
 npx add-skill https://github.com/jwynia/agent-skills/tree/main/skills
 ```
 
-## Available Skills (105 total)
+## Available Skills (106 total)
 
 ### AI (1)
 - **mastra-hono** - Mastra AI framework with Hono integration
@@ -103,13 +103,14 @@ Core storytelling, worldbuilding, character development, and narrative structure
 ### Productivity (1)
 - **task-breakdown** - Neurodivergent-friendly task decomposition
 
-### Research (6)
+### Research (7)
 - **claim-investigation** - Investigate social media claims
 - **fact-check** - Verify claims against sources
 - **media-meta-analysis** - Media analysis methodology
 - **research** - Research quality diagnostics
 - **research-workflow** - Structured research methodology
-- **web-search** - Tavily web search integration
+- **web-search** - Built-in web search (no API key required)
+- **web-search-tavily** - Advanced Tavily search with filtering and scoring
 
 ### Security (4)
 - **config-scan** - Configuration security scanning
@@ -126,9 +127,53 @@ Core storytelling, worldbuilding, character development, and narrative structure
 ## Project Structure
 
 ```
-skills/              # 105 skills organized by domain (16 domains)
-reference/           # agentskills.io spec and validation tools
-context-network/     # Planning and coordination docs
+skills/                      # 106 skills across 16 domains
+├── ai/                      # AI frameworks
+├── analysis/                # Impact analysis
+├── communication/           # Presentations, speech
+├── creative/                # Music, humor
+│   ├── humor/
+│   └── music/
+├── development/             # Software development
+│   ├── architecture/
+│   ├── quality/
+│   ├── tooling/
+│   └── workflow/
+├── document-processing/     # Document generation & analysis
+│   ├── analysis/
+│   ├── pdf/
+│   ├── presentation/
+│   ├── spreadsheet/
+│   └── word/
+├── education/               # Learning & training
+├── fiction/                 # Creative writing (54 skills)
+│   ├── application/
+│   ├── character/
+│   ├── core/
+│   ├── craft/
+│   ├── orchestrators/
+│   ├── structure/
+│   └── worldbuilding/
+├── frontend/                # UI development
+│   ├── design/
+│   └── pwa/
+├── game-development/        # Game creation
+│   ├── design/
+│   └── godot/
+├── ideation/                # Brainstorming, naming
+├── meta/                    # Context networks, skill building
+├── productivity/            # Task management
+├── research/                # Research methodology
+│   ├── methodology/
+│   ├── tools/
+│   └── verification/
+├── security/                # Security scanning
+└── writing/                 # Non-fiction writing
+    ├── analysis/
+    └── revision/
+
+reference/                   # agentskills.io spec and validation tools
+context-network/             # Planning and coordination docs
 ```
 
 ## Contributing

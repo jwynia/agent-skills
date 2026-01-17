@@ -1,0 +1,271 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ebook-analysis/concept-record",
+  "title": "Concept Record Schema",
+  "description": "Schema for extracted and classified concepts with full citation traceability",
+
+  "definitions": {
+    "concept_type": {
+      "type": "string",
+      "enum": ["principle", "mechanism", "pattern", "strategy", "tactic"],
+      "description": "Type of concept: principle (foundational truth), mechanism (how it works), pattern (recurring structure), strategy (high-level approach), tactic (specific action)"
+    },
+
+    "abstraction_layer": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4,
+      "description": "Abstraction level: 0 (foundational/universal), 1 (theoretical/domain), 2 (strategic/frameworks), 3 (tactical/methods), 4 (specific/implementations)"
+    },
+
+    "relationship_type": {
+      "type": "string",
+      "enum": ["INFLUENCES", "SUPPORTS", "CONTRADICTS", "COMPOSED_OF", "DERIVES_FROM"],
+      "description": "Type of relationship between concepts"
+    }
+  },
+
+  "type": "object",
+  "required": ["source", "extraction_date", "concepts"],
+
+  "properties": {
+    "source": {
+      "type": "object",
+      "required": ["title", "author", "file_path"],
+      "properties": {
+        "title": { "type": "string" },
+        "author": { "type": "string" },
+        "isbn": { "type": "string" },
+        "publisher": { "type": "string" },
+        "copyright_year": { "type": "integer" },
+        "file_path": { "type": "string" },
+        "file_format": { "type": "string", "enum": ["txt", "epub"] }
+      }
+    },
+
+    "extraction_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+
+    "classification_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+
+    "linking_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+
+    "concepts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "exact_quote", "start_position", "end_position"],
+
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^concept-\\d+$",
+            "description": "Unique identifier for this concept"
+          },
+
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100,
+            "description": "Concise name for the concept (3-7 words recommended)"
+          },
+
+          "exact_quote": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Exact text from source that captures this concept. REQUIRED for citation traceability."
+          },
+
+          "context_before": {
+            "type": "string",
+            "description": "Text immediately preceding the quote (50-100 chars)"
+          },
+
+          "context_after": {
+            "type": "string",
+            "description": "Text immediately following the quote (50-100 chars)"
+          },
+
+          "start_position": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Character position where quote begins in source"
+          },
+
+          "end_position": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Character position where quote ends in source"
+          },
+
+          "chunk_id": {
+            "type": "string",
+            "description": "ID of the chunk this was extracted from"
+          },
+
+          "chapter_number": {
+            "type": "integer",
+            "description": "Chapter number if detected"
+          },
+
+          "chapter_title": {
+            "type": "string",
+            "description": "Chapter title if detected"
+          },
+
+          "type": {
+            "$ref": "#/definitions/concept_type"
+          },
+
+          "layer": {
+            "$ref": "#/definitions/abstraction_layer"
+          },
+
+          "type_confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Confidence in type classification (0-1)"
+          },
+
+          "layer_confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Confidence in layer classification (0-1)"
+          },
+
+          "themes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Thematic tags assigned to this concept"
+          },
+
+          "functional_analysis": {
+            "type": "object",
+            "description": "Six-axis functional analysis (optional)",
+            "properties": {
+              "form": { "type": "string" },
+              "structural_function": { "type": "string" },
+              "application_function": { "type": "string" },
+              "emotional_function": { "type": "string" },
+              "thematic_function": { "type": "string" },
+              "relational_function": { "type": "string" }
+            }
+          },
+
+          "extraction_notes": {
+            "type": "string",
+            "description": "Notes about why this concept was extracted"
+          },
+
+          "classification_notes": {
+            "type": "string",
+            "description": "Notes about classification reasoning"
+          },
+
+          "requires_review": {
+            "type": "boolean",
+            "default": false,
+            "description": "Flag indicating human review needed"
+          },
+
+          "extraction_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+
+          "classification_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source_id", "target_id", "type"],
+
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^rel-\\d+$"
+          },
+
+          "source_id": {
+            "type": "string",
+            "pattern": "^concept-\\d+$",
+            "description": "ID of source concept"
+          },
+
+          "target_id": {
+            "type": "string",
+            "pattern": "^concept-\\d+$",
+            "description": "ID of target concept"
+          },
+
+          "type": {
+            "$ref": "#/definitions/relationship_type"
+          },
+
+          "strength": {
+            "type": "number",
+            "minimum": -1,
+            "maximum": 1,
+            "description": "Strength of relationship. INFLUENCES: -1 to +1; others: 0 to 1"
+          },
+
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Confidence in this relationship (0-1)"
+          },
+
+          "evidence": {
+            "type": "string",
+            "description": "Brief explanation of why this relationship exists"
+          },
+
+          "created_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+
+    "statistics": {
+      "type": "object",
+      "properties": {
+        "type_distribution": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "layer_distribution": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "relationship_distribution": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "orphan_concepts": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

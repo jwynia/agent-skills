@@ -1,0 +1,238 @@
+{
+  "_meta": {
+    "description": "Complete Web App Manifest property reference",
+    "specification": "https://www.w3.org/TR/appmanifest/",
+    "source": "pwa-development skill"
+  },
+  "required_fields": {
+    "name": {
+      "type": "string",
+      "description": "Full name of the application",
+      "max_length": 45,
+      "example": "My Awesome Application",
+      "used_for": "Install prompt, app launcher, splash screen"
+    },
+    "short_name": {
+      "type": "string",
+      "description": "Short name for home screen and limited space",
+      "max_length": 12,
+      "example": "MyApp",
+      "used_for": "Home screen icon label"
+    },
+    "start_url": {
+      "type": "string",
+      "description": "URL to open when app is launched",
+      "example": "/",
+      "notes": "Should be within scope. Can include query params for analytics."
+    },
+    "display": {
+      "type": "enum",
+      "description": "How the app should be displayed",
+      "values": {
+        "fullscreen": "Takes up entire display, no browser UI",
+        "standalone": "Looks like native app, minimal browser UI",
+        "minimal-ui": "Some browser UI elements visible",
+        "browser": "Opens in normal browser tab"
+      },
+      "default": "browser",
+      "recommended": "standalone"
+    },
+    "icons": {
+      "type": "array",
+      "description": "Array of icon objects for various uses",
+      "required_sizes": ["192x192", "512x512"],
+      "properties": {
+        "src": "Path to icon file",
+        "sizes": "Icon dimensions (e.g., '192x192')",
+        "type": "MIME type (e.g., 'image/png')",
+        "purpose": "Icon purpose: 'any', 'maskable', or 'any maskable'"
+      },
+      "example": [
+        { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+        { "src": "/icons/icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+      ]
+    }
+  },
+  "recommended_fields": {
+    "background_color": {
+      "type": "string",
+      "description": "Background color for splash screen",
+      "format": "CSS color (hex, rgb, named)",
+      "example": "#ffffff",
+      "notes": "Should match app's initial background"
+    },
+    "theme_color": {
+      "type": "string",
+      "description": "Theme color for browser UI and title bar",
+      "format": "CSS color (hex, rgb, named)",
+      "example": "#4285f4",
+      "notes": "Also add as <meta name='theme-color'> for broader support"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the application",
+      "max_length": 300,
+      "example": "A productivity app for managing daily tasks",
+      "used_for": "App stores, search results"
+    },
+    "scope": {
+      "type": "string",
+      "description": "Navigation scope - URLs outside open in browser",
+      "example": "/app/",
+      "default": "Parent directory of start_url",
+      "notes": "start_url must be within scope"
+    },
+    "orientation": {
+      "type": "enum",
+      "description": "Default orientation for the app",
+      "values": ["any", "natural", "portrait", "portrait-primary", "portrait-secondary", "landscape", "landscape-primary", "landscape-secondary"],
+      "default": "any"
+    }
+  },
+  "optional_fields": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the app",
+      "example": "com.example.myapp",
+      "notes": "Helps with app identity across manifest changes"
+    },
+    "screenshots": {
+      "type": "array",
+      "description": "Screenshots for richer install UI",
+      "properties": {
+        "src": "Path to screenshot",
+        "sizes": "Dimensions",
+        "type": "MIME type",
+        "form_factor": "'narrow' (mobile) or 'wide' (desktop)",
+        "label": "Description of screenshot"
+      },
+      "example": [
+        { "src": "/screenshots/mobile.png", "sizes": "1080x1920", "type": "image/png", "form_factor": "narrow" },
+        { "src": "/screenshots/desktop.png", "sizes": "1920x1080", "type": "image/png", "form_factor": "wide" }
+      ]
+    },
+    "shortcuts": {
+      "type": "array",
+      "description": "App shortcuts for quick actions (right-click menu)",
+      "properties": {
+        "name": "Shortcut label",
+        "short_name": "Short label",
+        "description": "Shortcut description",
+        "url": "URL to open",
+        "icons": "Icon for shortcut"
+      },
+      "example": [
+        { "name": "New Task", "url": "/tasks/new", "icons": [{ "src": "/icons/new-task.png", "sizes": "96x96" }] }
+      ]
+    },
+    "categories": {
+      "type": "array",
+      "description": "App store categories",
+      "values": ["books", "business", "education", "entertainment", "finance", "fitness", "food", "games", "government", "health", "kids", "lifestyle", "magazines", "medical", "music", "navigation", "news", "personalization", "photo", "politics", "productivity", "security", "shopping", "social", "sports", "travel", "utilities", "weather"],
+      "example": ["productivity", "utilities"]
+    },
+    "related_applications": {
+      "type": "array",
+      "description": "Related native apps",
+      "properties": {
+        "platform": "App store platform",
+        "url": "App store URL",
+        "id": "App ID"
+      },
+      "example": [
+        { "platform": "play", "url": "https://play.google.com/store/apps/details?id=com.example", "id": "com.example" }
+      ]
+    },
+    "prefer_related_applications": {
+      "type": "boolean",
+      "description": "Prefer native app over PWA",
+      "default": false,
+      "notes": "Set true to prefer native app install"
+    },
+    "dir": {
+      "type": "enum",
+      "description": "Text direction",
+      "values": ["auto", "ltr", "rtl"],
+      "default": "auto"
+    },
+    "lang": {
+      "type": "string",
+      "description": "Primary language",
+      "format": "BCP 47 language tag",
+      "example": "en-US"
+    },
+    "iarc_rating_id": {
+      "type": "string",
+      "description": "IARC certification code for content rating",
+      "notes": "Required for some app stores"
+    }
+  },
+  "advanced_fields": {
+    "share_target": {
+      "type": "object",
+      "description": "Enable app as share target",
+      "properties": {
+        "action": "URL to handle share",
+        "method": "HTTP method (GET or POST)",
+        "enctype": "Encoding type for POST",
+        "params": "Parameter mapping"
+      },
+      "example": {
+        "action": "/share",
+        "method": "POST",
+        "enctype": "multipart/form-data",
+        "params": {
+          "title": "title",
+          "text": "text",
+          "url": "url",
+          "files": [{ "name": "media", "accept": ["image/*"] }]
+        }
+      }
+    },
+    "protocol_handlers": {
+      "type": "array",
+      "description": "Handle custom URL protocols",
+      "properties": {
+        "protocol": "Protocol scheme (without ://)",
+        "url": "Handler URL with %s placeholder"
+      },
+      "example": [
+        { "protocol": "web+myapp", "url": "/open?url=%s" }
+      ]
+    },
+    "file_handlers": {
+      "type": "array",
+      "description": "Handle file types",
+      "properties": {
+        "action": "Handler URL",
+        "accept": "Object mapping MIME types to extensions"
+      },
+      "example": [
+        { "action": "/open-file", "accept": { "text/plain": [".txt"] } }
+      ]
+    },
+    "launch_handler": {
+      "type": "object",
+      "description": "Control launch behavior",
+      "properties": {
+        "client_mode": ["auto", "navigate-new", "navigate-existing", "focus-existing"]
+      }
+    },
+    "handle_links": {
+      "type": "enum",
+      "description": "How to handle links clicked in other apps",
+      "values": ["auto", "preferred", "not-preferred"],
+      "notes": "Experimental feature"
+    }
+  },
+  "validation_rules": [
+    "name is required and should be <= 45 characters",
+    "short_name is required and should be <= 12 characters",
+    "start_url is required and must be within scope",
+    "icons must include at least 192x192 and 512x512 sizes",
+    "display must be one of: fullscreen, standalone, minimal-ui, browser",
+    "Colors should be valid CSS color values",
+    "URLs should be relative paths or absolute URLs within same origin"
+  ]
+}

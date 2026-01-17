@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "description": "Flowing, vowel-heavy phoneme preset for elvish-style fantasy names",
+    "aesthetic": "Elegant, musical, reminiscent of Tolkien's Sindarin/Quenya",
+    "produces": "Names like Aelindra, Caelorn, Thalion, Miriel, Elowen"
+  },
+  "consonants": [
+    "l", "r", "n", "m",
+    "th", "s", "v", "f",
+    "c", "d", "t", "g",
+    "w", "y", "h"
+  ],
+  "vowels": [
+    "a", "e", "i", "o", "u",
+    "ae", "ai", "ei", "ie", "au",
+    "ea", "ia", "io"
+  ],
+  "syllableTemplates": [
+    "CV",
+    "CVC",
+    "V",
+    "VC",
+    "CVV"
+  ]
+}

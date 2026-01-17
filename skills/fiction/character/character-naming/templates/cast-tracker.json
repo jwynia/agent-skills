@@ -1,0 +1,12 @@
+{
+  "_meta": {
+    "project": "PROJECT_NAME",
+    "created": "YYYY-MM-DD",
+    "updated": "YYYY-MM-DD",
+    "version": "1.0"
+  },
+  "characters": [],
+  "usedSurnames": [],
+  "usedGivenNames": [],
+  "culturalDistribution": {}
+}

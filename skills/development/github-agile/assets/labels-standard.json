@@ -1,0 +1,50 @@
+{
+  "_meta": {
+    "description": "Standard label scheme for GitHub-driven agile workflow",
+    "usage": "Use with gh-init-project.ts --labels standard or apply manually via gh label create"
+  },
+  "type": {
+    "description": "What kind of work is this?",
+    "labels": [
+      { "name": "type:feature", "description": "New functionality", "color": "0E8A16" },
+      { "name": "type:bug", "description": "Something broken", "color": "D73A4A" },
+      { "name": "type:task", "description": "Maintenance, docs, infrastructure", "color": "0075CA" },
+      { "name": "type:question", "description": "Needs discussion or clarification", "color": "D876E3" }
+    ]
+  },
+  "status": {
+    "description": "What's the current state?",
+    "labels": [
+      { "name": "status:needs-triage", "description": "New, not yet reviewed", "color": "FBCA04" },
+      { "name": "status:ready", "description": "Ready to work on", "color": "C2E0C6" },
+      { "name": "status:in-progress", "description": "Currently being worked on", "color": "1D76DB" },
+      { "name": "status:blocked", "description": "Waiting on something", "color": "B60205" },
+      { "name": "status:stale", "description": "No activity, needs review", "color": "D4C5F9" }
+    ]
+  },
+  "priority": {
+    "description": "How urgent is this?",
+    "labels": [
+      { "name": "priority:critical", "description": "Must be done immediately", "color": "B60205" },
+      { "name": "priority:high", "description": "Should be done soon", "color": "D93F0B" },
+      { "name": "priority:medium", "description": "Normal priority", "color": "FBCA04" },
+      { "name": "priority:low", "description": "Nice to have, can wait", "color": "0E8A16" }
+    ]
+  },
+  "special": {
+    "description": "Special-purpose labels",
+    "labels": [
+      { "name": "icebox", "description": "Deferred indefinitely", "color": "EDEDED" },
+      { "name": "decision", "description": "Contains a key decision", "color": "5319E7" },
+      { "name": "good-first-issue", "description": "Good for newcomers", "color": "7057FF" }
+    ]
+  },
+  "team": {
+    "description": "Team-mode only labels (add with --mode team)",
+    "labels": [
+      { "name": "status:needs-review", "description": "Waiting for code review", "color": "FBCA04" },
+      { "name": "status:changes-requested", "description": "Reviewer requested changes", "color": "D93F0B" },
+      { "name": "needs:discussion", "description": "Requires team input", "color": "D876E3" }
+    ]
+  }
+}

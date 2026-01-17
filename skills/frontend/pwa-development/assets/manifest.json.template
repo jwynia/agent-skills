@@ -1,0 +1,157 @@
+{
+  // === REQUIRED FIELDS ===
+
+  // Full application name (max 45 chars)
+  // Used in: install prompt, app launcher, splash screen
+  "name": "Your Application Name",
+
+  // Short name for home screen (max 12 chars)
+  // Used in: home screen icon label
+  "short_name": "App",
+
+  // URL to open when app launches
+  // Should be within scope
+  // Tip: Add query param for analytics (e.g., "/?source=pwa")
+  "start_url": "/",
+
+  // Display mode:
+  // - "fullscreen": No browser UI, fills entire screen
+  // - "standalone": Native app look, minimal browser UI (recommended)
+  // - "minimal-ui": Some browser UI visible
+  // - "browser": Normal browser tab
+  "display": "standalone",
+
+  // Icons - minimum 192x192 and 512x512 required
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      // Maskable icon for adaptive icons on Android
+      // Design with safe zone: 80% centered circle
+      "src": "/icons/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+
+  // === RECOMMENDED FIELDS ===
+
+  // Background color for splash screen
+  // Should match your app's initial background
+  "background_color": "#ffffff",
+
+  // Theme color for browser UI (title bar, task switcher)
+  // Also add as <meta name="theme-color"> in HTML
+  "theme_color": "#4285f4",
+
+  // Application description (max 300 chars)
+  // Used in: app stores, search results, install UI
+  "description": "A brief description of what your app does.",
+
+  // Navigation scope - URLs outside this open in browser
+  // Default: parent directory of start_url
+  "scope": "/",
+
+  // === OPTIONAL FIELDS ===
+
+  // Default orientation
+  // Options: "any", "natural", "portrait", "portrait-primary",
+  //          "portrait-secondary", "landscape", "landscape-primary",
+  //          "landscape-secondary"
+  "orientation": "any",
+
+  // App categories (for app stores)
+  // "categories": ["productivity", "utilities"],
+
+  // Screenshots for richer install experience
+  // "screenshots": [
+  //   {
+  //     "src": "/screenshots/mobile-home.png",
+  //     "sizes": "1080x1920",
+  //     "type": "image/png",
+  //     "form_factor": "narrow",
+  //     "label": "Home screen on mobile"
+  //   },
+  //   {
+  //     "src": "/screenshots/desktop-home.png",
+  //     "sizes": "1920x1080",
+  //     "type": "image/png",
+  //     "form_factor": "wide",
+  //     "label": "Home screen on desktop"
+  //   }
+  // ],
+
+  // App shortcuts (right-click/long-press menu)
+  // "shortcuts": [
+  //   {
+  //     "name": "New Task",
+  //     "short_name": "New",
+  //     "description": "Create a new task",
+  //     "url": "/tasks/new",
+  //     "icons": [
+  //       {
+  //         "src": "/icons/shortcut-new-task.png",
+  //         "sizes": "96x96"
+  //       }
+  //     ]
+  //   }
+  // ],
+
+  // Related native apps
+  // "related_applications": [
+  //   {
+  //     "platform": "play",
+  //     "url": "https://play.google.com/store/apps/details?id=com.example.app",
+  //     "id": "com.example.app"
+  //   }
+  // ],
+  // "prefer_related_applications": false,
+
+  // === ADVANCED FEATURES ===
+
+  // Share Target - receive shared content
+  // "share_target": {
+  //   "action": "/share",
+  //   "method": "POST",
+  //   "enctype": "multipart/form-data",
+  //   "params": {
+  //     "title": "title",
+  //     "text": "text",
+  //     "url": "url"
+  //   }
+  // },
+
+  // Protocol handlers - handle custom URL schemes
+  // "protocol_handlers": [
+  //   {
+  //     "protocol": "web+myapp",
+  //     "url": "/open?url=%s"
+  //   }
+  // ],
+
+  // File handlers - open specific file types
+  // "file_handlers": [
+  //   {
+  //     "action": "/open-file",
+  //     "accept": {
+  //       "text/plain": [".txt"],
+  //       "application/json": [".json"]
+  //     }
+  //   }
+  // ],
+
+  // Language and text direction
+  "lang": "en-US",
+  "dir": "ltr"
+}

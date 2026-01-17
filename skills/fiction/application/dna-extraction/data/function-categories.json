@@ -1,0 +1,269 @@
+{
+  "_meta": {
+    "description": "Taxonomy of story functions for DNA extraction. Functions are what elements DO, not what they ARE.",
+    "usage": "Use during extraction to ensure comprehensive coverage across all function types"
+  },
+
+  "structural_functions": {
+    "description": "What the element enables in plot mechanics",
+    "categories": {
+      "information_control": [
+        "Provides privileged information to protagonist",
+        "Creates dramatic irony (audience knows, characters don't)",
+        "Reveals hidden truth at critical moment",
+        "Conceals information that would resolve conflict prematurely",
+        "Creates mystery that drives investigation",
+        "Delivers exposition without feeling like exposition"
+      ],
+      "causation": [
+        "Incites the central conflict",
+        "Enables the climax to occur",
+        "Creates necessary obstacles",
+        "Provides the means of resolution",
+        "Forces protagonist to act",
+        "Creates point of no return"
+      ],
+      "constraint": [
+        "Limits protagonist's options",
+        "Creates time pressure",
+        "Establishes stakes",
+        "Prevents easy solutions",
+        "Traps characters together",
+        "Makes retreat impossible"
+      ],
+      "escalation": [
+        "Raises stakes progressively",
+        "Complicates existing problems",
+        "Introduces new threats",
+        "Removes safety nets",
+        "Accelerates toward climax",
+        "Creates cascading consequences"
+      ]
+    }
+  },
+
+  "character_functions": {
+    "description": "What the element enables in character journeys",
+    "categories": {
+      "arc_catalysts": [
+        "Forces confrontation with character's lie",
+        "Creates the want that drives action",
+        "Reveals the need beneath the want",
+        "Triggers transformation moment",
+        "Tests the new self",
+        "Provides mirror showing who character could become"
+      ],
+      "relationship_roles": [
+        "Serves as foil to protagonist",
+        "Represents the path not taken",
+        "Grounds protagonist in reality",
+        "Challenges protagonist's worldview",
+        "Provides unconditional support",
+        "Creates impossible choice between loyalties"
+      ],
+      "revelation_vehicles": [
+        "Forces character to reveal true self",
+        "Creates situation where masks must drop",
+        "Tests stated values against behavior",
+        "Exposes hypocrisy or hidden virtue",
+        "Makes internal conflict external"
+      ]
+    }
+  },
+
+  "emotional_functions": {
+    "description": "What the element makes the audience feel",
+    "categories": {
+      "genre_delivery": [
+        "Delivers primary genre promise (wonder, dread, tension, etc.)",
+        "Provides emotional peaks",
+        "Creates emotional valleys for contrast",
+        "Sustains baseline emotional tone",
+        "Signals genre to audience",
+        "Subverts genre expectations purposefully"
+      ],
+      "audience_relationship": [
+        "Creates sympathy for character",
+        "Generates anticipation",
+        "Provides catharsis",
+        "Creates satisfying payoff for setup",
+        "Delivers earned emotional moment",
+        "Surprises while feeling inevitable"
+      ],
+      "tension_management": [
+        "Builds tension gradually",
+        "Provides tension release",
+        "Creates false resolution",
+        "Delays gratification",
+        "Rewards patience",
+        "Punishes premature hope"
+      ]
+    }
+  },
+
+  "thematic_functions": {
+    "description": "What ideas the element explores or embodies",
+    "categories": {
+      "question_posing": [
+        "Embodies the central thematic question",
+        "Presents one possible answer",
+        "Complicates simple answers",
+        "Shows consequences of different choices",
+        "Creates moral ambiguity",
+        "Forces audience to take a position"
+      ],
+      "value_testing": [
+        "Tests whether stated values hold under pressure",
+        "Creates cost for living by values",
+        "Shows what happens when values are abandoned",
+        "Presents competing valid values",
+        "Demonstrates value in action vs. theory"
+      ],
+      "symbolic_weight": [
+        "Represents larger concept through specific instance",
+        "Creates resonant imagery",
+        "Embodies theme in physical form",
+        "Links to universal human experience",
+        "Carries cultural/mythic significance"
+      ]
+    }
+  },
+
+  "relational_functions": {
+    "description": "What dynamics the element creates between other elements",
+    "categories": {
+      "contrast_creation": [
+        "Defines one character by opposition to another",
+        "Shows what protagonist could become",
+        "Shows what protagonist refuses to become",
+        "Highlights difference through similarity",
+        "Creates meaningful comparison"
+      ],
+      "tension_generation": [
+        "Creates conflict between characters",
+        "Establishes competing goals",
+        "Forces characters into proximity",
+        "Creates secrets between characters",
+        "Generates jealousy, resentment, desire"
+      ],
+      "web_building": [
+        "Links characters who wouldn't naturally connect",
+        "Creates obligations between characters",
+        "Establishes history between characters",
+        "Generates shared experience",
+        "Creates dependency relationships"
+      ]
+    }
+  },
+
+  "tonal_functions": {
+    "description": "How the element contributes to the work's feel and voice",
+    "categories": {
+      "register_setting": [
+        "Establishes sincerity vs. irony baseline",
+        "Defines how characters express emotion",
+        "Sets humor mode and frequency",
+        "Determines dialogue density",
+        "Establishes conflict expression style"
+      ],
+      "voice_distinction": [
+        "Gives character unique speech patterns",
+        "Creates recognizable verbal tics",
+        "Establishes character's relationship to language",
+        "Shows education, class, culture through speech",
+        "Differentiates characters aurally"
+      ],
+      "tonal_navigation": [
+        "Signals tonal shifts",
+        "Provides permission for tonal change",
+        "Anchors return to baseline tone",
+        "Creates tonal contrast for emphasis",
+        "Manages audience emotional state"
+      ]
+    }
+  },
+
+  "form_categories": {
+    "description": "Common surface forms that can serve multiple functions",
+    "categories": {
+      "character_types": [
+        "Mentor figure",
+        "Antagonist",
+        "Foil",
+        "Love interest",
+        "Comic relief",
+        "Innocent to protect",
+        "Authority figure",
+        "Trickster",
+        "Herald/messenger"
+      ],
+      "setting_types": [
+        "Home base",
+        "Enemy territory",
+        "Neutral ground",
+        "Liminal space",
+        "Prison/trap",
+        "Safe haven",
+        "Corrupted paradise"
+      ],
+      "plot_devices": [
+        "MacGuffin",
+        "Ticking clock",
+        "Secret identity",
+        "Mistaken identity",
+        "Prophecy/destiny",
+        "Forbidden knowledge",
+        "Inheritance/legacy"
+      ],
+      "relationship_structures": [
+        "Mentor-student",
+        "Rivals",
+        "Star-crossed lovers",
+        "Found family",
+        "Reluctant allies",
+        "Secret allies",
+        "Betrayer-betrayed"
+      ]
+    }
+  },
+
+  "extraction_questions": {
+    "description": "Questions to ask when extracting each function type",
+    "structural": [
+      "What would break in the plot if we removed this?",
+      "What information does this control?",
+      "What does this force to happen?",
+      "What does this prevent from happening?"
+    ],
+    "character": [
+      "What does this reveal about the character?",
+      "How does this challenge or change the character?",
+      "What choice does this force?",
+      "Who does this character illuminate through contrast?"
+    ],
+    "emotional": [
+      "What should the audience feel here?",
+      "How does this serve the genre promise?",
+      "Is this a peak, valley, or sustain moment?",
+      "What would be lost emotionally without this?"
+    ],
+    "thematic": [
+      "What question does this raise?",
+      "What value does this test?",
+      "What does this symbolize?",
+      "How does this complicate the theme?"
+    ],
+    "relational": [
+      "What connection does this create or strengthen?",
+      "What tension does this generate?",
+      "How does this change the relationship web?",
+      "What contrast does this establish?"
+    ],
+    "tonal": [
+      "How does this affect the work's feel?",
+      "What emotional register does this establish?",
+      "How does this character's voice differ from others?",
+      "Does this shift the tone? How?"
+    ]
+  }
+}

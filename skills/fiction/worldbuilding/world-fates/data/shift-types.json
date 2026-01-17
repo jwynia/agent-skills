@@ -1,0 +1,327 @@
+{
+  "_meta": {
+    "description": "Fate-shift types with severity levels and narrative hooks",
+    "version": "1.0",
+    "usage": "Reference for propose-shift.ts and fate-choice.ts"
+  },
+  "character": {
+    "death": {
+      "description": "Physical end of the character",
+      "severities": {
+        "catastrophic": "Complete destruction, no return possible, legacy may be tainted",
+        "major": "Death with lasting influence (legacy, ghost, prophecy fulfilled)"
+      },
+      "eligibility": {
+        "requiresDanger": true,
+        "minPressure": 0.5,
+        "maxFortuneBuffer": 1
+      },
+      "narrativeHooks": [
+        "Found slain in their chambers, door locked from within",
+        "Fell in battle, surrounded but fighting to the last",
+        "Poisoned at a feast, the cup still in their hand",
+        "Disappeared during a journey, only their horse returned",
+        "Died protecting someone they loved",
+        "Struck down by illness that none could cure",
+        "Executed publicly for crimes real or fabricated",
+        "Lost at sea during a storm",
+        "Killed by the very power they sought to control",
+        "Died of a broken heart after final betrayal",
+        "Vanished into the wilderness, presumed dead",
+        "Sacrificed themselves to save many"
+      ]
+    },
+    "fall": {
+      "description": "Loss of power, status, or position",
+      "severities": {
+        "catastrophic": "Total loss—exile, imprisonment, or complete disgrace",
+        "major": "Significant loss of position, recovery difficult but possible",
+        "moderate": "Noticeable decline in influence, must rebuild from weakened position",
+        "minor": "Reputation damaged, warning sign of worse to come"
+      },
+      "eligibility": {
+        "requiresDanger": false,
+        "minPressure": 0.3
+      },
+      "narrativeHooks": [
+        "Secrets revealed in the public square",
+        "Allies turned against them one by one",
+        "Caught in corruption that could not be hidden",
+        "Lost a challenge that cost everything",
+        "Betrayed by the one they trusted most",
+        "Made an enemy of the wrong power",
+        "Failed at the crucial moment when it mattered most",
+        "Their protector could no longer shield them",
+        "The people they served turned their backs",
+        "Outmaneuvered by a younger, cleverer rival",
+        "Their lies caught up with them all at once",
+        "A single mistake cascaded into disaster"
+      ]
+    },
+    "corruption": {
+      "description": "Moral or spiritual decline",
+      "severities": {
+        "catastrophic": "Fully turned to darkness or opposition, irredeemable",
+        "major": "Core values fundamentally compromised",
+        "moderate": "Making increasingly morally questionable choices",
+        "minor": "Temptation acknowledged, first steps toward darkness"
+      },
+      "eligibility": {
+        "requiresDanger": false,
+        "minPressure": 0.4
+      },
+      "narrativeHooks": [
+        "Made a deal they cannot escape",
+        "The ends began justifying the means",
+        "Power revealed their true nature",
+        "They became what they once fought against",
+        "The corruption spread slowly, unnoticed until too late",
+        "A single compromise opened the door to many more",
+        "They convinced themselves it was necessary",
+        "The darkness offered what the light could not"
+      ]
+    },
+    "exile": {
+      "description": "Removal from sphere of influence",
+      "severities": {
+        "catastrophic": "Permanent banishment, can never return, all connections severed",
+        "major": "Long exile, return uncertain, must start over elsewhere",
+        "moderate": "Temporary exile with conditions for return",
+        "minor": "Withdrawal from public life, self-imposed distance"
+      },
+      "eligibility": {
+        "requiresDanger": false,
+        "minPressure": 0.35
+      },
+      "narrativeHooks": [
+        "Driven out by those they once led",
+        "Fled before enemies could catch them",
+        "Banished by decree of higher authority",
+        "Chose exile over compromise",
+        "The land itself seemed to reject them",
+        "Stripped of titles and sent away in disgrace"
+      ]
+    },
+    "transformation": {
+      "description": "Fundamental change in nature or identity",
+      "severities": {
+        "catastrophic": "Unrecognizable from former self, old identity gone",
+        "major": "Major aspect fundamentally changed, core identity shifted",
+        "moderate": "Significant shift in priorities, methods, or beliefs",
+        "minor": "Noticeable change in approach or outlook"
+      },
+      "eligibility": {
+        "requiresDanger": false,
+        "minPressure": 0.4
+      },
+      "narrativeHooks": [
+        "Emerged from the ordeal a different person",
+        "The experience broke something inside them",
+        "They shed their old self like a snake's skin",
+        "What they saw changed them forever",
+        "The choice they made redefined who they were",
+        "They realized they had been wrong about everything"
+      ]
+    },
+    "diminishment": {
+      "description": "Gradual decline over time",
+      "severities": {
+        "major": "Significant reduction in capability, shadow of former self",
+        "moderate": "Noticeable weakening, slowing, or fading",
+        "minor": "Early signs of decline, the peak is past"
+      },
+      "eligibility": {
+        "requiresDanger": false,
+        "minPressure": 0.25
+      },
+      "narrativeHooks": [
+        "Age finally caught up with them",
+        "Old wounds began to take their toll",
+        "Their fire slowly dimmed",
+        "They could no longer do what once came easy",
+        "The burden of years weighed heavier each day",
+        "Their legend faded as new heroes rose"
+      ]
+    }
+  },
+  "faction": {
+    "collapse": {
+      "description": "Organization ceases to exist",
+      "severities": {
+        "catastrophic": "Complete dissolution, members scattered to the winds, legacy destroyed",
+        "major": "Organization effectively destroyed, only remnants remain"
+      },
+      "narrativeHooks": [
+        "Internal strife tore them apart",
+        "Their enemies finally united against them",
+        "The cause that bound them lost its meaning",
+        "Corruption rotted them from within",
+        "A single betrayal brought down the whole structure"
+      ]
+    },
+    "schism": {
+      "description": "Faction splits into competing groups",
+      "severities": {
+        "major": "Bitter split, factions in open conflict",
+        "moderate": "Amicable division, factions maintain some cooperation",
+        "minor": "Internal factions forming, unity strained"
+      },
+      "narrativeHooks": [
+        "Two leaders claimed the right to lead",
+        "Ideological differences became irreconcilable",
+        "A succession crisis divided loyalties",
+        "Regional chapters went their own way",
+        "The old guard clashed with reformers"
+      ]
+    },
+    "absorption": {
+      "description": "Faction absorbed by another power",
+      "severities": {
+        "catastrophic": "Hostile takeover, identity erased, members absorbed or purged",
+        "major": "Merger with junior status, name may survive but independence gone"
+      },
+      "narrativeHooks": [
+        "A stronger power made an offer they couldn't refuse",
+        "Survival meant surrendering independence",
+        "They were bought out by their largest rival",
+        "The merger was sold as partnership but became subjugation"
+      ]
+    },
+    "decline": {
+      "description": "Gradual loss of influence and resources",
+      "severities": {
+        "catastrophic": "Reduced to irrelevance, barely exists",
+        "major": "Major loss of territory, membership, or resources",
+        "moderate": "Noticeable decline in power and prestige",
+        "minor": "Beginning to slip, rivals gaining ground"
+      },
+      "narrativeHooks": [
+        "Their best members left for other opportunities",
+        "Funding dried up as patrons lost interest",
+        "Younger organizations outcompeted them",
+        "They failed to adapt to changing times",
+        "A series of failed ventures depleted their resources"
+      ]
+    },
+    "reformation": {
+      "description": "Fundamental change in faction nature or purpose",
+      "severities": {
+        "major": "Complete transformation of goals, methods, or identity",
+        "moderate": "Significant shift in direction or values"
+      },
+      "narrativeHooks": [
+        "New leadership brought new vision",
+        "Crisis forced them to reinvent themselves",
+        "They abandoned their original purpose for survival",
+        "A revelation changed everything they believed"
+      ]
+    },
+    "defeat": {
+      "description": "Loss in specific conflict or competition",
+      "severities": {
+        "catastrophic": "Total defeat, terms dictated by victors",
+        "major": "Decisive defeat, significant concessions required",
+        "moderate": "Clear loss, must regroup and recover",
+        "minor": "Setback, reputation damaged but organization intact"
+      },
+      "narrativeHooks": [
+        "Their enemies proved stronger than expected",
+        "A crucial battle turned against them",
+        "Their strategy failed at the worst moment",
+        "Allies abandoned them when needed most"
+      ]
+    }
+  },
+  "location": {
+    "destruction": {
+      "description": "Physical end of the location",
+      "severities": {
+        "catastrophic": "Completely destroyed, uninhabitable, may never recover",
+        "major": "Largely destroyed, some remains but barely recognizable"
+      },
+      "narrativeHooks": [
+        "Fire consumed everything",
+        "The earth swallowed it whole",
+        "War left nothing but ruins",
+        "A curse rendered it uninhabitable",
+        "Flood waters washed it away"
+      ]
+    },
+    "conquest": {
+      "description": "Location changes hands to new power",
+      "severities": {
+        "catastrophic": "Brutal conquest, population displaced or subjugated",
+        "major": "Conquered, new rulers impose their will",
+        "moderate": "Control contested, authority unclear"
+      },
+      "narrativeHooks": [
+        "Invaders broke through the defenses",
+        "Betrayal from within opened the gates",
+        "Siege finally succeeded after months",
+        "The rulers surrendered to spare their people",
+        "A bloodless coup changed everything overnight"
+      ]
+    },
+    "disaster": {
+      "description": "Catastrophic damage to location",
+      "severities": {
+        "catastrophic": "Rendered uninhabitable for foreseeable future",
+        "major": "Severe damage, long recovery needed",
+        "moderate": "Significant damage, major repairs required",
+        "minor": "Localized damage, disruption but recovery underway"
+      },
+      "narrativeHooks": [
+        "The plague swept through without mercy",
+        "Earthquake shattered the foundations",
+        "Famine emptied the streets",
+        "A magical catastrophe twisted the land",
+        "The river broke its banks and drowned the valley"
+      ]
+    },
+    "decline": {
+      "description": "Economic or population decline",
+      "severities": {
+        "catastrophic": "Ghost town, nearly abandoned",
+        "major": "Major population and economic exodus",
+        "moderate": "Noticeable decline in prosperity",
+        "minor": "Beginning to fade, young people leaving"
+      },
+      "narrativeHooks": [
+        "The mines ran dry",
+        "Trade routes shifted elsewhere",
+        "A better opportunity drew people away",
+        "Taxes drove out the merchants",
+        "The old industries died and nothing replaced them"
+      ]
+    },
+    "transformation": {
+      "description": "Fundamental change in location's nature",
+      "severities": {
+        "major": "Completely different character and purpose",
+        "moderate": "Significant shift in identity or role"
+      },
+      "narrativeHooks": [
+        "What was sacred became profane",
+        "The forest reclaimed what was once farmland",
+        "Industry replaced the gardens",
+        "The fortress became a marketplace",
+        "Magic changed the very nature of the land"
+      ]
+    },
+    "isolation": {
+      "description": "Location cut off from the world",
+      "severities": {
+        "major": "Completely unreachable, forgotten by the outside",
+        "moderate": "Difficult to reach, connections severed",
+        "minor": "Increasing difficulty in travel or communication"
+      },
+      "narrativeHooks": [
+        "The roads became too dangerous",
+        "A curse keeps travelers away",
+        "Political borders closed around them",
+        "The bridge collapsed and was never rebuilt",
+        "They chose to wall themselves off"
+      ]
+    }
+  }
+}

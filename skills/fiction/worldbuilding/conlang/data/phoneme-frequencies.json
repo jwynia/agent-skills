@@ -1,0 +1,227 @@
+{
+  "_meta": {
+    "description": "Simplified phoneme frequency data derived from PHOIBLE cross-linguistic patterns",
+    "source": "Adapted from conlang-generator project using PHOIBLE database concepts",
+    "usage": "Use with phonology.ts to generate realistic phoneme inventories"
+  },
+  "consonants": {
+    "stops": {
+      "description": "Plosive consonants - complete airflow stoppage",
+      "voiceless": {
+        "p": { "frequency": 0.83, "place": "bilabial", "tier": "universal" },
+        "t": { "frequency": 0.98, "place": "alveolar", "tier": "universal" },
+        "k": { "frequency": 0.93, "place": "velar", "tier": "universal" },
+        "q": { "frequency": 0.15, "place": "uvular", "tier": "rare" },
+        "ʔ": { "frequency": 0.45, "place": "glottal", "tier": "common" }
+      },
+      "voiced": {
+        "b": { "frequency": 0.64, "place": "bilabial", "tier": "common" },
+        "d": { "frequency": 0.72, "place": "alveolar", "tier": "common" },
+        "g": { "frequency": 0.58, "place": "velar", "tier": "common" },
+        "ɢ": { "frequency": 0.05, "place": "uvular", "tier": "rare" }
+      }
+    },
+    "fricatives": {
+      "description": "Consonants with turbulent airflow",
+      "voiceless": {
+        "f": { "frequency": 0.42, "place": "labiodental", "tier": "common" },
+        "s": { "frequency": 0.85, "place": "alveolar", "tier": "universal" },
+        "ʃ": { "frequency": 0.35, "place": "postalveolar", "tier": "common" },
+        "x": { "frequency": 0.25, "place": "velar", "tier": "less_common" },
+        "h": { "frequency": 0.72, "place": "glottal", "tier": "common" },
+        "θ": { "frequency": 0.08, "place": "dental", "tier": "rare" }
+      },
+      "voiced": {
+        "v": { "frequency": 0.32, "place": "labiodental", "tier": "common" },
+        "z": { "frequency": 0.28, "place": "alveolar", "tier": "less_common" },
+        "ʒ": { "frequency": 0.18, "place": "postalveolar", "tier": "less_common" },
+        "ɣ": { "frequency": 0.15, "place": "velar", "tier": "less_common" },
+        "ð": { "frequency": 0.05, "place": "dental", "tier": "rare" }
+      }
+    },
+    "nasals": {
+      "description": "Consonants with nasal airflow",
+      "m": { "frequency": 0.96, "place": "bilabial", "tier": "universal" },
+      "n": { "frequency": 0.98, "place": "alveolar", "tier": "universal" },
+      "ŋ": { "frequency": 0.52, "place": "velar", "tier": "common" },
+      "ɲ": { "frequency": 0.28, "place": "palatal", "tier": "less_common" },
+      "ɴ": { "frequency": 0.08, "place": "uvular", "tier": "rare" }
+    },
+    "liquids": {
+      "description": "Laterals and rhotics",
+      "l": { "frequency": 0.78, "place": "alveolar", "tier": "universal" },
+      "r": { "frequency": 0.75, "place": "alveolar", "tier": "universal" },
+      "ɾ": { "frequency": 0.45, "place": "alveolar", "tier": "common", "note": "tap/flap" },
+      "ɭ": { "frequency": 0.12, "place": "retroflex", "tier": "less_common" },
+      "ɽ": { "frequency": 0.10, "place": "retroflex", "tier": "less_common" },
+      "ʎ": { "frequency": 0.15, "place": "palatal", "tier": "less_common" }
+    },
+    "glides": {
+      "description": "Semivowels/approximants",
+      "j": { "frequency": 0.88, "place": "palatal", "tier": "universal" },
+      "w": { "frequency": 0.82, "place": "labial-velar", "tier": "universal" }
+    },
+    "affricates": {
+      "description": "Stop + fricative combinations",
+      "voiceless": {
+        "tʃ": { "frequency": 0.38, "place": "postalveolar", "tier": "common" },
+        "ts": { "frequency": 0.28, "place": "alveolar", "tier": "less_common" }
+      },
+      "voiced": {
+        "dʒ": { "frequency": 0.25, "place": "postalveolar", "tier": "less_common" },
+        "dz": { "frequency": 0.12, "place": "alveolar", "tier": "rare" }
+      }
+    }
+  },
+  "vowels": {
+    "description": "Vowel inventory organized by commonality",
+    "universal": {
+      "description": "Found in nearly all languages - include these at minimum",
+      "phonemes": ["a", "i", "u"]
+    },
+    "common": {
+      "description": "Very frequently occurring - good defaults",
+      "phonemes": ["e", "o"]
+    },
+    "extended": {
+      "description": "Moderately common - add for richer inventory",
+      "phonemes": ["ɛ", "ɔ", "ə", "ɪ", "ʊ"]
+    },
+    "less_common": {
+      "description": "Less frequent - use for distinctive flavor",
+      "phonemes": ["æ", "ɯ", "œ", "ʌ", "ɑ", "y"]
+    },
+    "positions": {
+      "front": ["i", "ɪ", "e", "ɛ", "æ", "y", "œ"],
+      "central": ["ə", "ɐ", "ʌ"],
+      "back": ["u", "ʊ", "o", "ɔ", "ɑ", "ɯ"]
+    },
+    "height": {
+      "high": ["i", "ɪ", "u", "ʊ", "ɯ", "y"],
+      "mid": ["e", "ə", "o", "ɛ", "ɔ", "œ", "ʌ"],
+      "low": ["a", "æ", "ɑ", "ɐ"]
+    }
+  },
+  "exotic_features": {
+    "description": "Optional features for non-standard inventories",
+    "ejectives": {
+      "description": "Consonants with glottalic egressive airstream",
+      "complexity": 0.35,
+      "examples": ["pʼ", "tʼ", "kʼ", "tsʼ", "tʃʼ"],
+      "common_in": ["Caucasian", "Afro-Asiatic", "Mayan"]
+    },
+    "implosives": {
+      "description": "Consonants with glottalic ingressive airstream",
+      "complexity": 0.30,
+      "examples": ["ɓ", "ɗ", "ɠ"],
+      "common_in": ["African", "South Asian"]
+    },
+    "clicks": {
+      "description": "Consonants with velaric ingressive airstream",
+      "complexity": 0.80,
+      "examples": ["ǃ", "ǂ", "ǁ", "ʘ"],
+      "common_in": ["Khoisan", "Bantu (borrowed)"]
+    },
+    "tones": {
+      "description": "Pitch distinctions that change word meaning",
+      "complexity": 0.40,
+      "register": ["high", "mid", "low"],
+      "contour": ["rising", "falling", "dipping", "peaking"],
+      "common_in": ["Sino-Tibetan", "Niger-Congo", "Austro-Asiatic"]
+    },
+    "aspirated": {
+      "description": "Consonants with following puff of air",
+      "complexity": 0.20,
+      "examples": ["pʰ", "tʰ", "kʰ"],
+      "common_in": ["Indo-Aryan", "Chinese", "Korean"]
+    }
+  },
+  "complexity_presets": {
+    "flavor": {
+      "description": "Minimal language for names and phrases - quick to use",
+      "consonants": { "target": 12, "min": 10, "max": 15 },
+      "vowels": { "target": 5, "min": 3, "max": 6 },
+      "recommended_consonants": ["p", "t", "k", "m", "n", "s", "l", "r", "w", "j", "h"],
+      "recommended_vowels": ["a", "e", "i", "o", "u"],
+      "avoid_features": ["clicks", "ejectives", "implosives", "tones"]
+    },
+    "naming": {
+      "description": "Consistent language for character/place naming",
+      "consonants": { "target": 18, "min": 15, "max": 22 },
+      "vowels": { "target": 7, "min": 5, "max": 9 },
+      "recommended_consonants": ["p", "b", "t", "d", "k", "g", "m", "n", "ŋ", "f", "s", "ʃ", "h", "l", "r", "w", "j", "tʃ"],
+      "recommended_vowels": ["a", "e", "i", "o", "u", "ə", "ɛ"],
+      "optional_features": ["aspirated"]
+    },
+    "full": {
+      "description": "Complete language with grammar potential",
+      "consonants": { "target": 25, "min": 20, "max": 35 },
+      "vowels": { "target": 9, "min": 7, "max": 12 },
+      "recommended_consonants": "all tiers through common",
+      "recommended_vowels": "all tiers through extended",
+      "optional_features": ["aspirated", "ejectives", "tones"]
+    }
+  },
+  "language_family_patterns": {
+    "description": "Characteristic sounds by language family (simplified)",
+    "romance": {
+      "characteristic": ["voiced/voiceless stop pairs", "no /h/", "five vowels"],
+      "avoid": ["θ", "ð", "ŋ word-initial"],
+      "example_languages": ["Spanish", "Italian", "Portuguese"]
+    },
+    "germanic": {
+      "characteristic": ["/h/", "consonant clusters", "front rounded vowels (some)"],
+      "common": ["f", "v", "θ", "ð", "s", "z"],
+      "example_languages": ["English", "German", "Dutch"]
+    },
+    "slavic": {
+      "characteristic": ["palatalization", "consonant clusters", "ʃ/ʒ distinction"],
+      "common": ["tʃ", "ʃ", "ʒ", "ts"],
+      "example_languages": ["Russian", "Polish", "Czech"]
+    },
+    "semitic": {
+      "characteristic": ["pharyngeal consonants", "emphatic consonants", "three root consonants"],
+      "common": ["ʔ", "ħ", "ʕ", "q"],
+      "example_languages": ["Arabic", "Hebrew"]
+    },
+    "sino_tibetan": {
+      "characteristic": ["tones", "aspiration contrast", "limited codas"],
+      "common": ["tones", "aspirated stops"],
+      "example_languages": ["Mandarin", "Cantonese", "Tibetan"]
+    },
+    "polynesian": {
+      "characteristic": ["small consonant inventory", "no clusters", "CV syllables"],
+      "avoid": ["voiced stops", "fricatives except h", "consonant clusters"],
+      "example_languages": ["Hawaiian", "Maori", "Samoan"]
+    },
+    "japanese": {
+      "characteristic": ["no clusters", "limited codas", "CV(n) syllables"],
+      "common": ["gemination", "palatalization"],
+      "avoid": ["l (use r)", "v", "θ", "ð"],
+      "example_languages": ["Japanese"]
+    }
+  },
+  "tiers": {
+    "description": "Frequency tiers for phoneme selection",
+    "universal": {
+      "description": "Found in 85%+ of languages - always safe to include",
+      "consonants": ["p", "t", "k", "m", "n", "s", "l", "r", "w", "j"],
+      "vowels": ["a", "i", "u"]
+    },
+    "common": {
+      "description": "Found in 50-85% of languages - good defaults",
+      "consonants": ["b", "d", "g", "f", "ʃ", "h", "ŋ", "ʔ", "tʃ"],
+      "vowels": ["e", "o"]
+    },
+    "less_common": {
+      "description": "Found in 20-50% of languages - adds flavor",
+      "consonants": ["v", "z", "x", "ɲ", "ɾ", "ts"],
+      "vowels": ["ɛ", "ɔ", "ə", "ɪ", "ʊ"]
+    },
+    "rare": {
+      "description": "Found in <20% of languages - distinctive choices",
+      "consonants": ["θ", "ð", "q", "ɢ", "ɴ", "ɬ"],
+      "vowels": ["æ", "ɯ", "œ", "y"]
+    }
+  }
+}

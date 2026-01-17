@@ -1,0 +1,154 @@
+{
+  "_meta": {
+    "description": "iOS PWA quirks, limitations, and workarounds",
+    "last_updated": "2025-01",
+    "ios_versions_covered": ["15", "16", "17", "18"],
+    "source": "pwa-development skill"
+  },
+  "quirks": {
+    "no_beforeinstallprompt": {
+      "description": "iOS Safari does not fire the beforeinstallprompt event",
+      "impact": "Cannot programmatically detect installability or show custom install prompt",
+      "affected_versions": "all",
+      "workaround": "Show manual 'Add to Home Screen' instructions for iOS users",
+      "detection": "Check for iOS via userAgent: /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream",
+      "code_example": "if (iOS && !window.matchMedia('(display-mode: standalone)').matches) { showIOSInstallBanner(); }"
+    },
+    "storage_eviction": {
+      "description": "WebKit may evict storage after 7 days of non-use",
+      "impact": "IndexedDB and Cache Storage data may be deleted if PWA not accessed",
+      "affected_versions": "all",
+      "workaround": "Request persistent storage, sync critical data to server, design for data loss",
+      "detection": "navigator.storage.persisted() to check persistence status",
+      "code_example": "const persistent = await navigator.storage.persist(); // Returns false on iOS"
+    },
+    "cache_storage_limit": {
+      "description": "Cache Storage limited to approximately 50MB",
+      "impact": "Cannot cache large amounts of content for offline use",
+      "affected_versions": "all",
+      "workaround": "Be selective about what to cache, implement LRU eviction, use IndexedDB for structured data",
+      "detection": "navigator.storage.estimate() returns quota information"
+    },
+    "no_push_before_16.4": {
+      "description": "Push notifications not supported until iOS 16.4",
+      "impact": "Cannot send push notifications to older iOS devices",
+      "affected_versions": "< 16.4",
+      "fixed_in": "16.4",
+      "workaround": "Use in-app polling, email notifications, or inform users of limitation",
+      "detection": "Check iOS version and 'PushManager' in window"
+    },
+    "push_requires_home_screen": {
+      "description": "Push notifications only work when PWA is installed to home screen",
+      "impact": "Safari browser PWAs don't receive push notifications even on 16.4+",
+      "affected_versions": "16.4+",
+      "workaround": "Prompt users to add to home screen before enabling notifications",
+      "detection": "window.matchMedia('(display-mode: standalone)').matches"
+    },
+    "no_background_sync": {
+      "description": "Background Sync API not supported on iOS",
+      "impact": "Cannot queue and retry failed requests in background",
+      "affected_versions": "all",
+      "workaround": "Store pending actions in IndexedDB, retry on next app open",
+      "detection": "'SyncManager' in window"
+    },
+    "scope_navigation": {
+      "description": "Navigating outside PWA scope opens Safari instead of staying in app",
+      "impact": "External links and out-of-scope pages break the app experience",
+      "affected_versions": "all",
+      "workaround": "Keep all content within scope, use target='_blank' intentionally for external links",
+      "detection": "N/A - design consideration"
+    },
+    "status_bar_styling": {
+      "description": "Status bar appearance requires specific meta tags",
+      "impact": "Status bar may clash with app theme or be unreadable",
+      "affected_versions": "all",
+      "workaround": "Add apple-mobile-web-app-status-bar-style meta tag",
+      "meta_tags": [
+        "<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"default\">",
+        "<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\">",
+        "<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black-translucent\">"
+      ],
+      "options": {
+        "default": "Black text, white background",
+        "black": "White text, black background",
+        "black-translucent": "White text, app content extends behind status bar"
+      }
+    },
+    "splash_screen_caching": {
+      "description": "Splash screen aggressively cached, may not update with manifest changes",
+      "impact": "Old splash screen shows even after manifest updates",
+      "affected_versions": "all",
+      "workaround": "Change start_url query parameter to bust cache (e.g., /?v=2)",
+      "code_example": "\"start_url\": \"/?v=2\""
+    },
+    "apple_touch_icon_required": {
+      "description": "iOS ignores manifest icons, requires separate apple-touch-icon link",
+      "impact": "Home screen icon may be wrong or missing",
+      "affected_versions": "all",
+      "workaround": "Add apple-touch-icon link tag",
+      "meta_tags": [
+        "<link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\">",
+        "<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon-180x180.png\">"
+      ],
+      "recommended_size": "180x180"
+    },
+    "indexeddb_private_browsing": {
+      "description": "IndexedDB quota severely limited in private browsing",
+      "impact": "Storage operations may fail in private browsing mode",
+      "affected_versions": "all",
+      "workaround": "Detect private mode, show warning, use localStorage fallback for small data",
+      "detection": "Try to use IndexedDB and catch QuotaExceededError"
+    },
+    "audio_autoplay_restrictions": {
+      "description": "Audio/video autoplay requires user interaction first",
+      "impact": "Background audio, notification sounds may not play",
+      "affected_versions": "all",
+      "workaround": "Wait for user gesture (click/tap) before playing audio"
+    },
+    "no_file_system_access": {
+      "description": "File System Access API not supported",
+      "impact": "Cannot read/write local files like native apps",
+      "affected_versions": "all",
+      "workaround": "Use input[type=file] for file selection, download links for saving"
+    },
+    "orientation_lock_limitations": {
+      "description": "Screen orientation lock may not work reliably",
+      "impact": "App may rotate unexpectedly",
+      "affected_versions": "varies",
+      "workaround": "Design responsive layouts, use CSS media queries for orientation"
+    }
+  },
+  "required_meta_tags": [
+    {
+      "tag": "<meta name=\"apple-mobile-web-app-capable\" content=\"yes\">",
+      "purpose": "Enable standalone mode on iOS"
+    },
+    {
+      "tag": "<meta name=\"apple-mobile-web-app-title\" content=\"App Name\">",
+      "purpose": "Set app title on home screen"
+    },
+    {
+      "tag": "<link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\">",
+      "purpose": "Home screen icon"
+    },
+    {
+      "tag": "<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"default\">",
+      "purpose": "Status bar styling"
+    },
+    {
+      "tag": "<meta name=\"theme-color\" content=\"#ffffff\">",
+      "purpose": "Theme color (also needed in manifest)"
+    }
+  ],
+  "testing_checklist": [
+    "Test on actual iOS device (not just Chrome DevTools simulation)",
+    "Test add to home screen flow",
+    "Test offline functionality after 7+ days of non-use",
+    "Test storage eviction by filling storage then waiting",
+    "Verify splash screen appearance",
+    "Check status bar styling",
+    "Test orientation changes",
+    "Verify push notifications (iOS 16.4+, home screen only)",
+    "Test Safari browser vs installed PWA behavior differences"
+  ]
+}

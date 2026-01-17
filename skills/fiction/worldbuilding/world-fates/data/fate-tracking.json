@@ -1,0 +1,146 @@
+{
+  "_meta": {
+    "description": "Schema for entity fate tracking metadata",
+    "version": "1.0",
+    "usage": "Add to entity entries in world bible under 'Fate Tracking' section"
+  },
+  "schema": {
+    "powerLevel": {
+      "type": "integer",
+      "range": [1, 10],
+      "description": "Influence/resources/capability scale",
+      "levels": {
+        "1-2": "Local significance (village elder, small merchant, local hero)",
+        "3-4": "Regional influence (town mayor, guild master, regional champion)",
+        "5-6": "National importance (noble house, major faction, famous adventurer)",
+        "7-8": "Civilization-scale impact (kingdom ruler, legendary hero, archmage)",
+        "9-10": "World-shaping power (emperor, demigod, world-threatening force)"
+      }
+    },
+    "tenure": {
+      "type": "string",
+      "description": "Duration in power/position",
+      "format": "X years|months|decades",
+      "modifiers": {
+        "under_1_year": 0.5,
+        "1_to_5_years": 1.0,
+        "5_to_20_years": 1.5,
+        "20_to_50_years": 2.0,
+        "over_50_years": 2.5
+      }
+    },
+    "vulnerabilities": {
+      "type": "array",
+      "items": "string",
+      "description": "Known weaknesses that increase fate pressure",
+      "weightings": {
+        "known_enemy": 1.0,
+        "active_conflict": 1.5,
+        "exploitable_flaw": 2.0,
+        "critical_dependency": 1.0,
+        "destroying_secret": 3.0,
+        "default": 1.0
+      },
+      "maxScore": 10
+    },
+    "protections": {
+      "type": "array",
+      "items": "string",
+      "description": "Shields that reduce fate pressure",
+      "weightings": {
+        "loyal_ally": 1.0,
+        "fortified_position": 2.0,
+        "divine_protection": 3.0,
+        "magical_protection": 3.0,
+        "information_network": 1.0,
+        "popular_support": 2.0,
+        "default": 0.5
+      },
+      "minFactor": 1
+    },
+    "fortuneBuffer": {
+      "type": "number",
+      "range": [0, 5],
+      "description": "Remaining luck/grace/narrative protection",
+      "defaults": {
+        "standard_character": 3,
+        "protagonist": 4,
+        "major_protagonist": 5
+      },
+      "notes": "Decreases with narrow escapes; can be restored through sacrifice/growth"
+    },
+    "exposureLog": {
+      "type": "array",
+      "items": {
+        "date": "string (YYYY-MM-DD)",
+        "event": "string",
+        "pressure": "number (0.01-0.30)",
+        "category": "string (optional)"
+      },
+      "description": "Record of risk exposure events",
+      "categories": {
+        "combat": 0.10,
+        "intrigue": 0.05,
+        "betrayal": 0.15,
+        "overreach": 0.10,
+        "revelation": 0.20,
+        "loss": 0.08,
+        "challenge": 0.12,
+        "narrow_escape": 0.05
+      }
+    },
+    "lastAssessment": {
+      "type": "string",
+      "format": "date (YYYY-MM-DD)",
+      "description": "When fate pressure was last calculated"
+    }
+  },
+  "templates": {
+    "character": {
+      "powerLevel": 5,
+      "tenure": "5 years",
+      "vulnerabilities": [],
+      "protections": [],
+      "fortuneBuffer": 3,
+      "exposureLog": [],
+      "lastAssessment": null
+    },
+    "faction": {
+      "powerLevel": 6,
+      "tenure": "50 years",
+      "vulnerabilities": [],
+      "protections": [],
+      "fortuneBuffer": 4,
+      "exposureLog": [],
+      "lastAssessment": null
+    },
+    "location": {
+      "powerLevel": 4,
+      "tenure": "200 years",
+      "vulnerabilities": [],
+      "protections": [],
+      "fortuneBuffer": 5,
+      "exposureLog": [],
+      "lastAssessment": null
+    }
+  },
+  "formula": {
+    "description": "Fate Pressure = (Power × TenureMod × VulnScore/10) / (ProtectionFactor × max(FortuneBuffer, 0.5)) + ExposureSum",
+    "components": {
+      "base": "(powerLevel * tenureModifier * vulnerabilityScore / 10)",
+      "divisor": "(protectionFactor * Math.max(fortuneBuffer, 0.5))",
+      "exposure": "sum of all exposure log pressure values"
+    },
+    "clamp": {
+      "min": 0,
+      "max": 1
+    }
+  },
+  "states": {
+    "F1": { "name": "Stable Ascent", "range": [0.0, 0.3] },
+    "F2": { "name": "Peak Power", "range": [0.3, 0.5] },
+    "F3": { "name": "Overextension", "range": [0.5, 0.7] },
+    "F4": { "name": "Precarious Position", "range": [0.7, 0.9] },
+    "F5": { "name": "Fall in Progress", "range": [0.9, 1.0] }
+  }
+}

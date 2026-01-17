@@ -1,0 +1,313 @@
+{
+  "_meta": {
+    "description": "Tier 2 fate choice templates for dramatic decision points",
+    "version": "1.0",
+    "usage": "Reference for fate-choice.ts when generating dramatic choices",
+    "design_principles": [
+      "Every path should cost something",
+      "NPC path is survival but loss of player control",
+      "Roll path keeps control but risks death/fall",
+      "Third path offers a different trade-off",
+      "Choices should reflect entity vulnerabilities"
+    ]
+  },
+  "choice_patterns": {
+    "dark_bargain": {
+      "description": "A powerful entity offers safety at the cost of service",
+      "triggers": ["high_pressure", "powerful_enemy", "desperate_situation"],
+      "paths": {
+        "accept": {
+          "outcome": "npc_transition",
+          "description": "Accept the bargain. Survive, but serve.",
+          "consequences": [
+            "Character becomes NPC in antagonist's service",
+            "May appear as ally, enemy, or neutral figure later",
+            "Player loses control but character persists"
+          ]
+        },
+        "refuse": {
+          "outcome": "fate_roll",
+          "description": "Refuse. Face what comes.",
+          "consequences": [
+            "Roll death/fall check at current odds",
+            "If survived: fortune buffer decreases",
+            "If failed: death or major fall"
+          ]
+        },
+        "counter": {
+          "outcome": "complication",
+          "description": "Make a counter-offer. Change the terms.",
+          "consequences": [
+            "Temporary reprieve",
+            "New obligation or debt",
+            "Fate pressure temporarily reduced but will return"
+          ]
+        }
+      },
+      "examples": [
+        "The Queen of Shadows offers sanctuary—serve her, lose yourself",
+        "The demon whispers: your soul for your survival",
+        "The emperor grants pardon in exchange for eternal loyalty"
+      ]
+    },
+    "betrayal_escape": {
+      "description": "Survival requires betraying allies or principles",
+      "triggers": ["trapped", "outnumbered", "principles_tested"],
+      "paths": {
+        "betray": {
+          "outcome": "survival_with_cost",
+          "description": "Betray them. Save yourself.",
+          "consequences": [
+            "Character survives, stays player-controlled",
+            "Reputation destroyed, new enemies created",
+            "May face later consequences from betrayed allies"
+          ]
+        },
+        "stand": {
+          "outcome": "fate_roll",
+          "description": "Stand with them. Face the odds together.",
+          "consequences": [
+            "Roll death/fall check",
+            "If survived: bonds strengthened",
+            "If failed: death with honor or capture"
+          ]
+        },
+        "sacrifice": {
+          "outcome": "npc_transition",
+          "description": "Sacrifice yourself so they can escape.",
+          "consequences": [
+            "Character becomes captured/imprisoned NPC",
+            "Allies escape and may rescue later",
+            "Heroic reputation, but no longer playable"
+          ]
+        }
+      },
+      "examples": [
+        "Give up their location or die with them",
+        "Testify against your mentor or share their fate",
+        "Abandon the refugees or be overrun defending them"
+      ]
+    },
+    "corruption_temptation": {
+      "description": "Power or victory available at moral cost",
+      "triggers": ["losing_fight", "goal_blocked", "power_offered"],
+      "paths": {
+        "embrace": {
+          "outcome": "npc_transition",
+          "description": "Accept the power. Become something else.",
+          "consequences": [
+            "Character transformed into antagonist NPC",
+            "Gains power but loses self",
+            "May become future threat to other PCs"
+          ]
+        },
+        "resist": {
+          "outcome": "fate_roll",
+          "description": "Resist the temptation. Face defeat.",
+          "consequences": [
+            "Roll fall check (not death unless in danger)",
+            "Moral victory regardless of roll",
+            "If failed: significant setback"
+          ]
+        },
+        "bargain": {
+          "outcome": "partial_corruption",
+          "description": "Take only what you need. Stay in control.",
+          "consequences": [
+            "Gain limited benefit",
+            "New vulnerability added",
+            "Fate pressure increases"
+          ]
+        }
+      },
+      "examples": [
+        "Drink the blood of the demon to gain its strength",
+        "Accept the dark artifact that whispers promises",
+        "Use the forbidden ritual to save your people"
+      ]
+    },
+    "succession_crisis": {
+      "description": "Position can be kept only by unacceptable means",
+      "triggers": ["leadership_challenged", "heir_dispute", "legitimacy_questioned"],
+      "paths": {
+        "abdicate": {
+          "outcome": "npc_transition",
+          "description": "Step down. Let someone else bear the burden.",
+          "consequences": [
+            "Character becomes advisor/mentor NPC",
+            "Peaceful transition, legacy preserved",
+            "May guide successor but no longer in control"
+          ]
+        },
+        "fight": {
+          "outcome": "fate_roll",
+          "description": "Fight for your position. Winner takes all.",
+          "consequences": [
+            "Roll fall check",
+            "If survived: position secured, enemies made",
+            "If failed: deposed, possibly exiled"
+          ]
+        },
+        "compromise": {
+          "outcome": "reduced_power",
+          "description": "Share power. Keep some influence.",
+          "consequences": [
+            "Position weakened but retained",
+            "New constraints on action",
+            "Fate pressure reduced but vulnerabilities remain"
+          ]
+        }
+      },
+      "examples": [
+        "Your council demands you name an heir or be removed",
+        "The pretender has equal claim—share the throne or duel",
+        "Your people have lost faith—retire or be overthrown"
+      ]
+    },
+    "final_stand": {
+      "description": "No escape, only how the end comes",
+      "triggers": ["cornered", "no_allies", "overwhelming_force"],
+      "paths": {
+        "surrender": {
+          "outcome": "npc_transition",
+          "description": "Surrender. Become a prisoner.",
+          "consequences": [
+            "Character captured, becomes NPC",
+            "May be rescued or ransomed later",
+            "Survival but at enemy's mercy"
+          ]
+        },
+        "fight": {
+          "outcome": "death_roll",
+          "description": "Fight to the last. Die on your feet.",
+          "consequences": [
+            "Roll death check at high odds",
+            "If survived: legendary reputation, narrow escape",
+            "If failed: heroic death"
+          ]
+        },
+        "escape": {
+          "outcome": "survival_with_major_cost",
+          "description": "Find a way out. Leave everything behind.",
+          "consequences": [
+            "Survive but lose all resources/status",
+            "Start over from nothing",
+            "Reputation as coward possible"
+          ]
+        }
+      },
+      "examples": [
+        "The castle is breached, enemies at the door",
+        "Your ship is sinking, enemy fleet surrounds you",
+        "Assassins have you cornered in the alley"
+      ]
+    },
+    "prophetic_doom": {
+      "description": "Fate itself seems to demand the character's end",
+      "triggers": ["prophecy_nearing", "curse_climax", "destiny_calling"],
+      "paths": {
+        "accept": {
+          "outcome": "npc_transition",
+          "description": "Accept your fate. Fulfill the prophecy.",
+          "consequences": [
+            "Character fulfills destiny, leaves player control",
+            "May become legend, god, or something else",
+            "Story purpose complete"
+          ]
+        },
+        "defy": {
+          "outcome": "fate_roll",
+          "description": "Defy destiny. The prophecy was wrong.",
+          "consequences": [
+            "Roll at increased difficulty",
+            "If survived: broke the chains of fate",
+            "If failed: prophecy fulfilled despite defiance"
+          ]
+        },
+        "redirect": {
+          "outcome": "transformed_fate",
+          "description": "Fulfill the letter but not the spirit.",
+          "consequences": [
+            "Find loophole in prophecy",
+            "Unexpected consequences",
+            "Neither victory nor defeat, but change"
+          ]
+        }
+      },
+      "examples": [
+        "The oracle said you would die this day",
+        "The curse reaches its final hour",
+        "The god you serve demands your sacrifice"
+      ]
+    }
+  },
+  "outcome_types": {
+    "npc_transition": {
+      "description": "Character leaves player control but persists in world",
+      "player_control": false,
+      "character_survives": true,
+      "world_presence": true
+    },
+    "fate_roll": {
+      "description": "Roll against fate pressure for death/fall",
+      "player_control": "conditional",
+      "character_survives": "probabilistic",
+      "world_presence": "conditional"
+    },
+    "death_roll": {
+      "description": "Roll specifically for death (high stakes)",
+      "player_control": "conditional",
+      "character_survives": "probabilistic",
+      "world_presence": "if_survived"
+    },
+    "survival_with_cost": {
+      "description": "Survive but pay significant price",
+      "player_control": true,
+      "character_survives": true,
+      "world_presence": true,
+      "cost": "reputation, allies, resources"
+    },
+    "survival_with_major_cost": {
+      "description": "Survive but lose almost everything",
+      "player_control": true,
+      "character_survives": true,
+      "world_presence": true,
+      "cost": "status, possessions, position"
+    },
+    "partial_corruption": {
+      "description": "Gain benefit but add vulnerability",
+      "player_control": true,
+      "character_survives": true,
+      "world_presence": true,
+      "cost": "new vulnerability, increased pressure"
+    },
+    "reduced_power": {
+      "description": "Keep position but weakened",
+      "player_control": true,
+      "character_survives": true,
+      "world_presence": true,
+      "cost": "power level reduced"
+    },
+    "complication": {
+      "description": "Delay fate but create new problems",
+      "player_control": true,
+      "character_survives": true,
+      "world_presence": true,
+      "cost": "new obligation, pressure returns"
+    },
+    "transformed_fate": {
+      "description": "Change the terms but not escape",
+      "player_control": "varies",
+      "character_survives": true,
+      "world_presence": true,
+      "cost": "unexpected transformation"
+    }
+  },
+  "personalization_hooks": {
+    "use_vulnerabilities": "Match choice pattern to entity's specific weaknesses",
+    "use_relationships": "Involve NPCs the character has bonds with",
+    "use_antagonists": "If known antagonist exists, cast them as tempter/threat",
+    "use_values": "Challenge what the character believes in",
+    "use_history": "Reference past events and exposure log entries"
+  }
+}

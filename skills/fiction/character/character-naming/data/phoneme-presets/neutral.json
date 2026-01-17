@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "description": "Balanced, pronounceable phoneme preset for general fantasy names",
+    "aesthetic": "Neutral, accessible, no strong cultural associations",
+    "produces": "Names like Kiran, Solen, Mira, Daven, Tessa, Jorin"
+  },
+  "consonants": [
+    "k", "t", "s", "n", "m",
+    "l", "r", "d", "v", "f",
+    "b", "p", "g", "j", "h",
+    "w", "z"
+  ],
+  "vowels": [
+    "a", "e", "i", "o", "u",
+    "ai", "ei", "ou"
+  ],
+  "syllableTemplates": [
+    "CV",
+    "CVC",
+    "VC",
+    "CVV"
+  ]
+}

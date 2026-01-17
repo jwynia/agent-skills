@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "description": "Patterns for detecting chapter and scene boundaries",
+    "usage": "Reference for segment-book.ts customization",
+    "version": "1.0"
+  },
+
+  "chapterPatterns": {
+    "description": "Regex patterns to detect chapter headings",
+    "defaultPatterns": [
+      "^(Chapter|CHAPTER)\\s+\\d+",
+      "^(Chapter|CHAPTER)\\s+(One|Two|Three|Four|Five|Six|Seven|Eight|Nine|Ten)",
+      "^(PART|Part)\\s+(ONE|TWO|THREE|I|II|III|IV|V|1|2|3|4|5)",
+      "^\\d+\\s*$",
+      "^(PROLOGUE|EPILOGUE|Prologue|Epilogue)"
+    ],
+    "examples": [
+      "Chapter 1",
+      "CHAPTER ONE",
+      "Part III",
+      "PROLOGUE"
+    ]
+  },
+
+  "sceneBreakPatterns": {
+    "description": "Patterns that indicate scene breaks within chapters",
+    "defaultPatterns": [
+      "^\\s*\\*\\s*\\*\\s*\\*\\s*$",
+      "^\\s*#\\s*$",
+      "^\\s*---\\s*$",
+      "^\\s*\\* \\* \\*\\s*$",
+      "^\\s*~+\\s*$"
+    ],
+    "examples": [
+      "***",
+      "* * *",
+      "#",
+      "---",
+      "~~~"
+    ]
+  },
+
+  "blankLineThreshold": {
+    "description": "Number of consecutive blank lines to treat as scene break",
+    "default": 3
+  },
+
+  "povShiftIndicators": {
+    "description": "Patterns suggesting POV change (potential scene break)",
+    "patterns": [
+      "Character name in first sentence of new paragraph",
+      "Pronoun shift from previous scene"
+    ]
+  }
+}

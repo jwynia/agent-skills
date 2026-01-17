@@ -1,0 +1,46 @@
+{
+  "description": "Character naming data for the character-naming skill",
+  "structure": {
+    "cultures/": "Cultural name pools organized by ethnicity/region. Each culture may have surnames, given, given-male, given-female files.",
+    "mixed-pools/": "Pre-configured mixed pools for specific settings (e.g., contemporary-american)",
+    "phoneme-presets/": "Phoneme inventories for fantasy name generation without conlang dependency"
+  },
+  "maturity_levels": {
+    "starter": "10-30 items - Quick examples, prototyping only",
+    "functional": "30-75 items - Usable but limited",
+    "production": "75-150 items - Ready for regular use",
+    "comprehensive": "150+ items - Reference quality"
+  },
+  "current_status": {
+    "production_tier": [
+      "chinese-surnames", "chinese-given", "chinese-given-male", "chinese-given-female",
+      "anglo-surnames", "anglo-given", "anglo-given-male", "anglo-given-female",
+      "hispanic-surnames", "hispanic-given", "hispanic-given-male", "hispanic-given-female",
+      "west-african-surnames", "west-african-given", "west-african-given-male", "west-african-given-female",
+      "south-asian-surnames", "south-asian-given", "south-asian-given-male", "south-asian-given-female",
+      "korean-surnames", "korean-given", "korean-given-male", "korean-given-female",
+      "japanese-surnames", "japanese-given", "japanese-given-male", "japanese-given-female",
+      "vietnamese-surnames", "vietnamese-given", "vietnamese-given-male", "vietnamese-given-female",
+      "arabic-surnames", "arabic-given", "arabic-given-male", "arabic-given-female",
+      "eastern-european-surnames", "eastern-european-given", "eastern-european-given-male", "eastern-european-given-female",
+      "jewish-surnames", "jewish-given", "jewish-given-male", "jewish-given-female",
+      "filipino-surnames", "filipino-given", "filipino-given-male", "filipino-given-female"
+    ],
+    "starter_tier": []
+  },
+  "cultures_available": {
+    "chinese": "East Asian - Mandarin Chinese names, includes both common and regional surnames",
+    "anglo": "English/British/American - English-origin names spanning UK and US traditions",
+    "hispanic": "Spanish/Latin American - Spanish-origin names with regional Latin American variety",
+    "west-african": "West African - Yoruba, Akan, Igbo, and other West African traditions",
+    "south-asian": "South Asian/Indian - Hindu, Muslim, Sikh, and regional Indian traditions",
+    "korean": "Korean - Traditional and modern Korean names",
+    "japanese": "Japanese - Traditional and modern Japanese names",
+    "vietnamese": "Vietnamese - Traditional Vietnamese naming conventions",
+    "arabic": "Arabic/Middle Eastern - Arabic names from various Middle Eastern regions",
+    "eastern-european": "Eastern European - Russian, Polish, Ukrainian, and other Slavic traditions",
+    "jewish": "Jewish - Ashkenazi and Sephardic traditions, Hebrew, Yiddish, and anglicized names",
+    "filipino": "Filipino - Spanish-derived, indigenous Filipino, and modern Filipino names"
+  },
+  "expansion_notes": "Use list-builder skill methodology to expand lists or add new cultures. Research sources: census data, naming records, regional variety."
+}

@@ -1,0 +1,288 @@
+{
+  "_meta": {
+    "description": "Templates for DNA extraction at different depth levels",
+    "usage": "Select appropriate template based on extraction goal and available time"
+  },
+
+  "depth_levels": {
+    "quick": {
+      "description": "Fast extraction for exploration and comparison",
+      "time_estimate": "15-30 minutes per work",
+      "use_cases": [
+        "Comparing multiple works to find best adaptation source",
+        "Quick feasibility check for adaptation idea",
+        "Building initial trope cluster from multiple sources"
+      ],
+      "required_sections": [
+        "emotional_core",
+        "primary_characters",
+        "core_structural_requirements"
+      ],
+      "optional_sections": [],
+      "depth_guidance": {
+        "characters": "Main 3-5 only, primary function per character",
+        "plot": "Core structure only, no scene-level detail",
+        "tone": "Baseline only, no shift mapping",
+        "relationships": "Key dynamics only"
+      }
+    },
+    "standard": {
+      "description": "Full extraction for most adaptation projects",
+      "time_estimate": "1-3 hours per work",
+      "use_cases": [
+        "Serious adaptation project",
+        "Creating reusable trope map",
+        "Understanding what makes a beloved work function"
+      ],
+      "required_sections": [
+        "emotional_core",
+        "tone",
+        "characters",
+        "plot_structures",
+        "relationships",
+        "structural_requirements",
+        "adaptable_elements"
+      ],
+      "optional_sections": [
+        "episode_structures",
+        "dialogue_patterns"
+      ],
+      "depth_guidance": {
+        "characters": "All significant characters, full six-axis extraction",
+        "plot": "Major plot structures and turning points",
+        "tone": "Full tonal profile with shift triggers",
+        "relationships": "All significant character pairings"
+      }
+    },
+    "detailed": {
+      "description": "Deep extraction for serious long-form adaptation",
+      "time_estimate": "4-8 hours per work",
+      "use_cases": [
+        "Adaptation that must capture original's exact feel",
+        "Academic analysis",
+        "Creating definitive trope reference"
+      ],
+      "required_sections": [
+        "emotional_core",
+        "tone",
+        "characters",
+        "plot_structures",
+        "relationships",
+        "structural_requirements",
+        "adaptable_elements",
+        "episode_structures",
+        "dialogue_patterns",
+        "scene_functions"
+      ],
+      "optional_sections": [],
+      "depth_guidance": {
+        "characters": "All characters including minor, full extraction plus voice patterns",
+        "plot": "Scene-level function mapping",
+        "tone": "Episode-by-episode tonal tracking",
+        "relationships": "All pairings plus evolution over time"
+      }
+    }
+  },
+
+  "work_extraction_template": {
+    "_meta": {
+      "type": "work-extraction",
+      "source_work": "",
+      "source_author": "",
+      "source_medium": "",
+      "extraction_date": "",
+      "extraction_depth": "standard",
+      "clusters": []
+    },
+    "emotional_core": {
+      "primary_genre": "",
+      "secondary_genres": [],
+      "emotional_experience": "",
+      "emotional_beats": []
+    },
+    "tone": {
+      "sincerity_level": "",
+      "humor_mode": "",
+      "emotional_expression": "",
+      "dialogue_density": "",
+      "conflict_style": "",
+      "baseline_tone": "",
+      "tonal_shifts": []
+    },
+    "characters": {},
+    "plot_structures": {},
+    "relationships": {},
+    "structural_requirements": [],
+    "adaptable_without_breaking": [],
+    "links": {
+      "clusters": [],
+      "similar_works": [],
+      "derived_syntheses": []
+    }
+  },
+
+  "character_template": {
+    "form": "",
+    "functions": {
+      "structural": [],
+      "character": [],
+      "emotional": [],
+      "thematic": [],
+      "relational": []
+    },
+    "voice": {
+      "speech_patterns": "",
+      "verbal_tics": "",
+      "formality_level": "",
+      "subtext_tendency": ""
+    },
+    "structural_necessity": "",
+    "adaptable_elements": []
+  },
+
+  "plot_structure_template": {
+    "form": "",
+    "functions": {
+      "structural": [],
+      "character": [],
+      "emotional": [],
+      "thematic": []
+    },
+    "timing": "",
+    "structural_necessity": "",
+    "adaptable_elements": []
+  },
+
+  "relationship_template": {
+    "characters": [],
+    "form": "",
+    "functions": {
+      "structural": [],
+      "character": [],
+      "emotional": [],
+      "thematic": []
+    },
+    "evolution": [],
+    "structural_necessity": ""
+  },
+
+  "cluster_template": {
+    "_meta": {
+      "type": "trope-cluster",
+      "cluster_name": "",
+      "description": ""
+    },
+    "core_functions": {
+      "structural": [],
+      "character": [],
+      "emotional": [],
+      "thematic": []
+    },
+    "required_elements": [],
+    "common_forms": [],
+    "variance_axes": [],
+    "tonal_range": {
+      "dimension": "",
+      "examples": []
+    },
+    "source_works": [],
+    "links": {
+      "parent_clusters": [],
+      "child_clusters": [],
+      "overlapping_clusters": []
+    }
+  },
+
+  "medium_specific_guidance": {
+    "film": {
+      "structure_notes": "Three-act structure common, look for midpoint shift",
+      "character_notes": "Limited cast, clear protagonist, compressed arcs",
+      "tone_notes": "Consistent tone throughout, genre usually clear",
+      "special_considerations": [
+        "Visual storytelling functions (what's shown vs. told)",
+        "Pacing compressed compared to novels",
+        "Music/sound as emotional function"
+      ]
+    },
+    "television_episodic": {
+      "structure_notes": "Episode-level A/B plots, season-level arcs",
+      "character_notes": "Larger ensemble, slower character development",
+      "tone_notes": "May shift between episodes, find baseline",
+      "special_considerations": [
+        "Case-of-the-week vs. serialized structure",
+        "Character consistency across writers",
+        "Bottle episodes as character deep-dives"
+      ]
+    },
+    "television_serialized": {
+      "structure_notes": "Long-form narrative, season as act",
+      "character_notes": "Extended arcs, major character changes possible",
+      "tone_notes": "Tonal evolution over seasons common",
+      "special_considerations": [
+        "Setup/payoff across seasons",
+        "Character evolution vs. consistency",
+        "Genre may shift between seasons"
+      ]
+    },
+    "novel": {
+      "structure_notes": "Variable structure, may not follow three-act",
+      "character_notes": "Internal access, POV shapes understanding",
+      "tone_notes": "Narrative voice is major tonal element",
+      "special_considerations": [
+        "POV as structural choice",
+        "Prose style as tone carrier",
+        "Pacing can vary dramatically"
+      ]
+    },
+    "stage_play": {
+      "structure_notes": "Act structure varies, scene-based",
+      "character_notes": "Dialogue-forward, limited internal access",
+      "tone_notes": "Performance interprets tone, script suggests",
+      "special_considerations": [
+        "Soliloquy as internal access device",
+        "Stage directions as authorial intent",
+        "Single location constraints common"
+      ]
+    },
+    "video_game": {
+      "structure_notes": "Player agency affects structure",
+      "character_notes": "Player character may be blank slate",
+      "tone_notes": "Gameplay tone vs. narrative tone",
+      "special_considerations": [
+        "Ludonarrative consonance/dissonance",
+        "Player as protagonist vs. observer",
+        "Emergent narrative vs. authored narrative"
+      ]
+    }
+  },
+
+  "extraction_checklist": {
+    "quick": [
+      "Identified primary emotional experience",
+      "Named primary genre",
+      "Listed 3-5 main characters with primary function each",
+      "Identified core structural requirements",
+      "Listed what's clearly adaptable"
+    ],
+    "standard": [
+      "Completed quick checklist",
+      "Extracted all six axes for main characters",
+      "Documented tone profile",
+      "Mapped major plot structures with functions",
+      "Documented key relationships",
+      "Classified structural vs. stylistic for major elements",
+      "Established function hierarchy",
+      "Identified cluster memberships"
+    ],
+    "detailed": [
+      "Completed standard checklist",
+      "Scene-level function mapping",
+      "Character voice patterns documented",
+      "Episode/chapter structure analyzed",
+      "Dialogue pattern analysis",
+      "Tonal shift triggers mapped",
+      "Minor character functions documented",
+      "Evolution of relationships tracked"
+    ]
+  }
+}

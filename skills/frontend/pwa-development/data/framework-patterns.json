@@ -1,0 +1,108 @@
+{
+  "_meta": {
+    "description": "Framework-specific PWA implementation patterns",
+    "frameworks": ["vite", "sveltekit", "nextjs", "create-react-app"],
+    "source": "pwa-development skill"
+  },
+  "vite": {
+    "plugin": "vite-plugin-pwa",
+    "install": "npm i -D vite-plugin-pwa",
+    "version": "^0.20.0",
+    "config_location": "vite.config.ts",
+    "documentation": "https://vite-pwa-org.netlify.app/",
+    "dev_mode_note": "Service worker disabled in dev by default. Use devOptions: { enabled: true } to test.",
+    "basic_config": {
+      "description": "Minimal configuration for Vite PWA plugin",
+      "code": "import { VitePWA } from 'vite-plugin-pwa';\n\nexport default defineConfig({\n  plugins: [\n    VitePWA({\n      registerType: 'prompt',\n      manifest: {\n        name: 'My App',\n        short_name: 'App',\n        theme_color: '#ffffff',\n        icons: [\n          { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },\n          { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' }\n        ]\n      }\n    })\n  ]\n});"
+    },
+    "with_prompt_config": {
+      "description": "Configuration with update prompt UI",
+      "code": "import { VitePWA } from 'vite-plugin-pwa';\n\nexport default defineConfig({\n  plugins: [\n    VitePWA({\n      registerType: 'prompt',\n      includeAssets: ['favicon.ico', 'apple-touch-icon.png'],\n      manifest: { /* ... */ },\n      workbox: {\n        globPatterns: ['**/*.{js,css,html,ico,png,svg}']\n      }\n    })\n  ]\n});"
+    },
+    "auto_update_config": {
+      "description": "Configuration for automatic silent updates",
+      "code": "VitePWA({\n  registerType: 'autoUpdate',\n  // ... rest of config\n})"
+    },
+    "runtime_caching": {
+      "description": "Add runtime caching for API calls",
+      "code": "workbox: {\n  runtimeCaching: [\n    {\n      urlPattern: /^https:\\/\\/api\\.example\\.com\\/.*/i,\n      handler: 'NetworkFirst',\n      options: {\n        cacheName: 'api-cache',\n        expiration: {\n          maxEntries: 50,\n          maxAgeSeconds: 60 * 60 * 24\n        }\n      }\n    }\n  ]\n}"
+    },
+    "react_prompt_component": {
+      "description": "React component for update prompt",
+      "code": "import { useRegisterSW } from 'virtual:pwa-register/react';\n\nfunction ReloadPrompt() {\n  const {\n    needRefresh: [needRefresh, setNeedRefresh],\n    updateServiceWorker,\n  } = useRegisterSW();\n\n  return needRefresh && (\n    <div className=\"pwa-toast\">\n      <span>New version available!</span>\n      <button onClick={() => updateServiceWorker(true)}>Update</button>\n      <button onClick={() => setNeedRefresh(false)}>Close</button>\n    </div>\n  );\n}"
+    }
+  },
+  "sveltekit": {
+    "plugin": "@vite-pwa/sveltekit",
+    "install": "npm i -D @vite-pwa/sveltekit",
+    "version": "^0.6.0",
+    "config_location": "vite.config.ts",
+    "service_worker_location": "src/service-worker.ts",
+    "documentation": "https://vite-pwa-org.netlify.app/frameworks/sveltekit.html",
+    "native_sw_note": "SvelteKit has built-in SW support via src/service-worker.ts. Use plugin for more features.",
+    "basic_config": {
+      "description": "Basic SvelteKit PWA configuration",
+      "code": "import { sveltekit } from '@sveltejs/kit/vite';\nimport { SvelteKitPWA } from '@vite-pwa/sveltekit';\n\nexport default defineConfig({\n  plugins: [\n    sveltekit(),\n    SvelteKitPWA({\n      manifest: {\n        name: 'My SvelteKit App',\n        short_name: 'App',\n        theme_color: '#ffffff',\n        icons: [\n          { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },\n          { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' }\n        ]\n      }\n    })\n  ]\n});"
+    },
+    "native_sw": {
+      "description": "Using SvelteKit's built-in service worker",
+      "location": "src/service-worker.ts",
+      "code": "/// <reference types=\"@sveltejs/kit\" />\n/// <reference no-default-lib=\"true\"/>\n/// <reference lib=\"esnext\" />\n/// <reference lib=\"webworker\" />\n\nimport { build, files, version } from '$service-worker';\n\nconst CACHE = `cache-${version}`;\nconst ASSETS = [...build, ...files];\n\nself.addEventListener('install', (event) => {\n  event.waitUntil(\n    caches.open(CACHE)\n      .then((cache) => cache.addAll(ASSETS))\n      .then(() => self.skipWaiting())\n  );\n});\n\nself.addEventListener('activate', (event) => {\n  event.waitUntil(\n    caches.keys().then((keys) => {\n      return Promise.all(\n        keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))\n      );\n    })\n  );\n});\n\nself.addEventListener('fetch', (event) => {\n  if (event.request.method !== 'GET') return;\n  \n  event.respondWith(\n    caches.match(event.request)\n      .then((cached) => cached || fetch(event.request))\n  );\n});"
+    },
+    "svelte_prompt_component": {
+      "description": "Svelte component for update prompt",
+      "code": "<script>\n  import { useRegisterSW } from 'virtual:pwa-register/svelte';\n  \n  const { needRefresh, updateServiceWorker } = useRegisterSW();\n</script>\n\n{#if $needRefresh}\n  <div class=\"pwa-toast\">\n    <span>New version available!</span>\n    <button on:click={() => updateServiceWorker(true)}>Update</button>\n    <button on:click={() => needRefresh.set(false)}>Close</button>\n  </div>\n{/if}"
+    }
+  },
+  "nextjs": {
+    "plugin": "next-pwa",
+    "install": "npm i next-pwa",
+    "version": "^5.6.0",
+    "config_location": "next.config.js",
+    "documentation": "https://github.com/shadowwalker/next-pwa",
+    "notes": [
+      "Creates sw.js and workbox files automatically",
+      "Disable in development to avoid caching issues"
+    ],
+    "basic_config": {
+      "description": "Basic Next.js PWA configuration",
+      "code": "const withPWA = require('next-pwa')({\n  dest: 'public',\n  disable: process.env.NODE_ENV === 'development'\n});\n\nmodule.exports = withPWA({\n  // Your Next.js config\n});"
+    },
+    "with_caching": {
+      "description": "Configuration with custom runtime caching",
+      "code": "const withPWA = require('next-pwa')({\n  dest: 'public',\n  disable: process.env.NODE_ENV === 'development',\n  runtimeCaching: [\n    {\n      urlPattern: /^https:\\/\\/api\\./,\n      handler: 'NetworkFirst',\n      options: {\n        cacheName: 'api-cache',\n        expiration: {\n          maxEntries: 50,\n          maxAgeSeconds: 60 * 60 * 24\n        }\n      }\n    }\n  ]\n});\n\nmodule.exports = withPWA({});"
+    },
+    "manifest_location": "public/manifest.json",
+    "manifest_link": "<link rel=\"manifest\" href=\"/manifest.json\" />"
+  },
+  "create_react_app": {
+    "status": "legacy",
+    "note": "CRA has limited PWA support. Consider migrating to Vite.",
+    "built_in_sw": "src/serviceWorkerRegistration.js",
+    "enable_sw": {
+      "description": "Enable service worker in CRA",
+      "code": "// In src/index.js, change:\nserviceWorkerRegistration.unregister();\n// to:\nserviceWorkerRegistration.register();"
+    },
+    "manifest_location": "public/manifest.json",
+    "limitations": [
+      "Less control over caching strategies",
+      "No Workbox integration by default",
+      "Limited customization options"
+    ],
+    "migration_recommendation": "Migrate to Vite using 'npm create vite@latest' for better PWA support"
+  },
+  "common_patterns": {
+    "register_service_worker": {
+      "description": "Manual service worker registration",
+      "code": "if ('serviceWorker' in navigator) {\n  window.addEventListener('load', () => {\n    navigator.serviceWorker.register('/sw.js')\n      .then((reg) => console.log('SW registered:', reg.scope))\n      .catch((err) => console.error('SW registration failed:', err));\n  });\n}"
+    },
+    "update_detection": {
+      "description": "Detect and handle service worker updates",
+      "code": "navigator.serviceWorker.register('/sw.js').then((reg) => {\n  reg.addEventListener('updatefound', () => {\n    const newWorker = reg.installing;\n    newWorker.addEventListener('statechange', () => {\n      if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {\n        // New version available\n        showUpdateNotification();\n      }\n    });\n  });\n});"
+    },
+    "force_update": {
+      "description": "Force update and reload",
+      "code": "function updateApp() {\n  navigator.serviceWorker.ready.then((reg) => {\n    reg.waiting?.postMessage({ type: 'SKIP_WAITING' });\n  });\n  window.location.reload();\n}"
+    }
+  }
+}

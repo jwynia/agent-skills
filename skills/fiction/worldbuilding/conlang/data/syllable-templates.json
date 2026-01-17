@@ -1,0 +1,168 @@
+{
+  "_meta": {
+    "description": "Syllable structure templates for constructed language generation",
+    "notation": "C = consonant, V = vowel, (C) = optional consonant, CC = cluster",
+    "usage": "Use with phonology.ts and words.ts to generate consistent word shapes"
+  },
+  "complexity_levels": {
+    "simple": {
+      "description": "Easy to pronounce, minimal clusters - good for most fiction",
+      "templates": ["CV", "CVC", "V", "VC"],
+      "max_onset": 1,
+      "max_coda": 1,
+      "example_languages": ["Japanese", "Hawaiian", "Swahili"],
+      "notes": "Readers can easily sound out names; very accessible"
+    },
+    "moderate": {
+      "description": "Some clusters allowed - English-like complexity",
+      "templates": ["CV", "CVC", "CVCC", "CCV", "CCVC", "V", "VC", "VCC"],
+      "max_onset": 2,
+      "max_coda": 2,
+      "example_languages": ["Spanish", "Italian", "Greek"],
+      "notes": "Familiar to English readers; good balance of variety"
+    },
+    "complex": {
+      "description": "Rich cluster possibilities - Slavic or Germanic feel",
+      "templates": ["CV", "CVC", "CVCC", "CVCCC", "CCV", "CCVC", "CCVCC", "CCCV", "CCCVC"],
+      "max_onset": 3,
+      "max_coda": 3,
+      "example_languages": ["Russian", "Polish", "Georgian", "German"],
+      "notes": "Can create imposing, complex-sounding names"
+    }
+  },
+  "presets": {
+    "japanese_like": {
+      "description": "Strict CV pattern with optional final n",
+      "templates": ["CV", "V", "CVn"],
+      "max_onset": 1,
+      "max_coda": 1,
+      "coda_only": ["n"],
+      "notes": "Very regular, melodic quality",
+      "word_patterns": ["CVCV", "CVCVCV", "CVCVn", "VCV"]
+    },
+    "hawaiian_like": {
+      "description": "Open syllables only, very limited consonants",
+      "templates": ["CV", "V"],
+      "max_onset": 1,
+      "max_coda": 0,
+      "notes": "Flowing, vowel-heavy words",
+      "word_patterns": ["CVCV", "VCVCV", "CVCVCV", "VCV"]
+    },
+    "latin_like": {
+      "description": "Classical Latin-esque patterns",
+      "templates": ["CV", "CVC", "CCV", "V", "VC"],
+      "max_onset": 2,
+      "max_coda": 1,
+      "allowed_onsets": ["pr", "tr", "kr", "br", "dr", "gr", "pl", "kl", "bl", "gl", "sp", "st", "sk"],
+      "notes": "Formal, classical feel",
+      "word_patterns": ["CVCVC", "CVCCV", "CCVCV", "CVCVS"]
+    },
+    "arabic_like": {
+      "description": "Semitic patterns with consonant clusters",
+      "templates": ["CV", "CVC", "CVVC", "CVCC"],
+      "max_onset": 1,
+      "max_coda": 2,
+      "notes": "Consonant-heavy, root-based feel",
+      "word_patterns": ["CVCVC", "CVCCVC", "CVVCVC"]
+    },
+    "english_like": {
+      "description": "Complex clusters, varied patterns",
+      "templates": ["CV", "CVC", "CVCC", "CCVC", "CCVCC", "CCCVC", "V", "VC", "VCC"],
+      "max_onset": 3,
+      "max_coda": 4,
+      "allowed_onsets": ["str", "spr", "skr", "spl", "tr", "dr", "kr", "gr", "pr", "br", "fr", "θr", "ʃr", "sl", "sm", "sn", "sp", "st", "sk", "sw"],
+      "notes": "Familiar but varied",
+      "word_patterns": ["CVC", "CVCC", "CCVC", "CVCVC", "CCVCVC"]
+    },
+    "elvish_like": {
+      "description": "Tolkien-inspired flowing patterns",
+      "templates": ["CV", "CVC", "CVV", "V", "VC"],
+      "max_onset": 1,
+      "max_coda": 1,
+      "preferred_consonants": ["l", "r", "n", "m", "s", "t", "d", "w"],
+      "preferred_vowels": ["a", "e", "i", "o", "u", "ə"],
+      "notes": "Flowing, musical quality with diphthongs",
+      "word_patterns": ["CVCV", "CVVCV", "VCVCV", "CVCVC"]
+    },
+    "harsh_fantasy": {
+      "description": "Orcish/Klingon-inspired guttural patterns",
+      "templates": ["CVC", "CVCC", "CCVC", "CVCCC"],
+      "max_onset": 2,
+      "max_coda": 3,
+      "preferred_consonants": ["k", "g", "ʔ", "x", "ɣ", "q", "r", "ŋ"],
+      "avoided_consonants": ["l", "w", "j"],
+      "notes": "Aggressive, harsh-sounding",
+      "word_patterns": ["CVCC", "CCVCC", "CVCCC", "CCVCCC"]
+    }
+  },
+  "cluster_rules": {
+    "description": "Phonotactic constraints for consonant clusters",
+    "sonority_hierarchy": {
+      "description": "Sonority rises toward nucleus, falls toward coda",
+      "levels": {
+        "1": ["p", "t", "k", "b", "d", "g", "q", "ʔ"],
+        "2": ["f", "v", "s", "z", "ʃ", "ʒ", "x", "h", "θ", "ð"],
+        "3": ["m", "n", "ŋ", "ɲ"],
+        "4": ["l", "r", "ɾ", "ɭ", "ɽ"],
+        "5": ["j", "w"],
+        "6": ["vowels"]
+      },
+      "notes": "Onset clusters should rise in sonority; coda clusters should fall"
+    },
+    "common_onsets": {
+      "two_consonant": ["pr", "pl", "tr", "tw", "kr", "kl", "kw", "br", "bl", "dr", "gr", "gl", "gw", "fr", "fl", "θr", "sp", "st", "sk", "sm", "sn", "sl", "sw", "ʃr"],
+      "three_consonant": ["str", "spr", "spl", "skr", "skw"]
+    },
+    "common_codas": {
+      "single": ["p", "t", "k", "m", "n", "ŋ", "s", "l", "r"],
+      "two_consonant": ["pt", "kt", "st", "sk", "sp", "nt", "nd", "mp", "ŋk", "lp", "lt", "lk", "rp", "rt", "rk", "ps", "ts", "ks", "ns", "ls", "rs"],
+      "three_consonant": ["nts", "kst", "mps", "ŋks"]
+    },
+    "illegal_clusters": {
+      "description": "Clusters that violate sonority or are very rare",
+      "examples": ["dl", "tl", "sr", "ʃn", "pw", "bw", "fw"]
+    }
+  },
+  "word_structure": {
+    "description": "Full word patterns built from syllables",
+    "monosyllabic": {
+      "templates": ["CV", "CVC", "CVCC", "CCVC"],
+      "notes": "Good for particles, pronouns, common words"
+    },
+    "disyllabic": {
+      "templates": ["CVCV", "CVCCV", "CVCVC", "CCVCV", "VCVC"],
+      "notes": "Most common word length in many languages"
+    },
+    "trisyllabic": {
+      "templates": ["CVCVCV", "CVCCVCV", "CVCVCVC", "VCVCV"],
+      "notes": "Common for nouns and verbs"
+    },
+    "polysyllabic": {
+      "templates": ["CVCVCVCV", "CVCVCVCVC"],
+      "notes": "Longer words, compounds, formal registers"
+    }
+  },
+  "stress_patterns": {
+    "description": "Where emphasis falls in words",
+    "initial": {
+      "description": "Stress on first syllable",
+      "example_languages": ["Finnish", "Czech", "Hungarian"],
+      "effect": "Steady, predictable rhythm"
+    },
+    "penultimate": {
+      "description": "Stress on second-to-last syllable",
+      "example_languages": ["Spanish", "Polish", "Swahili"],
+      "effect": "Natural, balanced feel"
+    },
+    "final": {
+      "description": "Stress on last syllable",
+      "example_languages": ["French", "Turkish"],
+      "effect": "Forward momentum, rising patterns"
+    },
+    "weight_sensitive": {
+      "description": "Stress depends on syllable structure",
+      "example_languages": ["Latin", "Arabic", "Hindi"],
+      "effect": "Complex but predictable patterns"
+    }
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "_meta": {
+    "description": "Caching strategy decision matrix for PWA development",
+    "usage": "Match resource type to recommended strategy based on freshness vs speed trade-offs",
+    "source": "pwa-development skill"
+  },
+  "strategies": {
+    "cache-first": {
+      "description": "Check cache first, fall back to network",
+      "workbox_class": "CacheFirst",
+      "best_for": [
+        "Static assets with versioned URLs",
+        "Fonts (rarely change)",
+        "Images (content images, icons)",
+        "App shell HTML (if using app shell pattern)",
+        "Third-party libraries with version in URL"
+      ],
+      "avoid_for": [
+        "API responses",
+        "Frequently updated content",
+        "User-specific data",
+        "Opaque responses (CORS without proper headers)"
+      ],
+      "trade_offs": {
+        "speed": "fastest",
+        "freshness": "may serve stale",
+        "offline": "works offline if cached"
+      },
+      "typical_config": {
+        "maxAgeSeconds": 31536000,
+        "maxEntries": 100
+      }
+    },
+    "network-first": {
+      "description": "Try network first, fall back to cache",
+      "workbox_class": "NetworkFirst",
+      "best_for": [
+        "API calls",
+        "Frequently updated content",
+        "HTML pages (if not app shell)",
+        "User-specific data",
+        "Authenticated content"
+      ],
+      "avoid_for": [
+        "Large static assets (slow repeated downloads)",
+        "Resources needed for offline-critical paths"
+      ],
+      "trade_offs": {
+        "speed": "slower (network latency)",
+        "freshness": "always fresh when online",
+        "offline": "works offline with cached fallback"
+      },
+      "typical_config": {
+        "networkTimeoutSeconds": 3,
+        "maxAgeSeconds": 86400,
+        "maxEntries": 50
+      }
+    },
+    "stale-while-revalidate": {
+      "description": "Return cache immediately, update in background",
+      "workbox_class": "StaleWhileRevalidate",
+      "best_for": [
+        "Semi-static content (articles, product listings)",
+        "User avatars",
+        "CSS/JS bundles without versioned URLs",
+        "Content where eventual consistency is acceptable"
+      ],
+      "avoid_for": [
+        "Real-time data (stock prices, live scores)",
+        "Checkout/payment flows",
+        "Critical user settings",
+        "Opaque responses"
+      ],
+      "trade_offs": {
+        "speed": "fast (serves cache)",
+        "freshness": "eventually fresh (next load)",
+        "offline": "works offline if cached"
+      },
+      "typical_config": {
+        "maxAgeSeconds": 86400,
+        "maxEntries": 50
+      }
+    },
+    "network-only": {
+      "description": "Always fetch from network, no caching",
+      "workbox_class": "NetworkOnly",
+      "best_for": [
+        "Analytics endpoints",
+        "Authentication/logout endpoints",
+        "Real-time APIs (WebSocket fallback)",
+        "POST/PUT/DELETE requests"
+      ],
+      "avoid_for": [
+        "Anything needed for offline functionality"
+      ],
+      "trade_offs": {
+        "speed": "network dependent",
+        "freshness": "always fresh",
+        "offline": "fails offline"
+      },
+      "typical_config": {}
+    },
+    "cache-only": {
+      "description": "Only serve from cache, never network",
+      "workbox_class": "CacheOnly",
+      "best_for": [
+        "Precached assets that never change",
+        "Versioned bundles (hash in filename)",
+        "Offline fallback pages"
+      ],
+      "avoid_for": [
+        "Anything that might need updating",
+        "Dynamic content"
+      ],
+      "trade_offs": {
+        "speed": "fastest",
+        "freshness": "never updates",
+        "offline": "works offline if precached"
+      },
+      "typical_config": {}
+    }
+  },
+  "resource_type_recommendations": {
+    "html_pages": {
+      "app_like": "cache-first",
+      "content_heavy": "network-first",
+      "data_intensive": "cache-first",
+      "hybrid": "stale-while-revalidate"
+    },
+    "css_bundles": {
+      "versioned_url": "cache-first",
+      "unversioned_url": "stale-while-revalidate"
+    },
+    "js_bundles": {
+      "versioned_url": "cache-first",
+      "unversioned_url": "stale-while-revalidate"
+    },
+    "images": {
+      "static": "cache-first",
+      "user_uploaded": "cache-first",
+      "frequently_updated": "stale-while-revalidate"
+    },
+    "fonts": {
+      "default": "cache-first"
+    },
+    "api_get": {
+      "default": "network-first",
+      "cached_for_offline": "network-first"
+    },
+    "api_post": {
+      "default": "network-only"
+    },
+    "third_party": {
+      "default": "stale-while-revalidate"
+    }
+  },
+  "decision_tree": {
+    "questions": [
+      {
+        "question": "Does the resource have a versioned URL (hash in filename)?",
+        "yes": "cache-first",
+        "no": "continue"
+      },
+      {
+        "question": "Is the resource an API call?",
+        "yes": "network-first",
+        "no": "continue"
+      },
+      {
+        "question": "Does the content change frequently?",
+        "yes": "network-first or stale-while-revalidate",
+        "no": "continue"
+      },
+      {
+        "question": "Is eventual consistency acceptable?",
+        "yes": "stale-while-revalidate",
+        "no": "network-first"
+      }
+    ]
+  }
+}

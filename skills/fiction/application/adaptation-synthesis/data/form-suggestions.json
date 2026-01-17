@@ -1,0 +1,408 @@
+{
+  "_meta": {
+    "description": "Setting-specific forms for common story functions. Use when synthesizing adaptations to find forms that serve functions in new contexts.",
+    "usage": "Look up a function, find forms that serve it in your target setting"
+  },
+
+  "functions": {
+    "proximity_to_power": {
+      "description": "Character has access to power center without being the power holder",
+      "forms": {
+        "corporate": [
+          "Executive assistant to CEO",
+          "CFO's protege/mentee",
+          "Board member's adult child working at company",
+          "Head of compliance with reporting access",
+          "In-house counsel with privileged access",
+          "Chief of staff to founder"
+        ],
+        "political": [
+          "Senator's chief of staff",
+          "Press secretary",
+          "Campaign manager",
+          "Speech writer with inner circle access",
+          "Security detail member",
+          "Family member of elected official"
+        ],
+        "criminal": [
+          "Consigliere/advisor to boss",
+          "Boss's child being groomed",
+          "Longtime underboss",
+          "Accountant who knows the books",
+          "Lawyer with full knowledge"
+        ],
+        "academic": [
+          "Department chair's research assistant",
+          "Dean's executive assistant",
+          "Faculty spouse with social access",
+          "Board of trustees member's researcher"
+        ],
+        "military": [
+          "General's aide-de-camp",
+          "Intelligence analyst with top clearance",
+          "Communications officer",
+          "Medical officer to commanding officer"
+        ],
+        "religious": [
+          "Senior clergy's personal secretary",
+          "Monastery librarian with records access",
+          "Bishop's driver/assistant",
+          "Financial officer of religious organization"
+        ],
+        "tech_startup": [
+          "Co-founder who gave up CEO role",
+          "First employee, now VP",
+          "Technical co-founder to business CEO",
+          "Executive assistant to founder"
+        ],
+        "media": [
+          "Showrunner's writing partner",
+          "Editor to star columnist",
+          "Producer's assistant",
+          "Network executive's protege"
+        ]
+      }
+    },
+
+    "privileged_unverifiable_information": {
+      "description": "Character learns something they cannot prove or verify",
+      "forms": {
+        "corporate": [
+          "Overheard conversation through thin wall",
+          "Accessed sealed files through inherited login",
+          "Dying confession from mentor",
+          "Anonymous whistleblower tip",
+          "Discovered through legally questionable means",
+          "Intercepted encrypted message, partial decode"
+        ],
+        "political": [
+          "Off-record conversation at private event",
+          "Classified document briefly glimpsed",
+          "Testimony from discredited source",
+          "Recording that would be inadmissible"
+        ],
+        "criminal": [
+          "Deathbed confession",
+          "Information from witness now dead",
+          "Evidence obtained through illegal search",
+          "Testimony that would reveal informant"
+        ],
+        "domestic": [
+          "Private letter discovered after death",
+          "Overhead conversation not meant for them",
+          "Confession during medical crisis",
+          "Information from source with dementia"
+        ],
+        "supernatural_settings": [
+          "Vision/dream of uncertain origin",
+          "Message from the dead",
+          "Prophecy from unreliable oracle",
+          "Psychic impression"
+        ],
+        "tech": [
+          "Partially recovered deleted files",
+          "AI-generated analysis (could be wrong)",
+          "Encrypted data without full key",
+          "Metadata that suggests but doesn't prove"
+        ]
+      }
+    },
+
+    "structural_obligation_vs_personal_desire": {
+      "description": "Character is bound by duty/role that conflicts with what they want",
+      "forms": {
+        "corporate": [
+          "Career vs. whistleblowing",
+          "Loyalty to mentor vs. truth",
+          "Family employment at same company",
+          "Non-compete that prevents escape",
+          "Stock options that vest over time"
+        ],
+        "family": [
+          "Caretaking obligation for ill parent",
+          "Family business succession expectations",
+          "Sibling rivalry with inheritance at stake",
+          "Obligation to protect family secret"
+        ],
+        "professional": [
+          "Medical oath vs. personal feelings",
+          "Legal duty vs. moral duty",
+          "Journalistic ethics vs. friendship",
+          "Teaching responsibility vs. research ambition"
+        ],
+        "military": [
+          "Following orders vs. conscience",
+          "Unit loyalty vs. larger duty",
+          "Chain of command vs. right action"
+        ],
+        "religious": [
+          "Vows vs. discovered truth",
+          "Institutional loyalty vs. victims",
+          "Faith vs. evidence"
+        ],
+        "creative": [
+          "Contractual obligation vs. artistic vision",
+          "Collaboration vs. credit",
+          "Patron expectations vs. integrity"
+        ]
+      }
+    },
+
+    "cannot_easily_escape": {
+      "description": "Character is trapped in situation, cannot simply leave",
+      "forms": {
+        "economic": [
+          "Cannot afford to quit (mortgage, family)",
+          "Non-compete prevents industry change",
+          "Stock options vest over years",
+          "Pension forfeited if leave early",
+          "Industry blacklisting threat"
+        ],
+        "legal": [
+          "NDA with severe penalties",
+          "Ongoing legal case requires presence",
+          "Probation/parole restrictions",
+          "Visa tied to employment"
+        ],
+        "social": [
+          "Entire social network through workplace",
+          "Spouse also employed there",
+          "Reputation destruction if leave",
+          "Community ostracism if break ranks"
+        ],
+        "physical": [
+          "Remote location difficult to leave",
+          "Surveillance preventing secret departure",
+          "Medical condition requiring local treatment",
+          "Dependent unable to travel"
+        ],
+        "psychological": [
+          "Sunk cost of years invested",
+          "Identity tied to position",
+          "Guilt over abandoning others",
+          "Unfinished business demanding resolution"
+        ]
+      }
+    },
+
+    "entrenched_antagonist": {
+      "description": "Antagonist cannot be easily removed or defeated",
+      "forms": {
+        "corporate": [
+          "Founder with voting control",
+          "CEO with board loyalty",
+          "Too-big-to-fail connected executive",
+          "Family ownership structure",
+          "Key relationships with major clients"
+        ],
+        "political": [
+          "Popular incumbent with party backing",
+          "Intelligence with compromising material",
+          "Systemic corruption requiring many takedowns",
+          "Constitutional/legal protections"
+        ],
+        "institutional": [
+          "Tenure protecting position",
+          "Union protections",
+          "Bureaucratic process requiring years",
+          "Institutional inertia favoring status quo"
+        ],
+        "personal": [
+          "Family ties making direct action harm innocent",
+          "Shared history creating loyalty in others",
+          "Charisma maintaining follower devotion",
+          "Genuine good mixed with wrong"
+        ]
+      }
+    },
+
+    "innocent_bystanders_at_risk": {
+      "description": "Protagonist's action or inaction affects innocent people",
+      "forms": {
+        "corporate": [
+          "Employees who would lose jobs",
+          "Consumers using unsafe product",
+          "Pension fund at risk",
+          "Supply chain workers"
+        ],
+        "family": [
+          "Children caught between parents",
+          "Spouse unaware of danger",
+          "Elderly parents dependent on stability"
+        ],
+        "community": [
+          "Neighbors affected by decision",
+          "Town dependent on single employer",
+          "Students of accused teacher"
+        ],
+        "professional": [
+          "Patients of doctor under investigation",
+          "Clients of lawyer with conflict",
+          "Sources of journalist"
+        ]
+      }
+    },
+
+    "witness_who_survives": {
+      "description": "Character who observes events and can tell the story afterward",
+      "forms": {
+        "professional": [
+          "Junior colleague documenting for case",
+          "Journalist embedded in story",
+          "Researcher studying the situation"
+        ],
+        "personal": [
+          "Best friend outside the situation",
+          "Family member at safe distance",
+          "Former colleague who left"
+        ],
+        "technological": [
+          "AI/system with complete logs",
+          "Security footage",
+          "Email/message archives"
+        ],
+        "institutional": [
+          "Inspector/auditor with mandate",
+          "Historian with hindsight access",
+          "Lawyer assembling record"
+        ]
+      }
+    },
+
+    "dark_mirror_character": {
+      "description": "Character showing protagonist what they could become",
+      "forms": {
+        "same_path_ahead": [
+          "Predecessor who made the compromise",
+          "Mentor who chose wrong",
+          "Older version facing consequences",
+          "Parallel character who chose differently"
+        ],
+        "same_path_rejected": [
+          "Rival who took the corrupt route",
+          "Former ally who crossed a line",
+          "Family member who represents feared future"
+        ],
+        "inverted": [
+          "Antagonist who is protagonist with power",
+          "Opposite approach to same problem",
+          "What protagonist fears becoming"
+        ]
+      }
+    },
+
+    "found_family_crew": {
+      "description": "Group of unrelated people functioning as family unit",
+      "forms": {
+        "professional": [
+          "Startup founding team",
+          "Small crew on long assignments",
+          "Night shift workers at isolated location",
+          "Specialized team with unique skills"
+        ],
+        "survival": [
+          "Disaster survivors banded together",
+          "Refugees sharing journey",
+          "Support group members"
+        ],
+        "chosen": [
+          "Roommates who became family",
+          "Hobby group with deep bonds",
+          "Online community that met IRL"
+        ],
+        "mission": [
+          "Heist crew",
+          "Resistance cell",
+          "Investigation team"
+        ]
+      }
+    },
+
+    "case_of_the_week_structure": {
+      "description": "Episodic structure with contained stories",
+      "forms": {
+        "professional_services": [
+          "Cases for lawyers",
+          "Patients for doctors",
+          "Clients for consultants",
+          "Assignments for contractors"
+        ],
+        "investigation": [
+          "Crimes to solve",
+          "Mysteries to unravel",
+          "Anomalies to explain"
+        ],
+        "service": [
+          "Requests from clients",
+          "Problems to fix",
+          "People to help"
+        ],
+        "mission": [
+          "Bounties/warrants",
+          "Contracts",
+          "Operations"
+        ]
+      }
+    },
+
+    "mobile_home_base": {
+      "description": "Base of operations that can travel to stories",
+      "forms": {
+        "vehicles": [
+          "Ship (space, sea, air)",
+          "RV/bus/train car",
+          "Truck with living quarters"
+        ],
+        "portable": [
+          "Pop-up headquarters",
+          "Hotel lifestyle",
+          "Virtual office with traveling staff"
+        ],
+        "network": [
+          "Safe houses in multiple locations",
+          "Franchise locations used as bases",
+          "Friend network providing shelter"
+        ]
+      }
+    }
+  },
+
+  "setting_context_notes": {
+    "corporate": {
+      "power_structures": "Board, C-suite, departments, reporting lines",
+      "information_control": "NDAs, legal liability, document retention",
+      "escape_prevention": "Career, reputation, financial, legal",
+      "typical_conflicts": "Ethics vs. profit, loyalty vs. truth, career vs. conscience"
+    },
+    "political": {
+      "power_structures": "Elected officials, parties, donors, bureaucracy",
+      "information_control": "Classification, leaks, press, records",
+      "escape_prevention": "Public scrutiny, party loyalty, constituency",
+      "typical_conflicts": "Principles vs. pragmatism, party vs. country, truth vs. electability"
+    },
+    "military": {
+      "power_structures": "Chain of command, ranks, units",
+      "information_control": "Clearance levels, need-to-know, classified",
+      "escape_prevention": "UCMJ, honor, unit loyalty, discharge consequences",
+      "typical_conflicts": "Orders vs. morality, unit vs. mission, duty vs. truth"
+    },
+    "academic": {
+      "power_structures": "Administration, tenure committees, departments, grants",
+      "information_control": "Peer review, publication, data ownership",
+      "escape_prevention": "Tenure track, specialization, reputation",
+      "typical_conflicts": "Truth vs. career, ethics vs. funding, integrity vs. politics"
+    },
+    "medical": {
+      "power_structures": "Hospital admin, department heads, attending physicians",
+      "information_control": "HIPAA, medical records, peer review",
+      "escape_prevention": "License, specialization, malpractice",
+      "typical_conflicts": "Patient welfare vs. institution, truth vs. liability, oath vs. system"
+    },
+    "tech_startup": {
+      "power_structures": "Founders, investors, board, early employees",
+      "information_control": "IP, trade secrets, equity agreements",
+      "escape_prevention": "Vesting, non-competes, industry reputation",
+      "typical_conflicts": "Vision vs. market, ethics vs. growth, founders vs. investors"
+    }
+  }
+}

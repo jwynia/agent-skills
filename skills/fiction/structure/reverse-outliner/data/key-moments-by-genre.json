@@ -1,0 +1,287 @@
+{
+  "_meta": {
+    "description": "Key Moments templates per elemental genre",
+    "source": "Robert Rodriguez Key Moments Framework",
+    "version": "1.0"
+  },
+
+  "wonder": {
+    "keyMoments": [
+      {
+        "type": "Initial Encounter",
+        "expectedPosition": 0.15,
+        "emotionalExperience": "Surprise and awe",
+        "storyFunction": "Establishes the spectacular nature of the setting/concept"
+      },
+      {
+        "type": "Scale Revelation",
+        "expectedPosition": 0.35,
+        "emotionalExperience": "Humbling realization of vastness",
+        "storyFunction": "Contextualizes protagonist's place in the wonder"
+      },
+      {
+        "type": "Wonder Escalation",
+        "expectedPosition": 0.60,
+        "emotionalExperience": "Intensification of awe",
+        "storyFunction": "Raises stakes and deepens engagement"
+      },
+      {
+        "type": "Perspective Shift",
+        "expectedPosition": 0.75,
+        "emotionalExperience": "Paradigm change in understanding",
+        "storyFunction": "Forces reevaluation of assumptions"
+      },
+      {
+        "type": "Transcendent Integration",
+        "expectedPosition": 0.90,
+        "emotionalExperience": "Meaning-making through wonder",
+        "storyFunction": "Provides thematic resolution"
+      }
+    ]
+  },
+
+  "mystery": {
+    "keyMoments": [
+      {
+        "type": "Question Inception",
+        "expectedPosition": 0.10,
+        "emotionalExperience": "Curiosity activation",
+        "storyFunction": "Establishes the central puzzle"
+      },
+      {
+        "type": "Pattern Recognition",
+        "expectedPosition": 0.35,
+        "emotionalExperience": "Satisfaction of connection",
+        "storyFunction": "Provides momentum and engagement"
+      },
+      {
+        "type": "False Resolution",
+        "expectedPosition": 0.55,
+        "emotionalExperience": "Surprise from misdirection",
+        "storyFunction": "Creates complexity and extends engagement"
+      },
+      {
+        "type": "Progressive Revelation",
+        "expectedPosition": 0.75,
+        "emotionalExperience": "Deepening understanding",
+        "storyFunction": "Builds toward solution"
+      },
+      {
+        "type": "Solution Crystallization",
+        "expectedPosition": 0.90,
+        "emotionalExperience": "Illumination and closure",
+        "storyFunction": "Completes emotional journey"
+      }
+    ]
+  },
+
+  "adventure": {
+    "keyMoments": [
+      {
+        "type": "Threshold Crossing",
+        "expectedPosition": 0.15,
+        "emotionalExperience": "Excitement of departure",
+        "storyFunction": "Transitions to the adventure world"
+      },
+      {
+        "type": "Capability Test",
+        "expectedPosition": 0.30,
+        "emotionalExperience": "Confidence from competence",
+        "storyFunction": "Establishes protagonist's abilities"
+      },
+      {
+        "type": "Resource Depletion",
+        "expectedPosition": 0.50,
+        "emotionalExperience": "Vulnerability from loss",
+        "storyFunction": "Forces adaptation and growth"
+      },
+      {
+        "type": "Ultimate Challenge",
+        "expectedPosition": 0.80,
+        "emotionalExperience": "Fear and determination",
+        "storyFunction": "Tests protagonist's limits"
+      },
+      {
+        "type": "Return Transformation",
+        "expectedPosition": 0.95,
+        "emotionalExperience": "Pride and perspective",
+        "storyFunction": "Demonstrates growth from journey"
+      }
+    ]
+  },
+
+  "horror": {
+    "keyMoments": [
+      {
+        "type": "Wrongness Glimpse",
+        "expectedPosition": 0.10,
+        "emotionalExperience": "Unease from dissonance",
+        "storyFunction": "Establishes threat potential"
+      },
+      {
+        "type": "Safety Violation",
+        "expectedPosition": 0.30,
+        "emotionalExperience": "Shock from boundary breach",
+        "storyFunction": "Demonstrates vulnerability"
+      },
+      {
+        "type": "Threat Escalation",
+        "expectedPosition": 0.50,
+        "emotionalExperience": "Escalating dread",
+        "storyFunction": "Raises stakes"
+      },
+      {
+        "type": "Failed Solution",
+        "expectedPosition": 0.70,
+        "emotionalExperience": "Despair from ineffectuality",
+        "storyFunction": "Deepens hopelessness"
+      },
+      {
+        "type": "Confrontation",
+        "expectedPosition": 0.90,
+        "emotionalExperience": "Terror meets courage",
+        "storyFunction": "Provides climactic moment"
+      }
+    ]
+  },
+
+  "thriller": {
+    "keyMoments": [
+      {
+        "type": "Stakes Establishment",
+        "expectedPosition": 0.15,
+        "emotionalExperience": "Concern for outcome",
+        "storyFunction": "Sets up tension framework"
+      },
+      {
+        "type": "Deadline Imposition",
+        "expectedPosition": 0.25,
+        "emotionalExperience": "Anxiety from time pressure",
+        "storyFunction": "Creates urgency"
+      },
+      {
+        "type": "Near Miss",
+        "expectedPosition": 0.50,
+        "emotionalExperience": "Relief with lingering tension",
+        "storyFunction": "Maintains engagement through peaks/valleys"
+      },
+      {
+        "type": "Option Elimination",
+        "expectedPosition": 0.75,
+        "emotionalExperience": "Mounting pressure",
+        "storyFunction": "Forces protagonist into harder choices"
+      },
+      {
+        "type": "Decision Under Duress",
+        "expectedPosition": 0.90,
+        "emotionalExperience": "Catharsis through action",
+        "storyFunction": "Provides climactic release"
+      }
+    ]
+  },
+
+  "relationship": {
+    "keyMoments": [
+      {
+        "type": "Significant Connection",
+        "expectedPosition": 0.10,
+        "emotionalExperience": "Recognition of potential",
+        "storyFunction": "Establishes relationship basis"
+      },
+      {
+        "type": "Intimacy Deepening",
+        "expectedPosition": 0.35,
+        "emotionalExperience": "Warmth from vulnerability",
+        "storyFunction": "Develops emotional investment"
+      },
+      {
+        "type": "Value Conflict",
+        "expectedPosition": 0.55,
+        "emotionalExperience": "Frustration from differences",
+        "storyFunction": "Creates meaningful obstacles"
+      },
+      {
+        "type": "Relationship Crisis",
+        "expectedPosition": 0.75,
+        "emotionalExperience": "Heartbreak or betrayal",
+        "storyFunction": "Tests connection's resilience"
+      },
+      {
+        "type": "Reconciliation/Resolution",
+        "expectedPosition": 0.90,
+        "emotionalExperience": "Emotional closure",
+        "storyFunction": "Completes relationship arc"
+      }
+    ]
+  },
+
+  "drama": {
+    "keyMoments": [
+      {
+        "type": "Internal Conflict Revelation",
+        "expectedPosition": 0.15,
+        "emotionalExperience": "Recognition of contradiction",
+        "storyFunction": "Establishes character struggle"
+      },
+      {
+        "type": "External Pressure Point",
+        "expectedPosition": 0.35,
+        "emotionalExperience": "Stress from circumstances",
+        "storyFunction": "Forces character choices"
+      },
+      {
+        "type": "Failure Moment",
+        "expectedPosition": 0.55,
+        "emotionalExperience": "Shame from inadequacy",
+        "storyFunction": "Deepens character journey"
+      },
+      {
+        "type": "Truth Confrontation",
+        "expectedPosition": 0.75,
+        "emotionalExperience": "Painful self-awareness",
+        "storyFunction": "Catalyzes change"
+      },
+      {
+        "type": "Character Evolution",
+        "expectedPosition": 0.90,
+        "emotionalExperience": "Self-actualization",
+        "storyFunction": "Demonstrates growth"
+      }
+    ]
+  },
+
+  "ensemble": {
+    "keyMoments": [
+      {
+        "type": "Group Formation",
+        "expectedPosition": 0.15,
+        "emotionalExperience": "Belonging potential",
+        "storyFunction": "Establishes the collective"
+      },
+      {
+        "type": "Role Establishment",
+        "expectedPosition": 0.30,
+        "emotionalExperience": "Identity within community",
+        "storyFunction": "Defines character functions"
+      },
+      {
+        "type": "Group Fracture",
+        "expectedPosition": 0.55,
+        "emotionalExperience": "Loyalty testing",
+        "storyFunction": "Creates internal conflict"
+      },
+      {
+        "type": "Collective Challenge",
+        "expectedPosition": 0.75,
+        "emotionalExperience": "Shared adversity",
+        "storyFunction": "Forces cooperation"
+      },
+      {
+        "type": "Synergy Moment",
+        "expectedPosition": 0.90,
+        "emotionalExperience": "Strength through unity",
+        "storyFunction": "Demonstrates group value"
+      }
+    ]
+  }
+}

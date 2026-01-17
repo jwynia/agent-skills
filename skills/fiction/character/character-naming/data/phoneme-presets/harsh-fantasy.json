@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "description": "Guttural, consonant-heavy phoneme preset for harsh fantasy names",
+    "aesthetic": "Aggressive, powerful, orcish or warrior cultures",
+    "produces": "Names like Gruknar, Thokk, Kragash, Vordak, Zugrak"
+  },
+  "consonants": [
+    "k", "g", "kr", "gr",
+    "th", "z", "zh", "dr",
+    "r", "v", "d", "t",
+    "n", "m", "b", "p",
+    "sk", "st", "tr"
+  ],
+  "vowels": [
+    "a", "o", "u",
+    "ar", "or", "ur",
+    "ak", "ok", "uk"
+  ],
+  "syllableTemplates": [
+    "CVC",
+    "CVCC",
+    "CCV",
+    "CCVC"
+  ]
+}

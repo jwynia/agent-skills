@@ -1,0 +1,214 @@
+{
+  "_meta": {
+    "description": "Two-layer randomization: abstract functions that exist across settings, and concrete forms per setting",
+    "usage": "Select a function for story role, then instantiate with setting-appropriate form"
+  },
+
+  "functions": {
+    "healer": {
+      "description": "Restores health, fixes damage, treats wounds",
+      "story_access": ["Bodies", "Vulnerability", "Trust", "Life/death decisions"],
+      "forms": {
+        "contemporary": ["ER doctor", "Trauma surgeon", "Paramedic", "Nurse practitioner", "Physical therapist", "Psychiatrist", "Veterinarian", "Addiction counselor", "Oncologist", "Sports medicine doctor", "Wound care specialist", "NICU nurse", "Hospice nurse", "Plastic surgeon", "Dialysis technician"],
+        "historical": ["Barber-surgeon", "Midwife", "Apothecary", "Plague doctor", "Medicine woman", "Monastery healer", "Bloodletter", "Bonesetter", "Herbwife", "Ship's surgeon", "Camp follower healer", "Tooth-puller", "Leech collector", "Hot springs attendant", "Asylum keeper"],
+        "fantasy": ["Cleric", "Hedge witch", "Temple healer", "Alchemist", "Herbalist", "Life mage", "Paladin", "Druid", "Phoenix priestess", "Blood mage healer", "Unicorn keeper", "Curse-lifter", "Battle medic", "Resurrection specialist", "Dream healer"],
+        "scifi": ["Med-tech", "Nanobotic surgeon", "Clone-doc", "Neural repair specialist", "Cybernetics installer", "Bio-engineer", "Trauma pod operator", "Gene therapist", "Cryo-resurrection tech", "Combat stimulant specialist", "Xeno-biologist healer", "Radiation purge technician", "Memory reconstruction surgeon", "Limb regeneration specialist", "Plague vector specialist"],
+        "postapoc": ["Combat medic", "Wasteland doc", "Herbalist scavenger", "Organ trader", "Radiation healer", "Bone-setter", "Chem cooker", "Blood-cleaner", "Tooth-puller", "Bullet-digger", "Infection specialist", "Mutant veterinarian", "Elder healer", "Birth-helper", "Pain manager"]
+      }
+    },
+
+    "enforcer": {
+      "description": "Maintains order, applies rules, uses authorized force",
+      "story_access": ["Authority", "Violence", "Secrets", "Moral compromise"],
+      "forms": {
+        "contemporary": ["Police detective", "FBI agent", "Border patrol", "Private security", "Bouncer", "Parole officer", "SWAT team member", "Internal affairs investigator", "Campus security", "Repo man", "Process server", "Truant officer", "Health inspector", "Building code enforcer", "Immigration officer"],
+        "historical": ["Sheriff", "Constable", "King's guard", "Inquisitor", "Samurai", "Praetorian", "Night watchman", "Thief-taker", "Beadle", "Game warden", "Tax enforcer", "Slave catcher", "Press gang leader", "Exciseman", "Town crier"],
+        "fantasy": ["Paladin", "City watch", "Temple guardian", "Ranger", "Witch hunter", "War priest", "Bounty hunter", "Monster slayer", "Guild enforcer", "Border warden", "Oath keeper", "Curse enforcer", "Dragon slayer", "Demon hunter", "King's justice"],
+        "scifi": ["Station security", "Corporate enforcer", "Bounty hunter", "AI compliance officer", "Colonial marshal", "Quarantine enforcer", "Clone police", "Mind crime investigator", "Terraforming inspector", "Genetic purity officer", "Jump gate customs", "Pirate hunter", "Salvage rights enforcer", "Drone law officer", "Neural compliance monitor"],
+        "postapoc": ["Wasteland sheriff", "Caravan guard", "Settlement militia", "Raider chief", "Vault security", "Water rights enforcer", "Toll collector", "Exile patrol", "Mutant hunter", "Slavecatcher", "Tribute collector", "Gate keeper", "Quarantine enforcer", "Food hoarder hunter", "Justice mob leader"]
+      }
+    },
+
+    "keeper_of_secrets": {
+      "description": "Holds information others don't have, knows what's hidden",
+      "story_access": ["Blackmail", "Revelation", "Trust/betrayal", "Power through knowledge"],
+      "forms": {
+        "contemporary": ["Therapist", "Lawyer", "Priest", "Journalist", "Hacker", "Intelligence analyst", "Accountant", "Private investigator", "Divorce attorney", "HR director", "Whistleblower", "Crime scene photographer", "911 dispatcher", "Social worker", "Genetic counselor"],
+        "historical": ["Confessor", "Spymaster", "Court astrologer", "Scribe", "Oracle", "Royal physician", "Lady-in-waiting", "Royal food taster", "Master of coin", "Harbor master", "Poison tester", "King's mistress", "Court dwarf", "Royal executioner", "Map keeper"],
+        "fantasy": ["Seer", "Keeper of lore", "Temple oracle", "Spy network master", "Demon-binder", "Dream walker", "True-namer", "Thought-reader", "Dragon confidant", "Dead-speaker", "Fate weaver", "Memory thief", "Shadow broker", "Curse reader", "Soul collector"],
+        "scifi": ["Data broker", "Memory archivist", "AI confidant", "Network ghost", "Telepath", "Black ops handler", "Clone memory curator", "Dead drop operator", "Quantum encryption master", "Sleeper agent handler", "Corporate espionage specialist", "Time-slip witness", "Neural backup technician", "Alien communication specialist", "Dark web administrator"],
+        "postapoc": ["Memory keeper", "Radio operator", "Map maker", "Vault historian", "Scavenger scout", "Pre-war tech reader", "Bunker code keeper", "Dead drop maintainer", "Supply cache mapper", "Resistance cell contact", "Trade route keeper", "Mutation register keeper", "Water source mapper", "Settlement spy", "Safe zone navigator"]
+      }
+    },
+
+    "maker": {
+      "description": "Creates, builds, repairs, invents",
+      "story_access": ["Workshops", "Tools as weapons", "Innovation", "Understanding how things work"],
+      "forms": {
+        "contemporary": ["Engineer", "Mechanic", "Architect", "Software developer", "Jeweler", "Gunsmith", "3D printer operator", "Prosthetics fabricator", "Special effects artist", "Locksmith", "Tattoo artist", "Electronics repair tech", "Luthier", "Watchmaker", "Knife maker"],
+        "historical": ["Blacksmith", "Shipwright", "Armorer", "Clockmaker", "Mason", "Printer", "Cooper", "Wheelwright", "Glassblower", "Tanner", "Swordsmith", "Siege engineer", "Mill builder", "Bell caster", "Rope maker"],
+        "fantasy": ["Artificer", "Runesmith", "Wand-maker", "Golem crafter", "Enchanter", "Alchemist", "Spell-forger", "Crystal cutter", "Bone carver", "Tattoo mage", "Ship-singer", "Tower builder", "Curse-crafter", "Familiar binder", "Portal architect"],
+        "scifi": ["Fabricator tech", "Drone builder", "Cybernetics engineer", "Ship mechanic", "Nanotech programmer", "Habitat designer", "Clone pod technician", "Jump drive mechanic", "Bioprinter operator", "Weapon systems engineer", "AI hardware specialist", "Terraforming equipment tech", "Exosuit fitter", "FTL calibrator", "Quantum computer builder"],
+        "postapoc": ["Salvage mechanic", "Weapon modder", "Tech priest", "Still-builder", "Vehicle restorer", "Solar panel fixer", "Water purifier builder", "Radio assembler", "Armor cobbler", "Trap builder", "Generator mechanic", "Ammo reloader", "Crossbow maker", "Bunker builder", "Wind turbine fixer"]
+      }
+    },
+
+    "trader": {
+      "description": "Exchanges goods, knows prices and values, connects markets",
+      "story_access": ["Money", "Supply chains", "What things are worth", "Black markets"],
+      "forms": {
+        "contemporary": ["Pawn shop owner", "Art dealer", "Stock trader", "Smuggler", "Fence", "Antique dealer", "Real estate agent", "Drug dealer", "Car salesman", "Arms dealer", "Insurance adjuster", "Auctioneer", "Diamond broker", "Human trafficker", "Rare book dealer"],
+        "historical": ["Merchant", "Spice trader", "Slave trader", "Bazaar vendor", "Tinker", "Caravan master", "Moneylender", "Silk road trader", "Horse trader", "Fur trader", "Salt merchant", "Wool factor", "Wine merchant", "Ivory dealer", "Relic peddler"],
+        "fantasy": ["Guild merchant", "Exotic goods dealer", "Magical component trader", "Dragon hoard appraiser", "Soul broker", "Wish dealer", "Monster parts trader", "Spell scroll merchant", "Curse peddler", "Familiar dealer", "Potion seller", "Map merchant", "Slave market runner", "Prophecy broker", "Enchanted item fence"],
+        "scifi": ["Station trader", "Contraband runner", "Resource broker", "Data seller", "Alien artifact dealer", "Clone broker", "Jump fuel dealer", "Memory trader", "Organ harvester broker", "AI license dealer", "Terraforming rights trader", "Weapons platform dealer", "Genetic material broker", "Black market cybernetics dealer", "Salvage rights auctioneer"],
+        "postapoc": ["Barter king", "Caravan trader", "Water merchant", "Ammo dealer", "Medicine trader", "Fuel dealer", "Slave trader", "Food broker", "Tech scavenger", "Safe passage seller", "Information broker", "Seed merchant", "Alcohol trader", "Battery dealer", "Clean clothing merchant"]
+      }
+    },
+
+    "guide": {
+      "description": "Knows the way, leads through unfamiliar territory",
+      "story_access": ["Hidden paths", "Local knowledge", "Survival", "What lies ahead"],
+      "forms": {
+        "contemporary": ["Tour guide", "Fixer", "Wilderness guide", "Local contact", "Taxi driver who knows everyone", "Coyote", "Mountain guide", "Urban explorer", "Cave diver", "Hunting guide", "Bail bondsman", "Crisis negotiator", "Real estate scout", "Location scout", "Concierge fixer"],
+        "historical": ["Scout", "Pathfinder", "Sherpa", "River pilot", "Desert guide", "Native tracker", "Mountain man", "Voyageur", "Caravan guide", "Lighthouse keeper", "Harbor pilot", "Frontier scout", "Safari guide", "Dragoman", "Polar expedition guide"],
+        "fantasy": ["Ranger", "Dungeon guide", "Planar navigator", "Fey guide", "Spirit walker", "Underworld ferryman", "Storm reader", "Beast-path follower", "Shadow walker", "Star navigator", "Dream guide", "Labyrinth keeper", "River spirit medium", "Desert whisperer", "Curse-land guide"],
+        "scifi": ["Jump navigator", "System guide", "Station fixer", "AI pathfinder", "Anomaly mapper", "Hyperspace navigator", "Wormhole pilot", "Planetary surveyor", "Xenoterrain expert", "Asteroid belt pilot", "Gravity well mapper", "Dark space navigator", "Alien ruins guide", "Quarantine zone guide", "Dimensional rift navigator"],
+        "postapoc": ["Wasteland guide", "Tunnel rat", "Safe route finder", "Radiation mapper", "Old-timer who remembers", "Ruin runner", "Minefield navigator", "Underground railroad conductor", "River navigator", "Mountain passage finder", "City ruins guide", "No-man's-land crosser", "Raider territory guide", "Clean water finder", "Cache hunter"]
+      }
+    },
+
+    "entertainer": {
+      "description": "Performs, distracts, draws crowds, tells stories",
+      "story_access": ["Crowds", "Distraction", "Rumors", "Access to all social levels"],
+      "forms": {
+        "contemporary": ["Musician", "Street performer", "Comedian", "Magician", "Influencer", "Escort", "Drag performer", "Podcast host", "Twitch streamer", "Wedding singer", "Club DJ", "Stand-up comic", "Burlesque dancer", "Professional wrestler", "Theme park character"],
+        "historical": ["Bard", "Court jester", "Troubadour", "Circus performer", "Geisha", "Gladiator", "Bear-baiter", "Puppet master", "Fire eater", "Acrobat", "Minstrel", "Dancing girl", "Sword swallower", "Snake charmer", "Court musician"],
+        "fantasy": ["Bard", "Court fool", "Tale-spinner", "Illusionist", "Pleasure house entertainer", "Dragon dancer", "Shadow puppeteer", "Dream performer", "Festival caller", "Battle-singer", "Curse-dancer", "Spirit channeler performer", "Arena beast-master", "Memory player", "Prophecy singer"],
+        "scifi": ["Holo-performer", "Virtual entertainer", "Neural-link artist", "Zero-g acrobat", "Sim-star", "Psi-illusionist", "Clone boy band member", "Gladiatorial AI", "Alien zoo performer", "Reality show contestant", "Combat sim broadcaster", "Memory experience performer", "Bio-modded freak show", "Time-loop dancer", "Uploaded consciousness DJ"],
+        "postapoc": ["Wandering storyteller", "Fight pit entertainer", "Radio DJ", "Tattoo artist", "Memory singer", "Cage fighter", "Caravan musician", "Mutant show performer", "Pre-war movie screener", "Junk sculptor", "Fire dancer", "Death games announcer", "Salvage theater actor", "Oral historian performer", "Tribal drummer"]
+      }
+    },
+
+    "death_worker": {
+      "description": "Handles the dead, death rituals, or killing",
+      "story_access": ["Death", "Bodies", "Final wishes", "What the dead knew"],
+      "forms": {
+        "contemporary": ["Mortician", "Hospice worker", "Homicide detective", "Executioner", "Crime scene cleaner", "Medical examiner", "Grief counselor", "Crematorium operator", "Cemetery groundskeeper", "Organ procurement coordinator", "Death doula", "Forensic pathologist", "Suicide hotline operator", "Estate executor", "Death row chaplain"],
+        "historical": ["Gravedigger", "Executioner", "Embalmer", "Sin-eater", "Death midwife", "Plague cart driver", "Resurrection man", "Coroner", "Hangman", "Battlefield corpse robber", "Viking funeral preparer", "Crypt keeper", "Professional mourner", "Poison maker", "Anatomist's supplier"],
+        "fantasy": ["Necromancer", "Death priest", "Ghost speaker", "Corpse burner", "Soul guide", "Reaper's apprentice", "Tomb warden", "Lich servant", "Corpse animator", "Spirit releaser", "Death oracle", "Grave robber", "Undead hunter", "Soul merchant", "Ancestral speaker"],
+        "scifi": ["Disposal tech", "Memory harvester", "Death certificate AI", "Clone terminator", "Resurrection tech", "Consciousness extraction specialist", "Bio-recycler", "Neural death investigator", "Life support terminator", "Cryogenic failure handler", "Uploaded mind deletor", "Clone organ harvester", "Space burial conductor", "AI end-of-life specialist", "Generation ship corpse processor"],
+        "postapoc": ["Body burner", "Ghoul", "Organ harvester", "Mercy killer", "Monument keeper", "Bone collector", "Death pit digger", "Plague body handler", "Execution squad member", "Wasteland undertaker", "Corpse trader", "Funeral pyre tender", "Last rites speaker", "Scavenger of the dead", "Cannibal butcher"]
+      }
+    },
+
+    "transgressor": {
+      "description": "Breaks rules, operates outside law, takes what's forbidden",
+      "story_access": ["Black markets", "Underground", "What's really happening", "Alternative power structures"],
+      "forms": {
+        "contemporary": ["Thief", "Hacker", "Smuggler", "Fence", "Con artist", "Drug dealer", "Identity thief", "Credit card skimmer", "Graffiti artist", "Urban explorer", "Prostitute", "Bootlegger", "Wildlife trafficker", "Counterfeit goods seller", "Illegal arms dealer"],
+        "historical": ["Highwayman", "Pirate", "Cutpurse", "Poacher", "Forger", "Smuggler", "Grave robber", "Coiner", "Fence", "Blackmailer", "Brothel keeper", "Opium dealer", "Rum runner", "Assassin", "Bandit"],
+        "fantasy": ["Rogue", "Tomb robber", "Guild thief", "Curse-breaker", "Forbidden magic user", "Artifact smuggler", "Poison maker", "Contract killer", "Dungeon delver", "Relic thief", "Dark pact maker", "Border runner", "Black alchemist", "Temple defiler", "Dragon egg thief"],
+        "scifi": ["Data thief", "Smuggler", "Black market cyberneticist", "AI liberator", "Gene pirate", "Memory dealer", "Clone bootlegger", "Quarantine runner", "Neural hacker", "Corporate saboteur", "Illegal upload specialist", "Contraband biologist", "Restricted tech dealer", "Jump lane pirate", "Consciousness trafficker"],
+        "postapoc": ["Raider", "Scavenger", "Chem dealer", "Toll bandit", "Cannibal cult member", "Slave taker", "Water thief", "Supply runner", "Vault breaker", "Fuel hijacker", "Medicine hoarder", "Child trafficker", "Radiation zone runner", "Settlement saboteur", "Warlord's enforcer"]
+      }
+    },
+
+    "record_keeper": {
+      "description": "Documents, archives, remembers officially",
+      "story_access": ["History", "Bureaucracy", "What was erased", "Proof"],
+      "forms": {
+        "contemporary": ["Archivist", "Librarian", "Court reporter", "Medical records clerk", "Genealogist", "Census worker", "Patent clerk", "Corporate compliance officer", "Evidence custodian", "Vital records clerk", "Insurance claims processor", "Museum registrar", "Real estate title searcher", "Academic registrar", "Medical coder"],
+        "historical": ["Scribe", "Monk copyist", "Court recorder", "Tax collector", "Herald", "Notary", "Charter witness", "Ship's log keeper", "Burial register keeper", "Cathedral archivist", "Royal chronicler", "Land surveyor", "Treaty scribe", "Guild record keeper", "Census taker"],
+        "fantasy": ["Loremaster", "Temple archivist", "Spell scribe", "Name-keeper", "Chronicle mage", "Fate recorder", "Dream transcriber", "Blood lineage keeper", "Oath scribe", "Prophecy cataloguer", "True name registrar", "Heroic deed chronicler", "Magical contract keeper", "Ancestor list keeper", "Dragon genealogist"],
+        "scifi": ["Data curator", "Memory bank keeper", "Archive AI", "Black box analyst", "Timeline historian", "Genetic registry keeper", "Clone generation tracker", "Ship's log AI", "Terraforming record keeper", "Jump coordinate archivist", "Neural pattern cataloguer", "Extinction species database keeper", "First contact recorder", "Quantum state archivist", "Civilization seed vault keeper"],
+        "postapoc": ["Memory keeper", "Map keeper", "Oral historian", "Library guardian", "DNA record keeper", "Pre-war knowledge keeper", "Trade route recorder", "Death list keeper", "Seed catalog guardian", "Medicine recipe keeper", "Water source mapper", "Safe zone cartographer", "Tribal lineage keeper", "Lost tech cataloguer", "Settlement census taker"]
+      }
+    },
+
+    "interpreter": {
+      "description": "Translates between languages, cultures, or worlds",
+      "story_access": ["Miscommunication", "Hidden meanings", "Cultural bridges", "What's lost in translation"],
+      "forms": {
+        "contemporary": ["Translator", "Cultural liaison", "Diplomat", "Sign language interpreter", "Mediator", "Court interpreter", "Medical interpreter", "Conference interpreter", "Immigration case worker", "Deaf relay interpreter", "Technical translator", "Literary translator", "Hostage negotiator", "Marriage counselor", "Cross-cultural consultant"],
+        "historical": ["Dragoman", "Court translator", "Treaty interpreter", "Missionary", "Trade pidgin speaker", "Ambassador", "Cross-cultural hostage", "Conquered people's liaison", "Slave interpreter", "Merchant interpreter", "Peace treaty witness", "Tribal go-between", "Foreign court resident", "Cultural attaché", "Bilingual spy"],
+        "fantasy": ["Tongue-speaker", "Beast-talker", "Fey interpreter", "Spirit medium", "Rune reader", "Dream translator", "Divine message interpreter", "Elemental speaker", "Plant communicator", "Dead language scholar", "Monster negotiator", "Curse translator", "Omen reader", "Stone speaker", "Blood memory reader"],
+        "scifi": ["Xenolinguist", "AI translator", "Psi-comm", "Upload interpreter", "Alien liaison", "Machine-human interface specialist", "Hive mind translator", "Temporal communication specialist", "Cross-dimensional interpreter", "Silicon-to-carbon translator", "Gestalt consciousness liaison", "Quantum entanglement communicator", "Uplifted species advocate", "Dying language preservationist", "First contact specialist"],
+        "postapoc": ["Tribal interpreter", "Trade-tongue speaker", "Sign reader", "Radio translator", "Mutant culture liaison", "Settlement diplomat", "Raider negotiator", "Old language reader", "Technical manual translator", "Cross-community mediator", "Hand signal expert", "Written word keeper", "Pre-war media interpreter", "Warning sign reader", "Inter-faction go-between"]
+      }
+    },
+
+    "caretaker": {
+      "description": "Tends to others' needs, maintains spaces, serves",
+      "story_access": ["Household secrets", "Invisible presence", "Access through service", "What's really happening behind closed doors"],
+      "forms": {
+        "contemporary": ["Nanny", "Home health aide", "Hotel concierge", "Building super", "Personal assistant", "Hospice caregiver", "Daycare worker", "Dog walker", "House cleaner", "Night nurse", "Elder care aide", "Celebrity personal assistant", "Live-in housekeeper", "Group home caretaker", "Au pair"],
+        "historical": ["Servant", "Lady's maid", "Butler", "Wet nurse", "Stable hand", "Footman", "Governess", "Valet", "Cook", "Scullery maid", "Groundskeeper", "Housekeeper", "Page", "Nursemaid", "Chamberlain"],
+        "fantasy": ["Castle steward", "Temple attendant", "Familiar keeper", "Noble's body servant", "Dragon tender", "Dungeon keeper", "Tower guardian", "Wizard's apprentice", "Royal food taster", "Beast stable master", "Curse-bearer servant", "Ghost housekeeper", "Enchanted object polisher", "Portal doorkeeper", "Magical creature groomer"],
+        "scifi": ["Care-bot operator", "Station maintenance", "Cryo-tender", "Child-pod monitor", "AI companion", "Clone nursery attendant", "Habitat life support monitor", "Elder upload caretaker", "Xenopet handler", "Generation ship child-rearer", "Quarantine ward attendant", "Dying planet caretaker", "Memory garden tender", "Uploaded consciousness companion", "Terraforming biome tender"],
+        "postapoc": ["Elder-tender", "Child minder", "Shelter keeper", "Vault caretaker", "Livestock tender", "Orphan guardian", "Sick ward attendant", "Community kitchen runner", "Water ration distributor", "Fire keeper", "Bunker maintenance", "Greenhouse tender", "Community elder servant", "Wounded veteran caretaker", "Dying settlement keeper"]
+      }
+    },
+
+    "teacher": {
+      "description": "Transmits knowledge, skills, traditions to others",
+      "story_access": ["The next generation", "What gets passed on", "Hidden talents", "Institutional knowledge"],
+      "forms": {
+        "contemporary": ["High school teacher", "Professor", "Driving instructor", "Personal trainer", "Music teacher", "Martial arts instructor", "Therapist", "Life coach", "Trade school instructor", "ESL teacher", "Sex educator", "Gun safety instructor", "Swim instructor", "Corporate trainer", "Tutor"],
+        "historical": ["Tutor", "Monastery teacher", "Guild master", "Apprentice master", "Governess", "Fencing master", "Dancing master", "Religious instructor", "Riding instructor", "Philosophy teacher", "Military drill instructor", "Slave trainer", "Concubine trainer", "Heir's mentor", "Court tutor"],
+        "fantasy": ["Wizard mentor", "Sword master", "Temple teacher", "Druid instructor", "Bard teacher", "Battle mage trainer", "Healer's master", "Thief guild trainer", "Monster lore teacher", "Prophecy interpreter", "Blood magic instructor", "Shapeshifting coach", "Dragon rider trainer", "Familiar bonding master", "Royal weapons master"],
+        "scifi": ["Neural upload instructor", "Zero-g combat trainer", "Xenobiology professor", "AI ethics teacher", "Pilot simulator instructor", "Psi-ability coach", "Clone identity counselor", "Terraforming specialist trainer", "First contact protocol instructor", "Cybernetics interface trainer", "Generation ship tradition keeper", "Upload transition counselor", "Alien language teacher", "Temporal mechanics professor", "Genetic modification instructor"],
+        "postapoc": ["Survival skills trainer", "Pre-war knowledge teacher", "Scavenging instructor", "Combat trainer", "Herbalist teacher", "Oral history keeper", "Trade skill master", "Child group teacher", "Water finding instructor", "Threat recognition trainer", "Old tech instructor", "Farming teacher", "Medicine maker trainer", "Defense coordinator trainer", "Weapons maintenance instructor"]
+      }
+    },
+
+    "protector": {
+      "description": "Defends specific people or places from harm",
+      "story_access": ["Threats", "Vulnerability of the protected", "Sacrifice", "Divided loyalties"],
+      "forms": {
+        "contemporary": ["Bodyguard", "Security guard", "Secret Service agent", "Night watchman", "Crossing guard", "Lifeguard", "Air marshal", "Witness protection handler", "Child protective services worker", "Domestic violence shelter worker", "Campus police", "Mall cop", "Armored car guard", "Celebrity protection", "Executive protection"],
+        "historical": ["Knight", "Samurai", "Bodyguard", "Praetorian", "Castle guard", "Ship's marine", "Caravan guard", "Town militia", "Noble's sworn sword", "Royal taster", "Convoy escort", "Prison guard", "Harem guard", "Merchant's hired sword", "Temple guardian"],
+        "fantasy": ["Paladin", "Shield bearer", "Sworn protector", "Guardian spirit binder", "Ward-keeper", "Dragon guardian", "Heir's protector", "Relic guardian", "Curse shield", "Living shield golem master", "Blood-bound protector", "Shadow guardian", "Familiar defender", "Holy site keeper", "Prophecy child guardian"],
+        "scifi": ["Personal defense AI", "Diplomatic protection android", "Clone bodyguard", "Neural network guardian", "Habitat perimeter security", "VIP transport pilot", "Terraforming site security", "Research station guard", "Generation ship night watch", "Quarantine enforcer", "Ambassador's security detail", "Corporate heir protector", "Witness mind-lock keeper", "Refugee convoy guard", "Colonist defense coordinator"],
+        "postapoc": ["Settlement watch", "Caravan guard", "Child protector", "Elder guardian", "Supply cache guard", "Wall guard", "Night sentry", "Perimeter walker", "Leader's bodyguard", "Refugee escort", "Safe house keeper", "Livestock guardian", "Water source defender", "Medicine cache guard", "Convoy outrider"]
+      }
+    },
+
+    "connector": {
+      "description": "Links people, builds relationships, maintains social networks",
+      "story_access": ["Who knows whom", "Favors owed", "Social leverage", "Hidden relationships"],
+      "forms": {
+        "contemporary": ["Matchmaker", "Recruiter", "Lobbyist", "Party planner", "Social media manager", "Networking event host", "Talent agent", "Real estate agent", "Wedding planner", "Fundraiser", "Alumni coordinator", "Club promoter", "Community organizer", "Political fixer", "Celebrity publicist"],
+        "historical": ["Marriage broker", "Guild networker", "Court introducer", "Salon hostess", "Patronage seeker", "Political alliance maker", "Trade connection broker", "Letter of introduction carrier", "Social season planner", "Dowry negotiator", "Clan alliance builder", "Mercenary recruiter", "Servant placement agent", "Apprenticeship arranger", "Embassy social secretary"],
+        "fantasy": ["Guild networker", "Court matchmaker", "Quest party assembler", "Alliance broker", "Faction recruiter", "Adventurer's guild master", "Noble house connection", "Temple introduction service", "Mercenary company broker", "Cross-species liaison", "Trading company connector", "Magical academy placement", "Royal court networker", "Underground contact broker", "Prophesied party gatherer"],
+        "scifi": ["Neural network matchmaker", "Colony placement specialist", "Corporate headhunter", "Interspecies liaison", "Upload community builder", "Generation ship social coordinator", "Clone batch connector", "AI-human relationship counselor", "Terraforming team assembler", "First contact team builder", "Refugee placement specialist", "Memory network curator", "Hive-to-individual translator", "Cross-dimensional contact", "Diplomatic mission assembler"],
+        "postapoc": ["Trade contact keeper", "Settlement alliance builder", "Caravan people connector", "Marriage arranger", "Labor exchange coordinator", "Inter-settlement messenger", "Barter network hub", "Skilled worker finder", "Refugee placement helper", "Defense alliance builder", "Information network hub", "Faction go-between", "Lost family finder", "Work crew assembler", "Mutual aid coordinator"]
+      }
+    },
+
+    "truth_seeker": {
+      "description": "Investigates, questions, uncovers what's hidden",
+      "story_access": ["Secrets revealed", "Uncomfortable truths", "Evidence", "Who's lying"],
+      "forms": {
+        "contemporary": ["Detective", "Investigative journalist", "Private investigator", "Insurance fraud investigator", "Background check specialist", "Forensic accountant", "Cold case investigator", "Internal affairs officer", "Mystery shopper", "Due diligence researcher", "Fact checker", "Genealogy researcher", "Academic researcher", "Documentary filmmaker", "True crime podcaster"],
+        "historical": ["Inquisitor", "Thief-taker", "Royal investigator", "Church examiner", "Witch finder", "Spy", "Magistrate's assistant", "Treasury investigator", "Heresy hunter", "Missing person finder", "Theft investigator", "Court truth-teller", "Poison detector", "Lineage investigator", "Treaty violation investigator"],
+        "fantasy": ["Truth-seer", "Mind reader", "Curse investigator", "Magical crime solver", "Prophecy verifier", "Corruption hunter", "Demon contract analyst", "Enchantment detector", "Blood truth reader", "Memory extractor", "Lie-bane wielder", "Spirit questioner", "Past-viewer", "Fate unraveler", "Oathbreaker hunter"],
+        "scifi": ["Memory forensics specialist", "Data archaeologist", "Quantum state investigator", "AI behavior analyst", "Clone deviation investigator", "Neural crime scene specialist", "Timeline inconsistency hunter", "Consciousness fraud detector", "Upload tampering investigator", "Genetic ancestry verifier", "Black box analyst", "Propaganda deconstructor", "Historical simulation auditor", "First contact cover-up investigator", "Corporate espionage hunter"],
+        "postapoc": ["Raider tracker", "Theft investigator", "Truth teller", "Betrayal finder", "Supply theft hunter", "Murder investigator", "Spy hunter", "Resource hoarder finder", "Contamination source tracker", "Missing person hunter", "Old world truth seeker", "Settlement infiltrator detector", "Cache thief tracker", "Medicine counterfeiter hunter", "False prophet exposer"]
+      }
+    },
+
+    "outcast": {
+      "description": "Lives on the margins, rejected by or rejecting society",
+      "story_access": ["What mainstream society denies", "Survival outside systems", "Alternative communities", "Why people are cast out"],
+      "forms": {
+        "contemporary": ["Homeless person", "Ex-convict", "Whistleblower in hiding", "Cult escapee", "Excommunicated clergy", "Disbarred professional", "Undocumented immigrant", "Sex offender", "Blacklisted worker", "Disowned family member", "Recovering addict", "Mental health ward regular", "Conspiracy theorist", "Preppers", "Off-grid survivalist"],
+        "historical": ["Leper", "Exile", "Outlaw", "Heretic", "Bastard", "Fallen woman", "Debtor", "Religious dissenter", "Plague survivor", "Traitor's family", "Madhouse resident", "Wandering beggar", "Escaped slave", "Disgraced noble", "Shipwreck survivor"],
+        "fantasy": ["Cursed one", "Exile", "Oathbreaker", "Tainted bloodline", "Failed initiate", "Magic-burnt", "Shapeshifter in hiding", "Half-breed", "Undead-touched", "Prophecy-doomed", "Demon-marked", "Godless in theocracy", "Wild magic carrier", "Monster-blood", "Banished wizard"],
+        "scifi": ["Unregistered human", "Rogue AI", "Clone reject", "Genetic undesirable", "Neural network exile", "Quarantine escapee", "Terraform failure survivor", "Unuploaded in upload society", "Baseline human in enhanced world", "First contact traumatized", "Generation ship exile", "Hive mind reject", "Failed consciousness transfer", "Illegal modification carrier", "Memory-wiped criminal"],
+        "postapoc": ["Mutant", "Exile", "Raider turncoat", "Contaminated survivor", "Cannibal abstainer", "Cult escapee", "Settlement banished", "Slavecatcher's victim", "Disease carrier", "Old regime loyalist", "Failed leader", "Mercy refuser", "Coward-branded", "Rule breaker", "Ration thief"]
+      }
+    }
+  },
+
+  "settings": ["contemporary", "historical", "fantasy", "scifi", "postapoc"]
+}

@@ -1,0 +1,217 @@
+{
+  "_meta": {
+    "description": "Seed vocabulary for thematic annotation. LLM should extend beyond this list when appropriate.",
+    "usage": "Use as starting points for theme identification, not as constraints",
+    "note": "These are common non-fiction themes. Domain-specific themes should be added during analysis."
+  },
+
+  "human_nature": {
+    "description": "Themes about fundamental human characteristics",
+    "terms": [
+      "belonging",
+      "identity",
+      "motivation",
+      "cooperation",
+      "competition",
+      "trust",
+      "fear",
+      "hope",
+      "meaning",
+      "purpose",
+      "autonomy",
+      "connection",
+      "growth",
+      "security",
+      "status"
+    ]
+  },
+
+  "social_dynamics": {
+    "description": "Themes about how groups and societies function",
+    "terms": [
+      "community",
+      "leadership",
+      "hierarchy",
+      "power",
+      "influence",
+      "norms",
+      "culture",
+      "ritual",
+      "inclusion",
+      "exclusion",
+      "conflict",
+      "consensus",
+      "networks",
+      "reciprocity",
+      "reputation"
+    ]
+  },
+
+  "knowledge_learning": {
+    "description": "Themes about acquiring and sharing knowledge",
+    "terms": [
+      "learning",
+      "expertise",
+      "skill",
+      "mastery",
+      "practice",
+      "feedback",
+      "transfer",
+      "memory",
+      "understanding",
+      "wisdom",
+      "education",
+      "mentorship",
+      "discovery",
+      "curiosity",
+      "innovation"
+    ]
+  },
+
+  "systems_change": {
+    "description": "Themes about systems and how they evolve",
+    "terms": [
+      "systems",
+      "complexity",
+      "emergence",
+      "adaptation",
+      "evolution",
+      "transformation",
+      "disruption",
+      "stability",
+      "resilience",
+      "feedback_loops",
+      "tipping_points",
+      "equilibrium",
+      "growth",
+      "decay",
+      "renewal"
+    ]
+  },
+
+  "work_productivity": {
+    "description": "Themes about work and getting things done",
+    "terms": [
+      "productivity",
+      "efficiency",
+      "effectiveness",
+      "focus",
+      "attention",
+      "prioritization",
+      "delegation",
+      "collaboration",
+      "execution",
+      "planning",
+      "measurement",
+      "improvement",
+      "automation",
+      "workflow",
+      "burnout"
+    ]
+  },
+
+  "decision_making": {
+    "description": "Themes about choices and judgment",
+    "terms": [
+      "decision",
+      "judgment",
+      "bias",
+      "heuristics",
+      "risk",
+      "uncertainty",
+      "tradeoffs",
+      "options",
+      "constraints",
+      "criteria",
+      "intuition",
+      "analysis",
+      "framing",
+      "commitment",
+      "reversibility"
+    ]
+  },
+
+  "communication": {
+    "description": "Themes about conveying and receiving information",
+    "terms": [
+      "communication",
+      "persuasion",
+      "storytelling",
+      "clarity",
+      "listening",
+      "feedback",
+      "dialogue",
+      "rhetoric",
+      "framing",
+      "narrative",
+      "transparency",
+      "authenticity",
+      "empathy",
+      "misunderstanding",
+      "context"
+    ]
+  },
+
+  "value_ethics": {
+    "description": "Themes about what matters and right action",
+    "terms": [
+      "values",
+      "ethics",
+      "integrity",
+      "fairness",
+      "justice",
+      "responsibility",
+      "accountability",
+      "virtue",
+      "principle",
+      "character",
+      "morality",
+      "duty",
+      "rights",
+      "harm",
+      "benefit"
+    ]
+  },
+
+  "time_change": {
+    "description": "Themes about temporality and transformation",
+    "terms": [
+      "time",
+      "change",
+      "progress",
+      "regression",
+      "cycles",
+      "phases",
+      "stages",
+      "transitions",
+      "persistence",
+      "urgency",
+      "patience",
+      "timing",
+      "legacy",
+      "future",
+      "history"
+    ]
+  },
+
+  "resources_constraints": {
+    "description": "Themes about limitations and allocation",
+    "terms": [
+      "scarcity",
+      "abundance",
+      "resources",
+      "constraints",
+      "allocation",
+      "investment",
+      "returns",
+      "sustainability",
+      "leverage",
+      "capacity",
+      "limits",
+      "opportunity_cost",
+      "tradeoffs",
+      "efficiency",
+      "waste"
+    ]
+  }
+}

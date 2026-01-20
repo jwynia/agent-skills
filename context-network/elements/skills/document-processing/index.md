@@ -18,6 +18,7 @@ This domain covers skills that work with document formats including:
 | [docx-generator](docx-generator.md) | document | Complete | Create and manipulate Word DOCX files |
 | [xlsx-generator](xlsx-generator.md) | spreadsheet | Complete | Create and manipulate Excel XLSX files |
 | [pdf-generator](pdf-generator.md) | pdf | Complete | Create and manipulate PDF files |
+| [ebook-analysis](ebook-analysis.md) | analysis | Complete | Extract knowledge from ebooks with citation traceability |
 
 ## Categories
 
@@ -41,6 +42,11 @@ Skills for working with PDF documents.
 
 - **pdf-generator**: Full-featured PDF generation with template and scratch modes
 
+### Analysis
+Skills for analyzing and extracting knowledge from documents.
+
+- **ebook-analysis**: Extract concepts and knowledge from ebooks with citation traceability
+
 ## Technical Notes
 
 All document processing skills use:
@@ -52,5 +58,5 @@ All document processing skills use:
 ## Metadata
 
 - **Created:** 2025-12-27
-- **Last Updated:** 2025-12-27
-- **Skills Count:** 4
+- **Last Updated:** 2026-01-20
+- **Skills Count:** 5

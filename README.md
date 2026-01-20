@@ -9,7 +9,7 @@ Use `npx add-skill` to install skills into your project:
 ### Install a Single Skill
 
 ```bash
-npx add-skill https://github.com/jwynia/agent-skills/tree/main/skills/development/skill-maker
+npx add-skill https://github.com/jwynia/agent-skills/tree/main/skills/meta/skill-builder
 ```
 
 ### Browse a Category
@@ -44,13 +44,13 @@ npx add-skill https://github.com/jwynia/agent-skills/tree/main/skills
 - **musical-dna** - Extract musical characteristics from artists
 
 ### Development (10)
+- **agile-coordinator** - Multi-agent task orchestration for agile workflows
 - **agile-workflow** - Agile development methodology
 - **architecture-decision** - ADR creation and trade-off analysis
 - **code-review** - Structured code review guidance
 - **devcontainer** - Development container configuration
 - **github-agile** - GitHub-driven agile workflows
 - **requirements-analysis** - Requirements discovery and documentation
-- **skill-maker** - Create new agent skills
 - **system-design** - Software architecture and design
 - **task-decomposition** - Break down development tasks
 - **typescript-best-practices** - TypeScript patterns and practices

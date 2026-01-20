@@ -8,11 +8,11 @@ Maintains a central registry of skills with their current status, location, and 
 
 ## Quick Stats
 
-- **Total Skills**: 8
+- **Total Skills**: 10
 - **Planning**: 0
 - **In Progress**: 0
 - **Validating**: 0
-- **Complete**: 8
+- **Complete**: 10
 
 ## Skills by Domain
 
@@ -21,6 +21,14 @@ Maintains a central registry of skills with their current status, location, and 
 See [data-processing/index.md](data-processing/index.md) for skills in this domain.
 
 - No skills yet
+
+### Development
+
+See [development/index.md](development/index.md) for skills in this domain.
+
+| Skill | Category | Status | Description |
+|-------|----------|--------|-------------|
+| agile-coordinator | workflow | Complete | Multi-agent task orchestration for agile workflows |
 
 ### Document Processing
 
@@ -32,6 +40,7 @@ See [document-processing/index.md](document-processing/index.md) for skills in t
 | docx-generator | document | Complete | Create and manipulate Word DOCX files |
 | xlsx-generator | spreadsheet | Complete | Create and manipulate Excel XLSX files |
 | pdf-generator | pdf | Complete | Create and manipulate PDF files |
+| ebook-analysis | analysis | Complete | Extract knowledge from ebooks with citation traceability |
 
 ### Web
 
@@ -85,8 +94,10 @@ None yet
 | docx-generator | document-processing | `skills/document-processing/word/docx-generator/` |
 | xlsx-generator | document-processing | `skills/document-processing/spreadsheet/xlsx-generator/` |
 | pdf-generator | document-processing | `skills/document-processing/pdf/pdf-generator/` |
+| ebook-analysis | document-processing | `skills/document-processing/analysis/ebook-analysis/` |
 | godot-best-practices | game-development | `skills/game-development/godot-best-practices/` |
 | godot-asset-generator | game-development | `skills/game-development/godot-asset-generator/` |
+| agile-coordinator | development | `skills/development/workflow/agile-coordinator/` |
 
 ## Technical Requirements
 
@@ -129,11 +140,13 @@ This catalog should be updated:
 ## Metadata
 
 - **Created:** 2025-12-19
-- **Last Updated:** 2025-12-31
+- **Last Updated:** 2026-01-20
 - **Updated By:** Claude
 
 ## Change History
 
+- 2026-01-20: Added agile-coordinator skill to Development domain
+- 2026-01-20: Added ebook-analysis skill to Document Processing domain
 - 2025-12-31: Added godot-asset-generator skill to Game Development
 - 2025-12-30: Added Game Development domain with godot-best-practices skill
 - 2025-12-27: Added pdf-generator skill to Document Processing

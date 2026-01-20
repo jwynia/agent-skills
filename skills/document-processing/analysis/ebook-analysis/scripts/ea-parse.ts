@@ -320,7 +320,59 @@ async function extractEpubText(filePath: string): Promise<string> {
   }
 }
 
-// === MAIN ===
+// === EXPORTS FOR MODULE USE ===
+
+export {
+  extractMetadata,
+  detectChapters,
+  chunkText,
+  extractEpubText,
+};
+
+export type {
+  BookMetadata,
+  Chapter,
+  TextChunk,
+  ParsedBook,
+};
+
+/**
+ * Parse a book file and return structured data.
+ * This is the main entry point for programmatic use.
+ */
+export async function parseBook(
+  filePath: string,
+  options: {
+    chunkSize?: number;
+    overlap?: number;
+    format?: "txt" | "epub";
+  } = {}
+): Promise<ParsedBook> {
+  const { chunkSize = 1000, overlap = 100 } = options;
+  const format: "txt" | "epub" = options.format ||
+    (filePath.toLowerCase().endsWith(".epub") ? "epub" : "txt");
+
+  let text: string;
+  if (format === "epub") {
+    text = await extractEpubText(filePath);
+  } else {
+    text = await Deno.readTextFile(filePath);
+  }
+
+  const metadata = extractMetadata(text, filePath, format);
+  const chapters = detectChapters(text);
+  metadata.total_chapters = chapters.length;
+
+  const chunks = chunkText(text, chapters, chunkSize, overlap);
+
+  return {
+    metadata,
+    chapters,
+    chunks,
+  };
+}
+
+// === MAIN (CLI) ===
 
 async function main(): Promise<void> {
   const args = Deno.args;
@@ -453,4 +505,7 @@ Examples:
   }
 }
 
-main();
+// Only run main() when executed directly, not when imported
+if (import.meta.main) {
+  main();
+}

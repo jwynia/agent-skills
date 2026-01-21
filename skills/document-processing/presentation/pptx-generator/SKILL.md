@@ -296,6 +296,104 @@ deno run --allow-read --allow-write scripts/generate-scratch.ts data-spec.json r
 2. Verify image file exists and is readable
 3. Check supported formats: PNG, JPEG, GIF
 
+## OOXML Placeholder Inheritance (Advanced)
+
+Understanding how PowerPoint's OOXML format handles placeholders is crucial for template development.
+
+### The Inheritance Chain
+
+PowerPoint uses a hierarchical inheritance model:
+
+```
+Theme → Slide Master → Slide Layout → Slide
+```
+
+- **Theme**: Defines colors, fonts, effects
+- **Slide Master**: Defines default placeholder positions and formatting (including bullets)
+- **Slide Layout**: Overrides master settings for specific layout types (e.g., Title Slide, Content)
+- **Slide**: Contains actual content, inherits formatting from layout
+
+### Key Principles
+
+1. **Text Content Does NOT Inherit**: Slides must contain their own text content. The `{{placeholder}}` text in a layout does NOT automatically appear on slides using that layout.
+
+2. **Text Formatting CAN Inherit**: When a slide shape has an empty `<a:lstStyle/>`, it inherits formatting (color, size, bullets) from the layout's `<a:lstStyle>`.
+
+3. **Placeholder Linking**: Slides link to layouts via `<p:ph type="..." idx="..."/>`. The `type` (e.g., "title", "body", "ctrTitle") and `idx` must match.
+
+4. **Bullet Suppression**: To prevent bullets on a placeholder that would normally inherit them from the master's bodyStyle, add `<a:buNone/>` in the layout's lstStyle.
+
+### Defining Inheritable Formatting
+
+In layout placeholders, define colors in `<a:lstStyle>` (inheritable), not in `<a:rPr>` (run-specific):
+
+```xml
+<!-- Layout: Color in lstStyle (GOOD - inheritable) -->
+<p:txBody>
+  <a:lstStyle>
+    <a:lvl1pPr algn="ctr">
+      <a:buNone/>  <!-- Suppress bullets -->
+      <a:defRPr sz="4400" b="1">
+        <a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill>
+      </a:defRPr>
+    </a:lvl1pPr>
+  </a:lstStyle>
+  <a:p>
+    <a:r><a:rPr lang="en-US"/><a:t>{{placeholder}}</a:t></a:r>
+  </a:p>
+</p:txBody>
+```
+
+### Slide Shape Structure
+
+For slides to properly inherit from layouts:
+
+```xml
+<!-- Slide: Empty lstStyle to inherit from layout -->
+<p:sp>
+  <p:nvSpPr>
+    <p:cNvPr id="2" name="title 2"/>
+    <p:cNvSpPr><a:spLocks noGrp="1"/></p:cNvSpPr>
+    <p:nvPr>
+      <p:ph type="ctrTitle"/>  <!-- Links to layout placeholder -->
+    </p:nvPr>
+  </p:nvSpPr>
+  <p:spPr/>  <!-- Empty = inherit position from layout -->
+  <p:txBody>
+    <a:bodyPr/>
+    <a:lstStyle/>  <!-- Empty = inherit formatting from layout -->
+    <a:p>
+      <a:r>
+        <a:rPr lang="en-US"/>  <!-- Empty = inherit character formatting -->
+        <a:t>{{placeholder}}</a:t>  <!-- Content must be here -->
+      </a:r>
+    </a:p>
+  </p:txBody>
+</p:sp>
+```
+
+### Common Issues
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Text shows as black instead of white | Color defined in `<a:rPr>` not `<a:lstStyle>` | Move color to layout's `<a:defRPr>` in `<a:lstStyle>` |
+| Unwanted bullets appearing | Master's bodyStyle has bullets, layout doesn't override | Add `<a:buNone/>` to layout's `<a:lvl1pPr>` |
+| Placeholder text not appearing | Text only in layout, not in slide | Include text content in slide's `<p:txBody>` |
+| Formatting not applying | Slide has explicit formatting | Use empty `<a:lstStyle/>` and `<a:rPr lang="en-US"/>` |
+
+### Reference: Placeholder Types
+
+| Type | Usage |
+|------|-------|
+| `ctrTitle` | Centered title (title slides) |
+| `title` | Standard title |
+| `subTitle` | Subtitle |
+| `body` | Content area (use `idx` for multiple) |
+| `pic` | Picture placeholder |
+| `dt` | Date/time |
+| `ftr` | Footer |
+| `sldNum` | Slide number |
+
 ## Limitations
 
 - **No slide rendering**: Cannot render slides to images directly (use LibreOffice for this)

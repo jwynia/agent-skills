@@ -4,70 +4,42 @@
 
 ## Installing Skills
 
-Use `npx add-skill` to install skills into your project:
+Use `npx skill add` to install skills:
+
+### Browse by Category
+
+Skills are organized into three top-level categories for easy filtering:
+
+```bash
+# Creative/narrative skills (~58 skills)
+npx skill add jwynia@agent-skills/skills/creative
+
+# Technical/development skills (~23 skills)
+npx skill add jwynia@agent-skills/skills/tech
+
+# General utilities (~25 skills)
+npx skill add jwynia@agent-skills/skills/general
+```
 
 ### Install a Single Skill
 
 ```bash
-npx add-skill https://github.com/jwynia/agent-skills/tree/main/skills/meta/skill-builder
-```
-
-### Browse a Category
-
-Point to a folder to choose from available skills:
-
-```bash
-npx add-skill https://github.com/jwynia/agent-skills/tree/main/skills/development
+npx skill add jwynia@agent-skills/skills/general/meta/skill-builder
 ```
 
 ### Browse All Skills
 
 ```bash
-npx add-skill https://github.com/jwynia/agent-skills/tree/main/skills
+npx skill add jwynia@agent-skills
 ```
 
 ## Available Skills (106 total)
 
-### AI (1)
-- **mastra-hono** - Mastra AI framework with Hono integration
+### Creative (~58 skills)
+Story/narrative focused skills for fiction writing, worldbuilding, and creative work.
 
-### Analysis (1)
-- **technology-impact** - McLuhan's Tetrad analysis for technology impacts
-
-### Communication (2)
-- **presentation-design** - Design effective presentations and slides
-- **speech-adaptation** - Transform written content for spoken delivery
-
-### Creative (3)
-- **joke-engineering** - Humor diagnostics and improvement
-- **lyric-diagnostic** - Song lyric analysis and improvement
-- **musical-dna** - Extract musical characteristics from artists
-
-### Development (10)
-- **agile-coordinator** - Multi-agent task orchestration for agile workflows
-- **agile-workflow** - Agile development methodology
-- **architecture-decision** - ADR creation and trade-off analysis
-- **code-review** - Structured code review guidance
-- **devcontainer** - Development container configuration
-- **github-agile** - GitHub-driven agile workflows
-- **requirements-analysis** - Requirements discovery and documentation
-- **system-design** - Software architecture and design
-- **task-decomposition** - Break down development tasks
-- **typescript-best-practices** - TypeScript patterns and practices
-
-### Document Processing (5)
-- **docx-generator** - Word document generation
-- **ebook-analysis** - Parse ebooks and extract concepts
-- **pdf-generator** - PDF document generation
-- **pptx-generator** - PowerPoint presentation generation
-- **xlsx-generator** - Excel spreadsheet generation
-
-### Education (2)
-- **competency** - Competency framework development
-- **gentle-teaching** - AI-assisted learning guidance
-
-### Fiction (54)
-Core storytelling, worldbuilding, character development, and narrative structure skills:
+#### Fiction (54)
+Core storytelling, worldbuilding, character development, and narrative structure:
 - **story-sense** - Diagnose story problems
 - **story-coach** - Assistive writing guidance
 - **story-collaborator** - Active writing partnership
@@ -80,30 +52,87 @@ Core storytelling, worldbuilding, character development, and narrative structure
 - **endings** - Resolution diagnostics
 - And 44 more specialized fiction skills...
 
-### Frontend (4)
+#### Humor (1)
+- **joke-engineering** - Humor diagnostics and improvement
+
+#### Music (2)
+- **lyric-diagnostic** - Song lyric analysis and improvement
+- **musical-dna** - Extract musical characteristics from artists
+
+---
+
+### Tech (~23 skills)
+Technical and development focused skills.
+
+#### AI (1)
+- **mastra-hono** - Mastra AI framework with Hono integration
+
+#### Development (10)
+- **agile-coordinator** - Multi-agent task orchestration for agile workflows
+- **agile-workflow** - Agile development methodology
+- **architecture-decision** - ADR creation and trade-off analysis
+- **code-review** - Structured code review guidance
+- **devcontainer** - Development container configuration
+- **github-agile** - GitHub-driven agile workflows
+- **requirements-analysis** - Requirements discovery and documentation
+- **system-design** - Software architecture and design
+- **task-decomposition** - Break down development tasks
+- **typescript-best-practices** - TypeScript patterns and practices
+
+#### Frontend (4)
 - **frontend-design** - UI/UX design patterns
 - **pwa-development** - PWA implementation (React/Svelte)
 - **react-pwa** - Progressive Web Apps with React
 - **shadcn-layouts** - Tailwind/shadcn layout patterns
 
-### Game Development (3)
+#### Game Development (3)
 - **abstract-strategy** - Board game design
 - **godot-asset-generator** - AI asset generation for Godot
 - **godot-best-practices** - Godot engine best practices
 
-### Ideation (2)
+#### Security (4)
+- **config-scan** - Configuration security scanning
+- **dependency-scan** - Dependency vulnerability scanning
+- **secrets-scan** - Secrets detection
+- **security-scan** - General security scanning
+
+---
+
+### General (~25 skills)
+Universal utility skills for research, documents, and productivity.
+
+#### Analysis (1)
+- **technology-impact** - McLuhan's Tetrad analysis for technology impacts
+
+#### Communication (2)
+- **presentation-design** - Design effective presentations and slides
+- **speech-adaptation** - Transform written content for spoken delivery
+
+#### Document Processing (6)
+- **docx-generator** - Word document generation
+- **ebook-analysis** - Parse ebooks and extract concepts
+- **pdf-generator** - PDF document generation
+- **pptx-generator** - PowerPoint presentation generation
+- **revealjs-presenter** - RevealJS presentation generation
+- **xlsx-generator** - Excel spreadsheet generation
+
+#### Education (2)
+- **competency** - Competency framework development
+- **gentle-teaching** - AI-assisted learning guidance
+
+#### Ideation (2)
 - **brainstorming** - Idea expansion and divergent thinking
 - **naming** - Brand, product, and character naming
 
-### Meta (3)
+#### Meta (3)
 - **context-network** - Build and maintain context networks
 - **context-retrospective** - Analyze agent interactions for improvements
 - **skill-builder** - Create new agent skills
 
-### Productivity (1)
+#### Productivity (1)
 - **task-breakdown** - Neurodivergent-friendly task decomposition
 
-### Research (7)
+#### Research (7)
 - **claim-investigation** - Investigate social media claims
 - **fact-check** - Verify claims against sources
 - **media-meta-analysis** - Media analysis methodology
@@ -112,13 +141,7 @@ Core storytelling, worldbuilding, character development, and narrative structure
 - **web-search** - Built-in web search (no API key required)
 - **web-search-tavily** - Advanced Tavily search with filtering and scoring
 
-### Security (4)
-- **config-scan** - Configuration security scanning
-- **dependency-scan** - Dependency vulnerability scanning
-- **secrets-scan** - Secrets detection
-- **security-scan** - General security scanning
-
-### Writing (4)
+#### Writing (4)
 - **blind-spot-detective** - Identify gaps in non-fiction writing
 - **non-fiction-revision** - Non-fiction book revision
 - **summarization** - Effective summarization techniques
@@ -127,53 +150,57 @@ Core storytelling, worldbuilding, character development, and narrative structure
 ## Project Structure
 
 ```
-skills/                      # 106 skills across 16 domains
-├── ai/                      # AI frameworks
-├── analysis/                # Impact analysis
-├── communication/           # Presentations, speech
-├── creative/                # Music, humor
+skills/                          # 106 skills in 3 top-level categories
+├── creative/                    # ~58 skills - Story/narrative focus
+│   ├── fiction/                 # 54 skills
+│   │   ├── application/
+│   │   ├── character/
+│   │   ├── core/
+│   │   ├── craft/
+│   │   ├── orchestrators/
+│   │   ├── structure/
+│   │   └── worldbuilding/
 │   ├── humor/
 │   └── music/
-├── development/             # Software development
-│   ├── architecture/
-│   ├── quality/
-│   ├── tooling/
-│   └── workflow/
-├── document-processing/     # Document generation & analysis
-│   ├── analysis/
-│   ├── pdf/
-│   ├── presentation/
-│   ├── spreadsheet/
-│   └── word/
-├── education/               # Learning & training
-├── fiction/                 # Creative writing (54 skills)
-│   ├── application/
-│   ├── character/
-│   ├── core/
-│   ├── craft/
-│   ├── orchestrators/
-│   ├── structure/
-│   └── worldbuilding/
-├── frontend/                # UI development
-│   ├── design/
-│   └── pwa/
-├── game-development/        # Game creation
-│   ├── design/
-│   └── godot/
-├── ideation/                # Brainstorming, naming
-├── meta/                    # Context networks, skill building
-├── productivity/            # Task management
-├── research/                # Research methodology
-│   ├── methodology/
-│   ├── tools/
-│   └── verification/
-├── security/                # Security scanning
-└── writing/                 # Non-fiction writing
+│
+├── tech/                        # ~23 skills - Technical/development
+│   ├── ai/
+│   ├── development/
+│   │   ├── architecture/
+│   │   ├── quality/
+│   │   ├── tooling/
+│   │   └── workflow/
+│   ├── frontend/
+│   │   ├── design/
+│   │   └── pwa/
+│   ├── game-development/
+│   │   ├── design/
+│   │   └── godot/
+│   └── security/
+│
+└── general/                     # ~25 skills - Universal utilities
     ├── analysis/
-    └── revision/
+    ├── communication/
+    ├── document-processing/
+    │   ├── analysis/
+    │   ├── pdf/
+    │   ├── presentation/
+    │   ├── spreadsheet/
+    │   └── word/
+    ├── education/
+    ├── ideation/
+    ├── meta/
+    ├── productivity/
+    ├── research/
+    │   ├── methodology/
+    │   ├── tools/
+    │   └── verification/
+    └── writing/
+        ├── analysis/
+        └── revision/
 
-reference/                   # agentskills.io spec and validation tools
-context-network/             # Planning and coordination docs
+reference/                       # agentskills.io spec and validation tools
+context-network/                 # Planning and coordination docs
 ```
 
 ## Contributing
@@ -182,7 +209,7 @@ See `context-network/processes/creation.md` for the skill creation workflow.
 
 Quick start:
 1. Plan in `context-network/elements/skills/`
-2. Create skill in `skills/[domain]/[skill-name]/`
+2. Create skill in `skills/[creative|tech|general]/[domain]/[skill-name]/`
 3. Validate with `skills-ref validate ./skills/path/to/skill`
 
 ## References

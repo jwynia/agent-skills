@@ -1,108 +1,90 @@
 # Agent Skills Directory
 
-This directory contains **106 skills** organized by domain.
+This directory contains **106 skills** organized into three top-level categories for easy filtering.
+
+## Quick Install
+
+```bash
+# Browse creative/narrative skills
+npx skill add jwynia@agent-skills/skills/creative
+
+# Browse technical/development skills
+npx skill add jwynia@agent-skills/skills/tech
+
+# Browse general utilities
+npx skill add jwynia@agent-skills/skills/general
+```
 
 ## Structure
 
-Skills are organized by domain with subcategories:
-
 ```
 skills/
-├── ai/                         # 1 skill
-│   └── mastra-hono/
-├── analysis/                   # 1 skill
-│   └── technology-impact/
-├── communication/              # 2 skills
-│   ├── presentation-design/
-│   └── speech-adaptation/
-├── creative/                   # 3 skills
+├── creative/                    # ~58 skills - Story/narrative focus
+│   ├── fiction/                 # 54 skills
+│   │   ├── application/
+│   │   ├── character/
+│   │   ├── core/
+│   │   ├── craft/
+│   │   ├── orchestrators/
+│   │   ├── structure/
+│   │   └── worldbuilding/
 │   ├── humor/
 │   │   └── joke-engineering/
 │   └── music/
 │       ├── lyric-diagnostic/
 │       └── musical-dna/
-├── development/                # 10 skills
-│   ├── architecture/
-│   │   ├── architecture-decision/
-│   │   ├── requirements-analysis/
-│   │   └── system-design/
-│   ├── quality/
-│   │   ├── code-review/
-│   │   └── task-decomposition/
-│   ├── tooling/
-│   │   ├── devcontainer/
-│   │   ├── skill-maker/
-│   │   └── typescript-best-practices/
-│   └── workflow/
-│       ├── agile-workflow/
-│       └── github-agile/
-├── document-processing/        # 5 skills
-│   ├── analysis/
-│   │   └── ebook-analysis/
-│   ├── pdf/
-│   │   └── pdf-generator/
-│   ├── presentation/
-│   │   └── pptx-generator/
-│   ├── spreadsheet/
-│   │   └── xlsx-generator/
-│   └── word/
-│       └── docx-generator/
-├── education/                  # 2 skills
-│   ├── competency/
-│   └── gentle-teaching/
-├── fiction/                    # 54 skills
-│   ├── application/
-│   ├── character/
-│   ├── core/
-│   ├── craft/
-│   ├── orchestrators/
-│   ├── structure/
-│   └── worldbuilding/
-├── frontend/                   # 4 skills
-│   ├── design/
-│   │   ├── frontend-design/
-│   │   └── shadcn-layouts/
-│   └── pwa/
-│       ├── pwa-development/
-│       └── react-pwa/
-├── game-development/           # 3 skills
-│   ├── design/
-│   │   └── abstract-strategy/
-│   └── godot/
-│       ├── godot-asset-generator/
-│       └── godot-best-practices/
-├── ideation/                   # 2 skills
-│   ├── brainstorming/
-│   └── naming/
-├── meta/                       # 3 skills
-│   ├── context-network/
-│   ├── context-retrospective/
-│   └── skill-builder/
-├── productivity/               # 1 skill
-│   └── task-breakdown/
-├── research/                   # 7 skills
-│   ├── methodology/
-│   │   ├── research/
-│   │   └── research-workflow/
-│   ├── tools/
-│   │   ├── media-meta-analysis/
-│   │   ├── web-search/
-│   │   └── web-search-tavily/
-│   └── verification/
-│       ├── claim-investigation/
-│       └── fact-check/
-├── security/                   # 4 skills
-│   ├── config-scan/
-│   ├── dependency-scan/
-│   ├── secrets-scan/
-│   └── security-scan/
-└── writing/                    # 4 skills
+│
+├── tech/                        # ~23 skills - Technical/development
+│   ├── ai/
+│   │   └── mastra-hono/
+│   ├── development/             # 10 skills
+│   │   ├── architecture/
+│   │   ├── quality/
+│   │   ├── tooling/
+│   │   └── workflow/
+│   ├── frontend/                # 4 skills
+│   │   ├── design/
+│   │   └── pwa/
+│   ├── game-development/        # 3 skills
+│   │   ├── design/
+│   │   └── godot/
+│   └── security/                # 4 skills
+│       ├── config-scan/
+│       ├── dependency-scan/
+│       ├── secrets-scan/
+│       └── security-scan/
+│
+└── general/                     # ~25 skills - Universal utilities
     ├── analysis/
-    │   ├── blind-spot-detective/
-    │   └── voice-analysis/
-    └── revision/
-        ├── non-fiction-revision/
-        └── summarization/
+    │   └── technology-impact/
+    ├── communication/           # 2 skills
+    │   ├── presentation-design/
+    │   └── speech-adaptation/
+    ├── document-processing/     # 6 skills
+    │   ├── analysis/
+    │   ├── pdf/
+    │   ├── presentation/
+    │   ├── spreadsheet/
+    │   └── word/
+    ├── education/               # 2 skills
+    │   ├── competency/
+    │   └── gentle-teaching/
+    ├── ideation/                # 2 skills
+    │   ├── brainstorming/
+    │   └── naming/
+    ├── meta/                    # 3 skills
+    │   ├── context-network/
+    │   ├── context-retrospective/
+    │   └── skill-builder/
+    ├── productivity/            # 1 skill
+    │   └── task-breakdown/
+    ├── research/                # 7 skills
+    │   ├── methodology/
+    │   ├── tools/
+    │   └── verification/
+    └── writing/                 # 4 skills
+        ├── analysis/
+        └── revision/
 ```
 
 Each skill folder contains:

@@ -6,13 +6,13 @@ This directory contains **106 skills** organized into three top-level categories
 
 ```bash
 # Browse creative/narrative skills
-npx skill add jwynia@agent-skills/skills/creative
+npx skills add jwynia@agent-skills/skills/creative
 
 # Browse technical/development skills
-npx skill add jwynia@agent-skills/skills/tech
+npx skills add jwynia@agent-skills/skills/tech
 
 # Browse general utilities
-npx skill add jwynia@agent-skills/skills/general
+npx skills add jwynia@agent-skills/skills/general
 ```
 
 ## Structure

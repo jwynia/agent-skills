@@ -4,7 +4,7 @@
 
 ## Installing Skills
 
-Use `npx skill add` to install skills:
+Use `npx skills add` to install skills:
 
 ### Browse by Category
 
@@ -12,25 +12,25 @@ Skills are organized into three top-level categories for easy filtering:
 
 ```bash
 # Creative/narrative skills (~58 skills)
-npx skill add jwynia@agent-skills/skills/creative
+npx skills add jwynia@agent-skills/skills/creative
 
 # Technical/development skills (~23 skills)
-npx skill add jwynia@agent-skills/skills/tech
+npx skills add jwynia@agent-skills/skills/tech
 
 # General utilities (~25 skills)
-npx skill add jwynia@agent-skills/skills/general
+npx skills add jwynia@agent-skills/skills/general
 ```
 
 ### Install a Single Skill
 
 ```bash
-npx skill add jwynia@agent-skills/skills/general/meta/skill-builder
+npx skills add jwynia@agent-skills/skills/general/meta/skill-builder
 ```
 
 ### Browse All Skills
 
 ```bash
-npx skill add jwynia@agent-skills
+npx skills add jwynia@agent-skills
 ```
 
 ## Available Skills (106 total)

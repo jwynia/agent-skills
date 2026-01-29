@@ -12,25 +12,25 @@ Skills are organized into three top-level categories for easy filtering:
 
 ```bash
 # Creative/narrative skills (~58 skills)
-npx skills add jwynia@agent-skills/skills/creative
+npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/creative
 
 # Technical/development skills (~23 skills)
-npx skills add jwynia@agent-skills/skills/tech
+npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/tech
 
 # General utilities (~25 skills)
-npx skills add jwynia@agent-skills/skills/general
+npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/general
 ```
 
 ### Install a Single Skill
 
 ```bash
-npx skills add jwynia@agent-skills/skills/general/meta/skill-builder
+npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/general/meta/skill-builder
 ```
 
 ### Browse All Skills
 
 ```bash
-npx skills add jwynia@agent-skills
+npx skills add https://github.com/jwynia/agent-skills/tree/main/skills
 ```
 
 ## Available Skills (106 total)

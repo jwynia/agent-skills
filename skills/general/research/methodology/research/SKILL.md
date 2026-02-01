@@ -5,6 +5,10 @@ license: MIT
 metadata:
   author: jwynia
   version: "2.0"
+  domain: research
+  cluster: methodology
+  type: diagnostic
+  mode: assistive
 ---
 
 # Research Skill
@@ -521,4 +525,4 @@ During research, ask:
 
 ## Source Framework
 
-Derived from: `frameworks/research/research-framework.md`
+Derived from: `references/research-framework.md`

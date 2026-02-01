@@ -5,6 +5,10 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
+  domain: research
+  cluster: methodology
+  type: diagnostic
+  mode: evaluative
 ---
 
 # Fact-Check Skill
@@ -286,4 +290,4 @@ Example: `research-synthesis-factcheck-2025-01-15.md`
 
 This skill extends the research cluster with post-generation verification. Distinct from research (which gathers information) and operates as quality control on output.
 
-Related: `skills/research/SKILL.md` (pre-generation), `frameworks/doppelganger/` (truth hierarchies)
+Related: `skills/research/SKILL.md` (pre-generation), `references/doppelganger/` (truth hierarchies)

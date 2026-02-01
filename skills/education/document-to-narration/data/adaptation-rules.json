@@ -1,0 +1,104 @@
+{
+  "_meta": {
+    "description": "Rules for adapting written text to spoken delivery",
+    "version": "1.0"
+  },
+  "replacements": {
+    "abbreviations": {
+      "e.g.": "for example",
+      "i.e.": "that is",
+      "etc.": "and so on",
+      "vs.": "versus",
+      "vs": "versus",
+      "w/": "with",
+      "b/c": "because",
+      "w/o": "without",
+      "approx.": "approximately",
+      "esp.": "especially",
+      "incl.": "including"
+    },
+    "symbols": {
+      "&": "and",
+      "%": "percent",
+      "+": "plus",
+      "=": "equals",
+      "~": "approximately"
+    }
+  },
+  "punctuation_patterns": {
+    "parenthetical_to_dash": {
+      "description": "Convert parenthetical asides to em-dashes or separate sentences",
+      "example_before": "The tool (which was available to both) produced different results.",
+      "example_after": "The tool — which was available to both — produced different results."
+    },
+    "semicolon_to_period": {
+      "description": "Break semicolon-joined clauses into separate sentences",
+      "example_before": "The first person found the floor; the second discovered the ceiling.",
+      "example_after": "The first person found the floor. The second discovered the ceiling."
+    },
+    "ellipsis_handling": {
+      "description": "Replace ellipsis with period or natural pause",
+      "example_before": "And then... it clicked.",
+      "example_after": "And then it clicked."
+    }
+  },
+  "sentence_structure": {
+    "max_clause_depth": 2,
+    "split_triggers": [
+      "which, in turn,",
+      "although it should be noted that",
+      "despite the fact that",
+      "in addition to the fact that",
+      "notwithstanding the possibility that"
+    ]
+  },
+  "emphasis_handling": {
+    "italics": {
+      "description": "Context determines stress; often no change needed",
+      "note": "TTS handles emphasis through sentence context"
+    },
+    "bold": {
+      "description": "Usually structural emphasis; may need spoken equivalent",
+      "note": "Consider adding 'importantly' or similar if emphasis is critical"
+    },
+    "ALL_CAPS": {
+      "description": "Strong emphasis; preserve meaning through word choice",
+      "note": "Convert to lowercase but ensure context conveys emphasis"
+    }
+  },
+  "preserve_patterns": [
+    "rhetorical_questions",
+    "deliberate_repetition",
+    "parallel_structure",
+    "author_voice_phrases",
+    "memorable_formulations"
+  ],
+  "transition_phrases": {
+    "section_start": [
+      "Now,",
+      "Here's where things get interesting:",
+      "Let's look at",
+      "Consider this:"
+    ],
+    "returning_to_point": [
+      "Back to our main question:",
+      "Returning to the point:",
+      "This brings us back to:"
+    ],
+    "contrast_pivot": [
+      "But here's the thing:",
+      "However,",
+      "On the other hand,"
+    ],
+    "building": [
+      "And this connects to",
+      "Building on this,",
+      "Taking this further,"
+    ],
+    "conclusion": [
+      "So what does this mean?",
+      "The key takeaway is:",
+      "In the end,"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+# TTS Model Directory
+
+This directory should contain the Qwen3-TTS fine-tuned voice model.
+
+The model files are not included in git due to size (~7.8GB).
+
+## Required Files
+
+Place the following files here:
+- config.json
+- generation_config.json
+- model.safetensors (main model weights)
+- tokenizer_config.json
+- vocab.json
+- merges.txt
+- preprocessor_config.json
+- speech_tokenizer/ (subdirectory with tokenizer files)
+
+## Model Source
+
+The model was fine-tuned using qwen-tts with custom speaker embeddings.

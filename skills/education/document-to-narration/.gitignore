@@ -1,0 +1,17 @@
+# TTS model files (too large for git)
+tts/model/*
+!tts/model/.gitkeep
+
+# Python virtual environment
+tts/.venv/
+
+# Output directories
+output/
+
+# Whisper installation
+whisper.cpp/
+
+# Temporary files
+*.pyc
+__pycache__/
+tmp/

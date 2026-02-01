@@ -5,6 +5,10 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
+  domain: competency
+  cluster: methodology
+  type: diagnostic
+  mode: assistive
 ---
 
 # Competency Builder Skill
@@ -436,4 +440,4 @@ During competency framework development, ask:
 
 ## Source Framework
 
-Derived from: `frameworks/competency/competency-framework-development.md`
+Derived from: `references/competency-framework-development.md`

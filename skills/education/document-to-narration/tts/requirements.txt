@@ -1,0 +1,4 @@
+# TTS dependencies for document-to-narration skill
+qwen-tts
+soundfile
+torch

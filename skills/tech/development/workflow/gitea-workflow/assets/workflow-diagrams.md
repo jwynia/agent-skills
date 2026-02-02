@@ -31,8 +31,8 @@ Visual representations of agile-workflow phases.
     │   │                                    │     │   │
     │   │  ┌──────────────────────────────┐ │     │   │
     │   │  │ sync → next → implement →    │ │     │   │
-    │   │  │ review → apply → merge-prep →│ │     │   │
-    │   │  │ merge-complete               │ │     │   │
+    │   │  │ review → apply → pr-prep →   │ │     │   │
+    │   │  │ pr-complete                  │ │     │   │
     │   │  └──────────────────────────────┘ │     │   │
     │   │       (repeat as needed)          │     │   │
     │   └────────────────┬──────────────────┘     │   │
@@ -120,18 +120,19 @@ Visual representations of agile-workflow phases.
                       │◄─────────┘
                       ▼
                     ┌─────────────────┐
-                    │   merge-prep    │ Validate
+                    │    pr-prep      │ Create PR
                     └────────┬────────┘
                               │
                               ▼
                ╔══════════════════════════╗
                ║  CHECKPOINT              ║
-               ║  Merge Ready             ║
+               ║  PR Created              ║
+               ║  (await CI + approval)   ║
                ╚════════════╤═════════════╝
                             │
                             ▼
                     ┌─────────────────┐
-                    │ merge-complete  │ Merge + cleanup
+                    │  pr-complete    │ Merge + cleanup
                     └────────┬────────┘
                               │
                               ▼
@@ -250,21 +251,35 @@ Visual representations of agile-workflow phases.
            │ [clean]                                   │
            ▼                                           │
     ┌──────────────┐                                   │
-    │ MERGE_READY  │                                   │
+    │ READY_FOR_PR │                                   │
     └──────┬───────┘                                   │
-           │ [merge-prep]                              │
-           │ [merge-complete]                          │
+           │ [pr-prep]                                 │
            ▼                                           │
     ┌──────────────┐                                   │
-    │   CLEANUP    │                                   │
-    └──────┬───────┘                                   │
-           │ [complete]                                │
-           ▼                                           │
-    ┌──────────────┐                                   │
-    │  COMPLETED   │                                   │
-    └──────┬───────┘                                   │
-           │                                           │
-           └───────────────────────────────────────────┘
+    │ AWAITING_CI  │───[failed]───► CI_FAILED ───────┐│
+    └──────┬───────┘                                 ││
+           │ [passed]                                ││
+           ▼                                         ││
+    ┌────────────────────┐                           ││
+    │ AWAITING_APPROVAL  │                           ││
+    └──────┬─────────────┘                           ││
+           │ [approved]                              ││
+           ▼                                         ││
+    ┌────────────────┐                               ││
+    │ READY_FOR_MERGE│                               ││
+    └──────┬─────────┘                               ││
+           │ [merge]                                 ││
+           ▼                                         ││
+    ┌──────────────┐                                 ││
+    │   CLEANUP    │                                 ││
+    └──────┬───────┘                                 ││
+           │ [complete]                              ││
+           ▼                                         ▼│
+    ┌──────────────┐                     ┌───────────┐│
+    │  COMPLETED   │                     │IMPLEMENTING││
+    └──────┬───────┘                     └───────────┘│
+           │                                          │
+           └──────────────────────────────────────────┘
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```

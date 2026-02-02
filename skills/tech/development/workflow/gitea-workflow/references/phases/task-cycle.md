@@ -1,10 +1,10 @@
 # Task Cycle Phase Reference
 
-Complete flow for implementing a single task from selection to merge (git-only version).
+Complete flow for implementing a single task from selection to merge.
 
 ## Overview
 
-The task cycle is the primary workflow for development work. It takes a task from the ready queue through implementation, review, and merge directly to main.
+The task cycle is the primary workflow for development work. It takes a task from the ready queue through implementation, review, and merge.
 
 ```
 TASK CYCLE FLOW
@@ -70,20 +70,21 @@ TASK CYCLE FLOW
               │
               ▼
 ┌─────────────┐
-│ merge-prep  │ ─── Validate, prepare for merge
+│   pr-prep   │ ─── Validate, document, create PR
 └──────┬──────┘
        │
        ▼
 ╔═══════════════════════════════════════════════════════╗
-║  CHECKPOINT: MERGE_READY                              ║
-║  • Display validation results                         ║
-║  • Confirm ready to merge to main                     ║
+║  CHECKPOINT: PR_CREATED                               ║
+║  • Display PR URL and CI status                       ║
+║  • Wait for CI checks                                 ║
+║  • Wait for approvals                                 ║
 ╚═══════════════════════════════════════════════════════╝
        │
        ▼
-┌───────────────┐
-│ merge-complete│ ─── Merge, cleanup worktree, update status
-└──────┬────────┘
+┌─────────────┐
+│ pr-complete │ ─── Merge, cleanup worktree, update status
+└──────┬──────┘
        │
        ▼
     END
@@ -269,69 +270,67 @@ TASK CYCLE FLOW
 - Created follow-up tasks
 - Updated validation status
 
-**Next Step**: Proceed to merge prep
+**Next Step**: Proceed to PR prep
 
 ---
 
-### Step 6: Merge Prep (Validate for Merge)
+### Step 6: PR Prep (Create Pull Request)
 
-**Command**: `merge-prep`
+**Command**: `pr-prep`
 
-**Purpose**: Validate implementation and prepare for merge.
+**Purpose**: Validate and create pull request.
 
 **Actions**:
 1. Run full validation suite
-2. Update from main branch
-3. Verify no merge conflicts
-4. Generate merge documentation
-5. Confirm ready to merge
+2. Generate PR description
+3. Push to remote
+4. Create PR via GitHub CLI
+5. Update task status to in-review
 
 **Outputs**:
-- Validation results
-- Conflict check status
-- Ready for merge confirmation
+- PR number and URL
+- CI status
+- Review request
 
-**Triggers Checkpoint**: MERGE_READY
+**Triggers Checkpoint**: PR_CREATED
 
 ---
 
-### Checkpoint: MERGE_READY
+### Checkpoint: PR_CREATED
 
 **Display**:
 ```
 ╔═══════════════════════════════════════════════════════╗
-║  CHECKPOINT: Ready to Merge                           ║
+║  CHECKPOINT: PR Created                               ║
 ╠═══════════════════════════════════════════════════════╣
-║  Task: [TASK-ID] - [Task Title]                       ║
-║  Branch: task/[TASK-ID]-description                   ║
+║  PR: #123 - [TASK-ID]: [Task Title]                   ║
+║  URL: https://github.com/org/repo/pull/123            ║
 ║                                                       ║
-║  Validation:                                          ║
-║  - Tests: PASSED (15/15)                              ║
-║  - Lint: PASSED                                       ║
-║  - Build: PASSED                                      ║
-║  - Conflicts: None                                    ║
+║  CI Status: Running...                                ║
+║  Approvals: 0/1 required                              ║
 ║                                                       ║
-║  Ready to merge to main?                              ║
-║  [merge] [stop]                                       ║
+║  Waiting for CI and approval...                       ║
+║  [check status] [stop]                                ║
 ╚═══════════════════════════════════════════════════════╝
 ```
 
-**Auto-Continue Condition**: All validation passes
+**Auto-Continue Condition**: CI passes AND required approvals obtained
 
 ---
 
-### Step 7: Merge Complete (Merge and Cleanup)
+### Step 7: PR Complete (Merge and Cleanup)
 
-**Command**: `merge-complete`
+**Command**: `pr-complete [PR-NUMBER]`
 
-**Purpose**: Merge to main and clean up.
+**Purpose**: Merge PR and clean up.
 
 **Actions**:
-1. Squash merge to main
-2. Delete feature branch
-3. Remove worktree
-4. Update task status to completed
-5. Update backlog indexes
+1. Verify CI and approvals
+2. Squash merge to main
+3. Delete feature branch
+4. Remove worktree
+5. Update task status to completed
+6. Update backlog indexes
 
 **Outputs**:
 - Merge confirmation
@@ -349,8 +348,14 @@ TASK CYCLE FLOW
 - Must fix tests before proceeding
 - Cannot skip to review
 
+### CI Failures
+- Stop at PR_CREATED checkpoint
+- Fix in worktree
+- Push updates
+- Wait for CI to re-run
+
 ### Merge Conflicts
-- Stop at MERGE_READY checkpoint
+- Stop at PR_CREATED checkpoint
 - Pull latest main into worktree
 - Resolve conflicts
 - Push updates
@@ -370,7 +375,7 @@ TASK CYCLE FLOW
 | Implement | 30 min - 4 hours |
 | Reviews | 5-15 minutes |
 | Apply Recommendations | 5-30 minutes |
-| Merge Prep | 2-5 minutes |
-| Merge Complete | 2-5 minutes |
+| PR Prep | 5-10 minutes |
+| PR Complete | 2-5 minutes |
 
 Total: Variable based on task complexity

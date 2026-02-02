@@ -1,10 +1,10 @@
 # State Detection Reference
 
-Algorithms for detecting current workflow state using git-only signals.
+Algorithms for detecting current workflow state in Gitea repositories.
 
 ## Overview
 
-The agile-workflow skill determines current state automatically by examining multiple signals from the project environment. This enables seamless resume from any point.
+The gitea-workflow skill determines current state automatically by examining multiple signals from the project environment. This enables seamless resume from any point.
 
 ## Detection Signals
 
@@ -45,15 +45,34 @@ The agile-workflow skill determines current state automatically by examining mul
 | Modified files | Active coding in progress |
 | Staged files | Preparing to commit |
 
-### 4. Branch Merge Status
+### 4. PR Status (Gitea)
 
-**Command**: `git branch --merged main`
+**Commands**:
+```bash
+# Check if PR exists for current branch
+tea pulls list --state open | grep $(git branch --show-current)
+
+# Get PR details if exists
+tea pulls
+```
+
+**Via API Script** (for more detailed info):
+```bash
+# Check CI status
+./scripts/gitea-ci-status.sh <owner> <repo> <commit-sha>
+
+# Check PR reviews
+./scripts/gitea-pr-checks.sh <owner> <repo> <pr-number>
+```
 
 **Interpretation**:
-| Result | Indicates |
-|--------|-----------|
-| Branch listed | Already merged to main |
-| Branch not listed | Not yet merged |
+| PR State | Indicates |
+|----------|-----------|
+| No PR found | Pre-PR (implementing or ready for prep) |
+| PR open, CI pending | Awaiting CI |
+| PR open, CI passed | Ready for review/merge |
+| PR merged | Ready for cleanup |
+| PR closed (not merged) | Abandoned or needs rework |
 
 ### 5. Task Status Files
 
@@ -62,6 +81,7 @@ The agile-workflow skill determines current state automatically by examining mul
 **Files**:
 - `ready.md` - Tasks available to start
 - `in-progress.md` - Tasks being worked on
+- `in-review.md` - Tasks with open PRs
 - `completed.md` - Finished tasks
 
 **Check**: Look for current task ID in these files.
@@ -72,23 +92,26 @@ The agile-workflow skill determines current state automatically by examining mul
 COMBINED STATE DETECTION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Worktree   Branch      Git Status   Merged?     → Workflow State
+Worktree   Branch      Git Status   PR State    → Workflow State
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 None       main        clean        N/A         → IDLE
                                                   Ready to start
 
-Exists     task/*      dirty        No          → IMPLEMENTING
+Exists     task/*      dirty        None        → IMPLEMENTING
                                                   Active coding
 
-Exists     task/*      clean        No          → READY_FOR_REVIEW
+Exists     task/*      clean        None        → READY_FOR_REVIEW
                                                   Can run reviews
 
-Exists     task/*      clean        No          → MERGE_READY
-                                  (after review)  Ready to merge
+Exists     task/*      clean        Open/Run    → AWAITING_CI
+                                                  Wait for checks
 
-Exists     task/*      any          Yes         → CLEANUP_NEEDED
-                                                  Run merge-complete
+Exists     task/*      clean        Open/Pass   → READY_FOR_MERGE
+                                                  Can merge PR
+
+Exists     task/*      any          Merged      → CLEANUP_NEEDED
+                                                  Run pr-complete
 
 None       main        clean        N/A         → COMPLETED
                                                   (with recent merge)
@@ -120,19 +143,31 @@ function detectState():
   if hasUncommitted:
     return IMPLEMENTING
 
-  # Step 5: Check if already merged
-  mergedBranches = gitBranchMerged("main")
+  # Step 5: Check PR status via tea CLI
+  prInfo = teaPullsList(branch)
 
-  if branch in mergedBranches:
+  if no PR exists:
+    return READY_FOR_REVIEW
+
+  if prInfo.merged:
     return CLEANUP_NEEDED
 
-  # Step 6: Check task status file for review state
-  taskStatus = readTaskStatusFile(taskId)
+  # Step 6: Check CI status via API script (Gitea uses external CI)
+  ciStatus = checkCIStatus(prInfo.headCommit)
 
-  if taskStatus == "reviewed":
-    return MERGE_READY
+  if ciStatus == "pending":
+    return AWAITING_CI
 
-  return READY_FOR_REVIEW
+  if ciStatus == "success" and prInfo.approved:
+    return READY_FOR_MERGE
+
+  if ciStatus == "success":
+    return AWAITING_APPROVAL
+
+  if ciStatus == "failure":
+    return CI_FAILED
+
+  return IN_REVIEW
 ```
 
 ## State to Action Mapping
@@ -142,8 +177,10 @@ function detectState():
 | IDLE | Start new task | `next` |
 | IMPLEMENTING | Continue coding | Resume in worktree |
 | READY_FOR_REVIEW | Run reviews | `review-code`, `review-tests` |
-| MERGE_READY | Merge to main | `merge-complete` |
-| CLEANUP_NEEDED | Complete merge | `merge-complete` |
+| AWAITING_CI | Wait or check | Verify CI externally or via API script |
+| READY_FOR_MERGE | Merge PR | `pr-complete` |
+| CLEANUP_NEEDED | Complete merge | `pr-complete` |
+| CI_FAILED | Fix issues | Return to worktree |
 
 ## Edge Cases
 
@@ -157,7 +194,7 @@ If multiple task worktrees exist:
 ### Stale Worktree
 
 Worktree exists but task marked complete:
-1. Branch was merged outside workflow
+1. PR was merged outside workflow
 2. Clean up worktree
 3. Return to IDLE
 
@@ -167,6 +204,13 @@ Task branch exists on remote but no local worktree:
 1. Task was started on different machine
 2. Offer to create worktree from branch
 3. Or start fresh
+
+### PR Closed Without Merge
+
+PR exists but was closed (not merged):
+1. Task may have been abandoned
+2. Check task status file
+3. Offer to reopen or start fresh
 
 ## Resumption Context
 
@@ -186,6 +230,11 @@ Progress:
 - Tests: [passing/failing/none]
 - Last commit: [message] ([time ago])
 
+PR Status: [if exists]
+- Number: #[number]
+- CI: [status - check via API or manually]
+- Reviews: [count]
+
 Recommended Action: [what to do next]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -204,9 +253,41 @@ git branch --show-current
 # Check for uncommitted changes
 git status --short
 
-# Check if branch is merged
-git branch --merged main
+# Check PR status (Gitea)
+tea pulls list --state open
 
 # Check task status files
 cat context-network/backlog/by-status/in-progress.md
+```
+
+## Gitea-Specific Notes
+
+### CI Status
+
+Gitea uses external CI systems. To check CI status:
+
+1. **Via API Script**:
+   ```bash
+   ./scripts/gitea-ci-status.sh owner repo $(git rev-parse HEAD)
+   ```
+
+2. **Manually**: Check your CI dashboard (Drone, Woodpecker, Jenkins, etc.)
+
+3. **Via Gitea API** (if commit statuses are posted):
+   ```bash
+   curl -H "Authorization: token $GITEA_TOKEN" \
+     "$GITEA_URL/api/v1/repos/owner/repo/commits/SHA/statuses"
+   ```
+
+### PR Approval Status
+
+Check if PR has required approvals:
+
+```bash
+./scripts/gitea-pr-checks.sh owner repo PR_NUMBER
+```
+
+Or via tea CLI:
+```bash
+tea pulls  # Shows current PR details including reviews
 ```

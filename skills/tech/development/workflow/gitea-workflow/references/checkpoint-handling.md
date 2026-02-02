@@ -1,6 +1,6 @@
 # Checkpoint Handling Reference
 
-Pause/resume behavior at workflow checkpoints.
+Pause/resume behavior at workflow checkpoints for Gitea repositories.
 
 ## Overview
 
@@ -22,7 +22,7 @@ Verify a condition before proceeding.
 
 **Examples**:
 - IMPL_COMPLETE: All tests passing?
-- MERGE_READY: All validations passing?
+- PR_CREATED: CI passing? (verify via API or manually)
 
 ### Information Checkpoints
 
@@ -130,54 +130,57 @@ If all conditions met, can auto-continue with brief countdown.
 
 ---
 
-### MERGE_READY
+### PR_CREATED
 
-**Triggers after**: `merge-prep` command
+**Triggers after**: `pr-prep` command
 
 **Display**:
 ```
 ╔═══════════════════════════════════════════════════════╗
-║  CHECKPOINT: Ready to Merge                           ║
+║  CHECKPOINT: PR Created                               ║
 ╠═══════════════════════════════════════════════════════╣
-║  Task: [TASK-ID] - [title]                            ║
-║  Branch: task/[TASK-ID]-description                   ║
+║  PR: #[number] - [title]                              ║
+║  URL: [GITEA_URL]/[owner]/[repo]/pulls/[number]       ║
 ║                                                       ║
-║  Validation:                                          ║
-║  - Tests: PASSED                                      ║
-║  - Lint: PASSED                                       ║
-║  - Build: PASSED                                      ║
+║  CI Status: [Check via API or CI dashboard]           ║
+║  Approvals: [X]/[Y] required                          ║
 ║                                                       ║
-║  Ready to merge to main?                              ║
+║  [Status-specific message]                            ║
 ╚═══════════════════════════════════════════════════════╝
 ```
 
 **User Options**:
-- `merge` → Proceed to merge
-- `stop` → Exit (branch remains)
+- `check` → Refresh CI/approval status via API
+- `merge` → Proceed to merge (if ready)
+- `stop` → Exit (PR remains open)
 
 **Auto-Continue Condition**:
-- All validation checks passed
+- CI passed (verified via API script) AND
+- Required approvals obtained
 
 **Blocking Conditions**:
-- Tests failed → Must fix
-- Build failed → Must fix
+- CI failed → Must fix
+- Missing approvals → Must wait
+
+**Gitea-Specific**:
+- CI status must be checked via API script or manually
+- Run: `./scripts/gitea-ci-status.sh owner repo $(git rev-parse HEAD)`
 
 ---
 
-### MERGED
+### PR_MERGED
 
-**Triggers after**: `merge-complete` merge step
+**Triggers after**: `pr-complete` merge step
 
 **Display**:
 ```
 ╔═══════════════════════════════════════════════════════╗
-║  CHECKPOINT: Merged                                   ║
+║  CHECKPOINT: PR Merged                                ║
 ╠═══════════════════════════════════════════════════════╣
 ║  Task: [TASK-ID] - [Title]                            ║
-║  Commit: [commit-hash]                                ║
+║  PR: #[number] - Merged ✓                             ║
 ║                                                       ║
 ║  Cleanup:                                             ║
-║  - [x] Merged to main                                 ║
 ║  - [x] Branch deleted                                 ║
 ║  - [x] Worktree removed                               ║
 ║  - [x] Task marked complete                           ║
@@ -257,27 +260,27 @@ State is preserved on any exit.
 Users may configure checkpoint behavior:
 
 ```yaml
-# .agile-workflow/config.yaml
+# .gitea-workflow/config.yaml
 checkpoints:
   auto_continue: true          # Enable auto-continue when safe
   auto_continue_delay: 5       # Seconds before auto-continue
   verbose: false               # Show detailed checkpoint info
   require_confirmation:
     - TASK_SELECTED            # Always confirm these
-    - MERGE_READY
+    - PR_CREATED
 ```
 
 ### Per-Invocation Override
 
 ```bash
 # Disable auto-continue for this run
-/agile-workflow --no-auto
+/gitea-workflow --no-auto
 
 # Maximum verbosity
-/agile-workflow --verbose
+/gitea-workflow --verbose
 
 # Skip non-critical checkpoints
-/agile-workflow --fast
+/gitea-workflow --fast
 ```
 
 ---
@@ -293,7 +296,7 @@ When workflow is interrupted at a checkpoint:
    - Pending action
 
 2. **Resume Information**
-   - How to continue: `/agile-workflow` (auto-detects)
+   - How to continue: `/gitea-workflow` (auto-detects)
    - What will happen: [next step description]
 
 3. **No Work Lost**
@@ -318,9 +321,33 @@ When an error occurs:
 ║  1. [Step to fix]                                     ║
 ║  2. [Step to fix]                                     ║
 ║                                                       ║
-║  After fixing, run: /agile-workflow                   ║
+║  After fixing, run: /gitea-workflow                   ║
 ║  (State will be detected automatically)               ║
 ╚═══════════════════════════════════════════════════════╝
 ```
 
 Errors don't lose state - workflow can resume after fixing the issue.
+
+## Gitea-Specific Notes
+
+### CI Status at PR_CREATED Checkpoint
+
+Since Gitea uses external CI systems, the checkpoint cannot directly query CI status like GitHub Actions. Instead:
+
+1. **Use API Script**:
+   ```bash
+   ./scripts/gitea-ci-status.sh owner repo $(git rev-parse HEAD)
+   ```
+
+2. **Check CI Dashboard**: Navigate to your CI system (Drone, Woodpecker, Jenkins, etc.)
+
+3. **Refresh Status**: Type `check` at the checkpoint to re-query via API
+
+### PR URL Format
+
+Gitea PR URLs follow the format:
+```
+[GITEA_URL]/[owner]/[repo]/pulls/[number]
+```
+
+Example: `https://gitea.example.com/myorg/myrepo/pulls/42`

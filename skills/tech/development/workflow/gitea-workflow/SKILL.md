@@ -1,24 +1,21 @@
 ---
-name: agile-workflow
-description: "Orchestrate agile development workflows by invoking commands in sequence with checkpoint-based flow control. This skill should be used when the user asks to 'run the workflow', 'continue working', 'what's next', 'complete the task cycle', 'start my day', 'end the sprint', 'implement the next task', or wants guided step-by-step development assistance. Platform-agnostic git-only workflow without PR integration. Keywords: workflow, orchestrate, agile, task cycle, sprint, daily, implement, review, merge, standup, retrospective, git."
+name: gitea-workflow
+description: "Orchestrate agile development workflows for Gitea repositories using the tea CLI. Use when working with Gitea-hosted repos and asking to 'run the workflow', 'continue working', 'what's next', 'complete the task cycle', 'start my day', 'end the sprint', 'implement the next task', or wanting guided step-by-step development assistance. Keywords: workflow, orchestrate, agile, task cycle, sprint, daily, implement, review, PR, standup, retrospective, gitea, tea."
 license: MIT
-compatibility: Requires git and a context network with backlog structure. Works with any git hosting provider.
+compatibility: Requires git, Gitea Tea CLI (tea), and a context network with backlog structure.
 metadata:
   author: agent-skills
-  version: "2.0"
+  version: "1.0"
 ---
 
-# Agile Workflow Orchestrator
+# Gitea Workflow Orchestrator
 
-A skill that guides agents through structured agile development workflows by intelligently invoking commands in sequence. Uses checkpoint-based flow control to auto-progress between steps while pausing at key decision points.
-
-**Note:** This is a platform-agnostic, git-only workflow. For PR-based workflows with specific platforms, use:
-- `gitea-workflow` for Gitea repositories
-- `github-agile` for GitHub repositories
+A skill that guides agents through structured agile development workflows for Gitea repositories by intelligently invoking commands in sequence. Uses checkpoint-based flow control to auto-progress between steps while pausing at key decision points.
 
 ## When to Use This Skill
 
 Use this skill when:
+- Working with a Gitea-hosted repository
 - Starting work for the day ("run morning standup", "start my day")
 - Working on a task ("implement next task", "continue working")
 - Completing a development cycle ("finish this task", "prepare PR")
@@ -26,6 +23,7 @@ Use this skill when:
 - Resuming interrupted work ("what's next", "where was I")
 
 Do NOT use this skill when:
+- Working with GitHub repositories (use agile-workflow instead)
 - Running a single specific command (use that command directly)
 - Just checking status (use `/status` directly)
 - Only doing code review without full cycle (use `/review-code` directly)
@@ -35,8 +33,11 @@ Do NOT use this skill when:
 
 Before using this skill:
 - **Git repository** initialized with worktree support
+- **Gitea Tea CLI** installed and authenticated (`tea login`)
 - **Context network** with backlog structure at `context-network/backlog/`
 - Task status files at `context-network/backlog/by-status/*.md`
+- **GITEA_URL** environment variable set (or configured in tea)
+- **GITEA_TOKEN** environment variable set for API scripts
 
 ## Workflow Types Overview
 
@@ -61,9 +62,9 @@ review-tests                                    audit --sprint
   ↓
 apply-recommendations (if issues)
   ↓
-merge-prep → [CHECKPOINT]
+pr-prep → [CHECKPOINT]
   ↓
-merge-complete
+pr-complete
   ↓
 END
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -80,7 +81,8 @@ The skill determines current workflow state automatically. No manual tracking ne
 | Worktree exists | `git worktree list` | Task in progress |
 | Task branch active | `git branch --show-current` matches `task/*` | Active implementation |
 | Uncommitted changes | `git status --porcelain` | Active coding |
-| Branch merged | `git branch --merged main` | Ready for cleanup |
+| PR exists | `tea pulls list --state open` | In review |
+| PR merged | `tea pulls` + check state | Ready for cleanup |
 
 ### State Matrix
 
@@ -92,8 +94,9 @@ Check                           → State           → Next Step
 No worktree, no in-progress     → IDLE            → sync, next
 Worktree exists, uncommitted    → IMPLEMENTING    → continue implement
 Worktree exists, all committed  → READY_REVIEW    → review-code
-Reviews complete, ready to merge→ MERGE_READY     → merge-prep
-Branch merged, worktree exists  → CLEANUP         → merge-complete
+PR open, CI pending             → AWAITING_CI     → wait or address
+PR open, CI pass                → READY_MERGE     → pr-complete
+PR merged, worktree exists      → CLEANUP         → pr-complete
 ─────────────────────────────────────────────────────────────
 ```
 
@@ -103,20 +106,20 @@ For detailed detection algorithms, see [references/state-detection.md](reference
 
 ```bash
 # Auto-detect state and continue from where you are
-/agile-workflow
+/gitea-workflow
 
 # Start specific workflow phase
-/agile-workflow --phase task-cycle
-/agile-workflow --phase daily-morning
-/agile-workflow --phase daily-evening
-/agile-workflow --phase sprint-start
-/agile-workflow --phase sprint-end
+/gitea-workflow --phase task-cycle
+/gitea-workflow --phase daily-morning
+/gitea-workflow --phase daily-evening
+/gitea-workflow --phase sprint-start
+/gitea-workflow --phase sprint-end
 
 # Resume work on specific task
-/agile-workflow --task TASK-123
+/gitea-workflow --task TASK-123
 
 # Preview what would happen without executing
-/agile-workflow --dry-run
+/gitea-workflow --dry-run
 ```
 
 ## Task Cycle Phase
@@ -190,29 +193,29 @@ Purpose: Apply quick fixes now, defer complex changes to tasks
 Output: Applied fixes + created follow-up tasks
 ```
 
-### Step 6: Prepare Merge
+### Step 6: Prepare PR
 
-Validate and prepare for merge to main.
-
-```
-Run: merge-prep
-Purpose: Validate implementation, run final checks, prepare for merge
-Output: Ready to merge to main
-```
-
-**CHECKPOINT: MERGE_READY**
-- Display validation results
-- Show files that will be merged
-- On all checks pass: continue to merge
-- On failure: stop, address issues
-
-### Step 7: Complete Merge
-
-Merge to main and cleanup.
+Create pull request with full documentation.
 
 ```
-Run: merge-complete
-Purpose: Merge to main, delete branch, remove worktree, update status
+Run: pr-prep
+Purpose: Validate, document, and create PR
+Output: PR created with description, tests verified
+```
+
+**CHECKPOINT: PR_CREATED**
+- Display PR URL and CI status
+- Wait for CI checks to complete (verify manually or via API script)
+- On CI pass + approval: continue to merge
+- On CI fail: stop, address issues
+
+### Step 7: Complete PR
+
+Merge and cleanup.
+
+```
+Run: pr-complete [PR-NUMBER]
+Purpose: Merge PR, delete branch, remove worktree, update status
 Output: Task marked complete, cleanup done
 ```
 
@@ -307,7 +310,7 @@ Some checkpoints can auto-continue when conditions are met:
 |------------|------------------|
 | IMPL_COMPLETE | All tests pass, build succeeds |
 | REVIEWS_DONE | No critical or high severity issues |
-| MERGE_READY | All validation checks pass |
+| PR_CREATED | CI passes (verified via API), required approvals obtained |
 
 For detailed checkpoint handling, see [references/checkpoint-handling.md](references/checkpoint-handling.md).
 
@@ -324,8 +327,8 @@ Each workflow step uses embedded command instructions:
 | review-code | [references/commands/review-code.md](references/commands/review-code.md) | Code quality review |
 | review-tests | [references/commands/review-tests.md](references/commands/review-tests.md) | Test quality review |
 | apply-recommendations | [references/commands/apply-recommendations.md](references/commands/apply-recommendations.md) | Triage and apply fixes |
-| merge-prep | [references/commands/merge-prep.md](references/commands/merge-prep.md) | Merge preparation |
-| merge-complete | [references/commands/merge-complete.md](references/commands/merge-complete.md) | Merge and cleanup |
+| pr-prep | [references/commands/pr-prep.md](references/commands/pr-prep.md) | PR creation |
+| pr-complete | [references/commands/pr-complete.md](references/commands/pr-complete.md) | PR merge and cleanup |
 | discovery | [references/commands/discovery.md](references/commands/discovery.md) | Learning capture |
 | retrospective | [references/commands/retrospective.md](references/commands/retrospective.md) | Post-work analysis |
 | maintenance | [references/commands/maintenance.md](references/commands/maintenance.md) | Context network cleanup |
@@ -336,7 +339,7 @@ Each workflow step uses embedded command instructions:
 
 **Invocation:**
 ```
-/agile-workflow --phase task-cycle
+/gitea-workflow --phase task-cycle
 ```
 
 **Flow:**
@@ -379,19 +382,49 @@ Agent: Creating worktree at .worktrees/TASK-042/
        ║  [continue] [stop]                        ║
        ╚═══════════════════════════════════════════╝
 
-[Flow continues through review, merge...]
+[Flow continues through review, PR, merge...]
 ```
+
+## Gitea-Specific Notes
+
+### CI Status Checking
+
+Gitea uses external CI systems (Drone, Woodpecker, Jenkins, etc.). To check CI status:
+
+1. **Via API Script**: Use `scripts/gitea-ci-status.sh` to query commit statuses
+2. **Manual Verification**: Check your CI dashboard directly
+3. **PR Mergeability**: Check if PR shows as mergeable in Gitea UI
+
+### Tea CLI Command Reference
+
+| Operation | Tea CLI Command |
+|-----------|-----------------|
+| List open PRs | `tea pulls list --state open` |
+| Create PR | `tea pulls create --title "..." --description "..." --base main --head branch` |
+| View PR | `tea pulls` |
+| Merge PR (squash) | `tea pulls merge --style squash` |
+| Merge PR (merge) | `tea pulls merge --style merge` |
+| Merge PR (rebase) | `tea pulls merge --style rebase` |
+| Approve PR | `tea pulls approve` |
+| List issues | `tea issues list` |
+
+### API Scripts
+
+For operations not available in the tea CLI, use the provided API scripts:
+
+- `scripts/gitea-ci-status.sh` - Check CI status via Gitea API
+- `scripts/gitea-pr-checks.sh` - Get PR review/approval status
 
 ## Limitations
 
 - Requires context network with specific backlog structure
-- Git-only workflow (no PR integration - for PR workflows use gitea-workflow or github-agile)
+- Gitea-centric (uses `tea` CLI for PR operations)
 - Single-task focus (parallel task work not orchestrated)
-- Best suited for solo development or trusted team direct-to-main workflows
+- Manual CI verification may be needed (Gitea uses external CI)
+- Some features depend on Gitea version and configuration
 
 ## Related Skills
 
-- **gitea-workflow** - For Gitea repositories with PR integration
-- **github-agile** - For GitHub repositories with PR integration
 - **skill-maker** - Create new skills following agentskills.io spec
 - **research-workflow** - For research tasks before implementation
+- **gitea-coordinator** - For multi-task orchestration with Gitea

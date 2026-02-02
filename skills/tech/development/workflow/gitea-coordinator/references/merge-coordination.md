@@ -1,6 +1,6 @@
 # Merge Coordination
 
-How the coordinator manages merges to prevent conflicts.
+How the coordinator manages merges to prevent conflicts in Gitea repositories.
 
 ## Core Principle
 
@@ -52,7 +52,7 @@ happens on the latest main.
 
 ## Merge Queue
 
-The coordinator maintains a merge queue for branches ready to merge.
+The coordinator maintains a merge queue for PRs ready to merge.
 
 ### Queue Structure
 
@@ -60,12 +60,14 @@ The coordinator maintains a merge queue for branches ready to merge.
 {
   "merge_queue": [
     {
+      "pr_number": 123,
       "task_id": "TASK-006",
       "worker_id": "worker-1",
       "branch": "task/TASK-006-persistence",
       "added_at": "2026-01-20T10:15:00Z"
     },
     {
+      "pr_number": 124,
       "task_id": "TASK-007",
       "worker_id": "worker-2",
       "branch": "task/TASK-007-tests",
@@ -79,7 +81,7 @@ The coordinator maintains a merge queue for branches ready to merge.
 
 ```
 While merge_queue not empty:
-  1. Take first branch from queue
+  1. Take first PR from queue
   2. git checkout main && git pull
   3. Attempt merge
   4. If success:
@@ -93,35 +95,33 @@ While merge_queue not empty:
 
 ## Merge Execution
 
-### Squash Merge (Recommended)
+### Using Gitea Tea CLI
 
 ```bash
-# Ensure on latest main
-git checkout main
-git pull --rebase origin main
+# Squash merge (recommended)
+tea pulls merge 123 --style squash
 
-# Squash merge the feature branch
-git merge --squash task/TASK-006-persistence
+# Or merge commit
+tea pulls merge 123 --style merge
 
-# Commit with task reference
-git commit -m "feat(TASK-006): Persistent message status storage"
+# Or rebase
+tea pulls merge 123 --style rebase
 
-# Push to origin
-git push origin main
+# Or rebase-merge
+tea pulls merge 123 --style rebase-merge
 
-# Delete feature branch
-git branch -d task/TASK-006-persistence
+# Note: tea may not auto-delete branch, do it manually:
 git push origin --delete task/TASK-006-persistence
 ```
 
-### Regular Merge
+### Using Git Directly
 
 ```bash
 # Ensure on latest main
 git checkout main
 git pull --rebase origin main
 
-# Merge the feature branch
+# Merge the PR branch
 git merge --no-ff task/TASK-006-persistence
 
 # Push to origin
@@ -137,14 +137,15 @@ git push origin --delete task/TASK-006-persistence
 ### Detection
 
 Conflicts are detected when:
+- `tea pulls merge` fails with conflict error
 - `git merge` fails with conflict markers
-- `git merge --squash` fails with conflict error
+- PR shows conflict status in Gitea
 
 ### Resolution Options
 
 ```
 ╔════════════════════════════════════════════════════════════════╗
-║  MERGE CONFLICT: task/TASK-007-tests                           ║
+║  MERGE CONFLICT: PR #124 (TASK-007)                            ║
 ╠════════════════════════════════════════════════════════════════╣
 ║                                                                 ║
 ║  Conflicting files:                                             ║
@@ -154,7 +155,7 @@ Conflicts are detected when:
 ║  Options:                                                       ║
 ║  [resolve] - Attempt automatic resolution                       ║
 ║  [manual] - Exit for manual conflict resolution                 ║
-║  [skip] - Skip this branch, continue with others                ║
+║  [skip] - Skip this PR, continue with others                    ║
 ║  [abort] - Stop merge process entirely                          ║
 ╚════════════════════════════════════════════════════════════════╝
 ```
@@ -164,7 +165,7 @@ Conflicts are detected when:
 For simple conflicts, the coordinator can attempt:
 
 ```bash
-# Checkout the feature branch
+# Checkout the PR branch
 git checkout task/TASK-007-tests
 
 # Rebase onto latest main
@@ -174,9 +175,10 @@ git rebase origin/main
 # - For auto-generated files: accept theirs/ours
 # - For code: use merge tool or abort
 
-# After resolution, checkout main and merge
-git checkout main
-git merge --squash task/TASK-007-tests
+# Force push updated branch
+git push --force-with-lease
+
+# PR will update, CI re-runs
 ```
 
 ### Manual Resolution
@@ -187,7 +189,7 @@ If automatic resolution fails:
 2. User resolves conflicts manually
 3. User pushes resolved changes
 4. User signals coordinator to continue
-5. Coordinator verifies CI passes
+5. Coordinator verifies CI passes (via API script)
 6. Coordinator completes merge
 
 ## Rollback Procedures
@@ -226,6 +228,35 @@ git push --force-with-lease origin main  # DANGEROUS
 1. **Always pull before merge**: Ensure you have the latest main
 2. **Use squash merge**: Creates cleaner history
 3. **Delete branches after merge**: Prevents branch pollution
-4. **Run tests before merge**: Ensure tests pass before merging
+4. **Verify CI passes**: Check via API script or manually before merge
 5. **One merge at a time**: Never attempt parallel merges
 6. **Keep merge queue visible**: Log what's pending
+
+## Gitea-Specific Notes
+
+### Tea CLI Merge Styles
+
+| Style | Command | Result |
+|-------|---------|--------|
+| Squash | `tea pulls merge --style squash` | All commits squashed into one |
+| Merge | `tea pulls merge --style merge` | Merge commit preserving history |
+| Rebase | `tea pulls merge --style rebase` | Commits rebased onto main |
+| Rebase-merge | `tea pulls merge --style rebase-merge` | Rebase + merge commit |
+
+### Branch Cleanup
+
+Tea CLI may not automatically delete branches. Clean up manually:
+
+```bash
+git push origin --delete task/TASK-006-persistence
+```
+
+### CI Status Verification
+
+Before merging, verify CI passed using the API script:
+
+```bash
+./scripts/gitea-ci-status.sh owner repo $(git rev-parse task/TASK-006-persistence)
+```
+
+Or check your CI dashboard directly.

@@ -1,10 +1,10 @@
 # PR Prep Command Reference
 
-Prepare and create pull request with full documentation.
+Prepare and create pull request with full documentation for Gitea.
 
 ## Purpose
 
-Validate implementation, generate PR documentation, and create the pull request using GitHub CLI.
+Validate implementation, generate PR documentation, and create the pull request using Gitea Tea CLI.
 
 ## When Used in Workflow
 
@@ -14,8 +14,9 @@ Validate implementation, generate PR documentation, and create the pull request 
 
 - Task implementation complete in worktree
 - All changes committed to feature branch
-- GitHub CLI installed (`gh --version`)
-- Authenticated with GitHub (`gh auth status`)
+- Gitea Tea CLI installed (`tea --version`)
+- Authenticated with Gitea (`tea login`)
+- GITEA_URL and GITEA_TOKEN environment variables set (for API scripts)
 
 ## PR Preparation Process
 
@@ -101,13 +102,28 @@ Generate comprehensive PR description:
 # Push to remote
 git push -u origin task/[TASK-ID]-description
 
-# Create PR
-gh pr create \
+# Create PR using tea CLI
+tea pulls create \
   --title "[TASK-ID]: [Task Title]" \
-  --body-file /tmp/pr-description.md \
+  --description "$(cat /tmp/pr-description.md)" \
   --base main \
-  --head task/[TASK-ID]-description \
-  --assignee @me
+  --head task/[TASK-ID]-description
+```
+
+**Alternative with inline description:**
+```bash
+tea pulls create \
+  --title "[TASK-ID]: [Task Title]" \
+  --description "## Summary
+
+Implements [feature description].
+
+## Changes
+- Change 1
+- Change 2
+
+## Testing
+All tests passing."
 ```
 
 ### Phase 5: Update Task Status
@@ -159,11 +175,11 @@ cd .worktrees/[TASK-ID]/
 
 **Task:** [TASK-ID] - [Task Title]
 **PR:** #[PR_NUMBER]
-**URL:** https://github.com/[org]/[repo]/pull/[PR_NUMBER]
+**URL:** [GITEA_URL]/[owner]/[repo]/pulls/[PR_NUMBER]
 **Status:** In Review
 
 ### Next Steps
-1. Wait for CI checks to complete
+1. Wait for CI checks to complete (check your CI dashboard)
 2. Request code review if needed
 3. Address any review comments
 4. Once approved, run pr-complete to merge
@@ -173,6 +189,46 @@ cd .worktrees/[TASK-ID]/
 
 After PR creation:
 - **CHECKPOINT: PR_CREATED** - Pause for CI and review
-- Monitor CI status with `gh pr checks`
+- Monitor CI status via your CI dashboard or API script:
+  ```bash
+  ./scripts/gitea-ci-status.sh owner repo $(git rev-parse HEAD)
+  ```
 - Wait for required approvals
 - On all green: ready for pr-complete
+
+## Gitea-Specific Notes
+
+### Tea CLI PR Creation Options
+
+```bash
+# Full options
+tea pulls create \
+  --title "Title" \
+  --description "Description" \
+  --base main \
+  --head feature-branch \
+  --assignee username
+
+# The PR number is shown in output after creation
+```
+
+### Verifying PR Created
+
+```bash
+# List your open PRs
+tea pulls list --state open
+
+# View the PR you just created
+tea pulls
+```
+
+### CI Status
+
+Gitea uses external CI systems. After PR creation:
+
+1. Check your CI dashboard (Drone, Woodpecker, Jenkins, etc.)
+2. Or use the API script:
+   ```bash
+   ./scripts/gitea-ci-status.sh owner repo $(git rev-parse HEAD)
+   ```
+3. CI results are typically posted as commit statuses

@@ -1,8 +1,8 @@
 ---
-name: agile-coordinator
-description: "Orchestrate multiple worker agents to implement groomed tasks. Use when multiple ready tasks need implementation, when you want autonomous multi-task execution, or when coordinating batch development work. Keywords: coordinator, orchestrator, multi-task, parallel, workers, batch, autonomous."
+name: gitea-coordinator
+description: "Orchestrate multiple worker agents to implement groomed tasks in Gitea repositories. Use when multiple ready tasks need implementation, when you want autonomous multi-task execution, or when coordinating batch development work with Gitea. Keywords: coordinator, orchestrator, multi-task, parallel, workers, batch, autonomous, gitea, tea."
 license: MIT
-compatibility: Requires git, context network with backlog structure, and Claude Code's Task tool. Works with any git hosting provider.
+compatibility: Requires git, Gitea Tea CLI (tea), context network with backlog structure, and Claude Code's Task tool.
 metadata:
   author: agent-skills
   version: "1.0"
@@ -10,21 +10,22 @@ metadata:
   type: orchestrator
   mode: generative
   orchestrates:
-    - agile-workflow
+    - gitea-workflow
   maturity: developing
 ---
 
-# Agile Coordinator
+# Gitea Coordinator
 
-Orchestrates multiple worker agents to implement groomed tasks from the backlog, handling task assignment, progress monitoring, merge coordination, and verification.
+Orchestrates multiple worker agents to implement groomed tasks from the backlog in Gitea repositories, handling task assignment, progress monitoring, merge coordination, and verification.
 
 ## Core Principle
 
-**Coordinate, don't implement.** The coordinator assigns tasks to workers, monitors their progress, coordinates merges, and verifies results. Workers execute the actual implementation via the `agile-workflow` skill.
+**Coordinate, don't implement.** The coordinator assigns tasks to workers, monitors their progress, coordinates merges, and verifies results. Workers execute the actual implementation via the `gitea-workflow` skill.
 
 ## Quick Reference
 
 ### When to Use
+- Working with a Gitea-hosted repository
 - Multiple ready tasks in the backlog need implementation
 - You want autonomous batch execution of development work
 - You need coordinated merges to avoid conflicts
@@ -33,11 +34,11 @@ Orchestrates multiple worker agents to implement groomed tasks from the backlog,
 ### Invocation
 
 ```bash
-/agile-coordinator                    # Auto-discover and execute ready tasks
-/agile-coordinator TASK-001 TASK-002  # Execute specific tasks
-/agile-coordinator --dry-run          # Preview execution plan only
-/agile-coordinator --parallel         # Run workers in parallel
-/agile-coordinator --sequential       # Run workers one at a time (default)
+/gitea-coordinator                    # Auto-discover and execute ready tasks
+/gitea-coordinator TASK-001 TASK-002  # Execute specific tasks
+/gitea-coordinator --dry-run          # Preview execution plan only
+/gitea-coordinator --parallel         # Run workers in parallel
+/gitea-coordinator --sequential       # Run workers one at a time (default)
 ```
 
 ### Flags
@@ -99,7 +100,7 @@ Spawn and monitor worker agents.
 For SEQUENTIAL mode:
   for each task in queue:
     1. Spawn worker with Task tool
-    2. Worker runs agile-workflow for the task
+    2. Worker runs gitea-workflow for the task
     3. Monitor progress via file system
     4. When complete: proceed to merge phase
     5. On failure: handle error, decide continue/stop
@@ -107,13 +108,13 @@ For SEQUENTIAL mode:
 For PARALLEL mode:
   1. Spawn workers up to max_workers
   2. Monitor all workers concurrently
-  3. As workers complete: queue their branches for merge
+  3. As workers complete: queue their PRs for merge
   4. Spawn next worker if tasks remain
   5. Continue until all tasks processed
 ```
 
 **Checkpoint: WORKER_COMPLETE** (per worker)
-- Display: Worker summary, branch name, next action
+- Display: Worker summary, PR number, next action
 - Auto-continue: If successful and --autonomous
 - Options: `continue`, `retry`, `skip`, `stop`
 
@@ -123,14 +124,14 @@ Execute merges sequentially to avoid conflicts.
 
 ```
 Actions:
-1. For each completed task in merge queue:
+1. For each completed PR in merge queue:
    a. git checkout main && git pull
-   b. Merge branch (git merge --squash)
+   b. Merge PR (via tea pulls merge or git merge)
    c. Verify merge succeeded
    d. Delete feature branch
 2. If conflict: pause and alert user
 
-Output: All branches merged to main
+Output: All PRs merged to main
 ```
 
 ### Phase 5: Verification
@@ -169,17 +170,17 @@ Output:
 
 ## Worker Protocol
 
-Workers are spawned using Claude Code's Task tool and run `agile-workflow` for their assigned task.
+Workers are spawned using Claude Code's Task tool and run `gitea-workflow` for their assigned task.
 
 ### Worker Instruction Template
 
 See [templates/worker-instruction.md](templates/worker-instruction.md)
 
 Key requirements for workers:
-1. Run `agile-workflow` with autonomous mode
+1. Run `gitea-workflow` with autonomous mode
 2. Write progress to `.coordinator/workers/{worker-id}/progress.json`
 3. Do NOT self-merge - signal ready-to-merge status instead
-4. Handle all agile-workflow checkpoints automatically
+4. Handle all gitea-workflow checkpoints automatically
 
 ### Progress Tracking
 
@@ -191,8 +192,8 @@ Workers report progress via file system:
   "worker_id": "worker-1",
   "task_id": "TASK-006",
   "status": "in_progress|completed|failed|ready-to-merge",
-  "phase": "implement|review|merge-prep|merge-complete",
-  "commit": null,
+  "phase": "implement|review|pr-prep|pr-complete",
+  "pr_number": null,
   "branch": "task/TASK-006-description",
   "last_update": "2026-01-20T10:15:00Z",
   "milestones": [
@@ -245,20 +246,20 @@ See [references/failure-handling.md](references/failure-handling.md) for details
 
 ---
 
-## Integration with agile-workflow
+## Integration with gitea-workflow
 
-The coordinator spawns workers that execute `agile-workflow`:
+The coordinator spawns workers that execute `gitea-workflow`:
 
 ```
-agile-coordinator (orchestrator)
+gitea-coordinator (orchestrator)
     │
-    ├── Worker 1 → agile-workflow --task TASK-006
-    ├── Worker 2 → agile-workflow --task TASK-007
-    └── Worker 3 → agile-workflow --task TASK-008
+    ├── Worker 1 → gitea-workflow --task TASK-006
+    ├── Worker 2 → gitea-workflow --task TASK-007
+    └── Worker 3 → gitea-workflow --task TASK-008
 ```
 
 Key integration points:
-- Workers run agile-workflow in autonomous mode
+- Workers run gitea-workflow in autonomous mode
 - Coordinator handles merges (workers create PRs but don't merge)
 - Progress synced via file system
 - Coordinator runs verification after all merges
@@ -273,7 +274,7 @@ Key integration points:
 **Fix**: Always merge sequentially, pull before each merge
 
 ### AP2: Worker Self-Merge
-**Pattern**: Workers merge their own branches
+**Pattern**: Workers merge their own PRs
 **Problem**: Race conditions, uncoordinated merges
 **Fix**: Workers signal ready-to-merge, coordinator executes merges
 
@@ -287,7 +288,7 @@ Key integration points:
 ## Example Interaction
 
 ```
-User: /agile-coordinator
+User: /gitea-coordinator
 
 Coordinator: Discovering ready tasks...
 
@@ -306,17 +307,17 @@ User: continue
 Coordinator: Starting TASK-006...
 [Spawns Worker 1]
 
-**Milestone**: TASK-006 - Implementation complete, tests passing
+**Milestone**: TASK-006 - PR #123 created, CI passing
 
-Coordinator: Merging task/TASK-006-persistence...
+Coordinator: Merging PR #123...
 **Milestone**: TASK-006 complete (commit abc123)
 
 Coordinator: Starting TASK-007...
 [Spawns Worker 2]
 
-**Milestone**: TASK-007 - Implementation complete, tests passing
+**Milestone**: TASK-007 - PR #124 created, CI passing
 
-Coordinator: Merging task/TASK-007-tests...
+Coordinator: Merging PR #124...
 **Milestone**: TASK-007 complete (commit def456)
 
 Coordinator: Running verification...
@@ -326,8 +327,8 @@ Coordinator: Running verification...
 
 ## Summary
 Tasks completed: 2
-- TASK-006: merged (commit abc123)
-- TASK-007: merged (commit def456)
+- TASK-006: PR #123 merged (commit abc123)
+- TASK-007: PR #124 merged (commit def456)
 
 Verification: PASSED
 ```
@@ -340,19 +341,19 @@ Verification: PASSED
 | Source Skill | Trigger | Action |
 |--------------|---------|--------|
 | requirements-elaboration | Tasks groomed | Coordinator can execute |
-| backlog manager | Backlog ready | Coordinator discovers tasks |
+| gitea-agile | Backlog ready | Coordinator discovers tasks |
 
 ### Outbound (To Other Skills)
 | This Action | Triggers Skill | For |
 |-------------|----------------|-----|
-| Spawn worker | agile-workflow | Task implementation |
+| Spawn worker | gitea-workflow | Task implementation |
 | Verification fails | research | Debug investigation |
 
 ### Complementary Skills
 | Skill | Relationship |
 |-------|--------------|
-| agile-workflow | Workers execute this skill |
-| context-network | Manages backlog this reads |
+| gitea-workflow | Workers execute this skill |
+| gitea-agile | Manages backlog this reads |
 
 ---
 
@@ -367,6 +368,6 @@ Verification: PASSED
 ## What You Do NOT Do
 
 - Implement tasks directly (workers do this)
-- Merge branches in parallel (always sequential)
+- Merge PRs in parallel (always sequential)
 - Skip verification (always verify after merges)
 - Continue after critical failures without user consent

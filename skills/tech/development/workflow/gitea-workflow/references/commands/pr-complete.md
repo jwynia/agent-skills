@@ -1,6 +1,6 @@
 # PR Complete Command Reference
 
-Merge approved PR, cleanup worktree, and update task status.
+Merge approved PR, cleanup worktree, and update task status for Gitea.
 
 ## Purpose
 
@@ -13,7 +13,7 @@ Complete the pull request lifecycle: merge, cleanup branches and worktrees, mark
 ## Prerequisites
 
 - PR has been created and reviewed
-- CI checks are passing
+- CI checks are passing (verified externally or via API)
 - Required approvals obtained
 
 ## Completion Process
@@ -21,15 +21,19 @@ Complete the pull request lifecycle: merge, cleanup branches and worktrees, mark
 ### Phase 1: Verify PR Status
 
 ```bash
-# Check PR details
-gh pr view $PR_NUMBER
+# View PR details
+tea pulls
 
-# Check CI status
-gh pr checks $PR_NUMBER
+# Check if PR is approved (via API script)
+./scripts/gitea-pr-checks.sh owner repo $PR_NUMBER
 
-# Verify approvals
-gh pr reviews $PR_NUMBER
+# Verify CI status (via API script)
+./scripts/gitea-ci-status.sh owner repo $(git rev-parse HEAD)
 ```
+
+**Manual verification:**
+- Check your Gitea PR page for approval status
+- Check your CI dashboard for build status
 
 ### Phase 2: Pre-Merge Validation
 
@@ -54,13 +58,21 @@ npm run build
 
 ```bash
 # Squash merge (recommended)
-gh pr merge $PR_NUMBER \
-  --squash \
-  --delete-branch \
-  --subject "[TASK-ID]: [Task Title]"
+tea pulls merge $PR_NUMBER --style squash
 
-# Verify merge
-gh pr view $PR_NUMBER --json state
+# Or merge commit
+tea pulls merge $PR_NUMBER --style merge
+
+# Or rebase merge
+tea pulls merge $PR_NUMBER --style rebase
+
+# Or rebase-merge (creates merge commit after rebase)
+tea pulls merge $PR_NUMBER --style rebase-merge
+```
+
+**Note:** Tea CLI may not automatically delete the branch. Delete manually if needed:
+```bash
+git push origin --delete task/[TASK-ID]-description
 ```
 
 ### Phase 4: Worktree Cleanup
@@ -116,14 +128,18 @@ git push origin main
 Error: PR #X is not approved yet
 Required approvals: Y
 Current approvals: Z
-Request review with: gh pr review --request @reviewer
+Request review via Gitea UI or:
+tea pulls review
 ```
 
 ### CI Checks Failing
 ```
 Error: CI checks are failing
-[Show failing checks]
-Fix issues in worktree and push updates
+Check your CI dashboard for details.
+Fix issues in worktree and push updates.
+
+To check CI status:
+./scripts/gitea-ci-status.sh owner repo $(git rev-parse HEAD)
 ```
 
 ### Merge Conflicts
@@ -143,7 +159,7 @@ Fix issues in worktree and push updates
 
 **Task:** [TASK-ID] - [Task Title]
 **PR:** #[PR_NUMBER]
-**Merge Method:** Squash and merge
+**Merge Method:** Squash merge
 **Status:** Completed
 
 ### Cleanup Complete
@@ -161,13 +177,11 @@ Fix issues in worktree and push updates
 
 If issues discovered after merge:
 ```bash
-# Create revert PR
-gh pr create --title "Revert [TASK-ID]" \
-  --body "Reverting PR #$PR_NUMBER due to [reason]"
-
-# Or revert commit directly
+# Create revert commit
 git revert [merge-commit-sha]
 git push origin main
+
+# Or create a revert PR via Gitea UI
 ```
 
 ## Orchestration Notes
@@ -177,3 +191,38 @@ After completion:
 - Can immediately start next task cycle
 - Consider running `/discovery` to capture learnings
 - Consider `/retrospective` for larger tasks
+
+## Gitea-Specific Notes
+
+### Tea Merge Styles
+
+| Style | Command | Result |
+|-------|---------|--------|
+| Squash | `tea pulls merge --style squash` | All commits squashed into one |
+| Merge | `tea pulls merge --style merge` | Merge commit preserving history |
+| Rebase | `tea pulls merge --style rebase` | Commits rebased onto main |
+| Rebase-merge | `tea pulls merge --style rebase-merge` | Rebase + merge commit |
+
+### Branch Deletion
+
+Tea CLI may not automatically delete branches after merge. To clean up:
+
+```bash
+# Delete remote branch
+git push origin --delete task/[TASK-ID]-description
+
+# Delete local branch (if exists)
+git branch -d task/[TASK-ID]-description
+```
+
+### Verifying Merge
+
+```bash
+# Check PR state
+tea pulls list --state merged
+
+# Verify on main
+git checkout main
+git pull
+git log --oneline -5  # Should show your merge
+```

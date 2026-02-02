@@ -1,6 +1,6 @@
 # Failure Handling
 
-How the coordinator handles various failure scenarios.
+How the coordinator handles various failure scenarios in Gitea repositories.
 
 ## Failure Categories
 
@@ -44,35 +44,40 @@ Worker investigates root cause
 Attempt 3: All tests pass
 ```
 
-### 3. Build/Test Failure in Review
+### 3. CI Failure
 
-**Cause**: Tests or build fail after implementation complete.
+**Cause**: External CI (Drone, Woodpecker, Jenkins, etc.) fails after PR created.
 
 **Detection**:
-- Test suite fails during review phase
-- Build fails during validation
+- CI status via API script shows failure:
+  ```bash
+  ./scripts/gitea-ci-status.sh owner repo $(git rev-parse HEAD)
+  # Returns: "failure"
+  ```
+- Worker progress shows `phase: awaiting-ci` for extended time
+- Manual check of CI dashboard
 
 **Recovery**:
 - Worker should return to implementation phase
-- Fix the issue, run tests locally
-- Re-run review when tests pass
+- Fix the issue, push updates
+- CI re-runs automatically
 - If repeated failures, mark as failed
 
 ### 4. Merge Conflict
 
-**Cause**: Branch cannot merge due to conflicts with main.
+**Cause**: PR cannot merge due to conflicts with main.
 
 **Detection**:
-- `git merge` fails with conflict markers
-- `git merge --squash` fails with conflict error
+- `tea pulls merge` fails with conflict error
+- PR shows conflict status in Gitea UI
 
 **Recovery Options**:
 
 | Option | Action |
 |--------|--------|
-| Auto-resolve | Rebase feature branch onto main, resolve simple conflicts |
+| Auto-resolve | Rebase PR branch onto main, resolve simple conflicts |
 | Manual | Pause for human intervention |
-| Skip | Skip this branch, may break subsequent merges |
+| Skip | Skip this PR, may break subsequent merges |
 
 See [merge-coordination.md](merge-coordination.md) for details.
 
@@ -227,3 +232,25 @@ Options:
 
 [2026-01-20T10:25:10Z] INFO spawning worker-3 for TASK-007 (retry 1)
 ```
+
+## Gitea-Specific Notes
+
+### CI Status Checking
+
+Since Gitea uses external CI, check status via API script:
+
+```bash
+./scripts/gitea-ci-status.sh owner repo $(git rev-parse HEAD)
+```
+
+Possible returns: `pending`, `success`, `failure`, `error`, `none`
+
+### PR Review Status
+
+Check if PR has approvals:
+
+```bash
+./scripts/gitea-pr-checks.sh owner repo $PR_NUMBER
+```
+
+Returns JSON with `approved`, `review_count`, `mergeable` fields.

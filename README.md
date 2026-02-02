@@ -1,6 +1,6 @@
 # Agent Skills Collection
 
-**106 reusable [Agent Skills](https://agentskills.io)** for AI coding assistants. Each skill provides specialized knowledge and workflows that extend agent capabilities.
+**108 reusable [Agent Skills](https://agentskills.io)** for AI coding assistants. Each skill provides specialized knowledge and workflows that extend agent capabilities.
 
 ## Installing Skills
 
@@ -33,7 +33,7 @@ npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/general/m
 npx skills add https://github.com/jwynia/agent-skills/tree/main/skills
 ```
 
-## Available Skills (106 total)
+## Available Skills (108 total)
 
 ### Creative (~58 skills)
 Story/narrative focused skills for fiction writing, worldbuilding, and creative work.
@@ -61,18 +61,20 @@ Core storytelling, worldbuilding, character development, and narrative structure
 
 ---
 
-### Tech (~23 skills)
+### Tech (~25 skills)
 Technical and development focused skills.
 
 #### AI (1)
 - **mastra-hono** - Mastra AI framework with Hono integration
 
-#### Development (10)
-- **agile-coordinator** - Multi-agent task orchestration for agile workflows
-- **agile-workflow** - Agile development methodology
+#### Development (12)
+- **agile-coordinator** - Multi-agent task orchestration (git-only, platform-agnostic)
+- **agile-workflow** - Agile development workflow (git-only, platform-agnostic)
 - **architecture-decision** - ADR creation and trade-off analysis
 - **code-review** - Structured code review guidance
 - **devcontainer** - Development container configuration
+- **gitea-coordinator** - Multi-agent task orchestration for Gitea
+- **gitea-workflow** - Agile workflow for Gitea with tea CLI
 - **github-agile** - GitHub-driven agile workflows
 - **requirements-analysis** - Requirements discovery and documentation
 - **system-design** - Software architecture and design
@@ -163,7 +165,7 @@ skills/                          # 106 skills in 3 top-level categories
 │   ├── humor/
 │   └── music/
 │
-├── tech/                        # ~23 skills - Technical/development
+├── tech/                        # ~25 skills - Technical/development
 │   ├── ai/
 │   ├── development/
 │   │   ├── architecture/

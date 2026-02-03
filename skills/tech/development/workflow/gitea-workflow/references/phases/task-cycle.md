@@ -83,8 +83,14 @@ TASK CYCLE FLOW
        │
        ▼
 ┌─────────────┐
-│ pr-complete │ ─── Merge, cleanup worktree, update status
+│ pr-complete │ ─── Merge, cleanup worktree, update task status
 └──────┬──────┘
+       │
+       ▼
+┌───────────────────┐
+│ update-backlog    │ ─── Update epic file, unblock dependents,
+│ & project status  │     update project status
+└──────┬────────────┘
        │
        ▼
     END
@@ -336,6 +342,30 @@ TASK CYCLE FLOW
 - Merge confirmation
 - Cleanup status
 - Task completion record
+
+**Next Step**: Update backlog and project status
+
+---
+
+### Step 8: Update Backlog Epic File and Project Status
+
+**Command**: Part of `pr-complete` (Phase 6)
+
+**Purpose**: Persist progress to the source-of-truth documentation files so future sessions see accurate state.
+
+**Actions**:
+1. Update task status in the backlog epic file (ready → complete)
+2. Recalculate epic-level progress counts
+3. Unblock dependent tasks (blocked → ready) if their blockers are now complete
+4. Update project status file (context/status.md) with current phase, epic progress, and recent changes
+5. Commit and push documentation updates
+
+**Outputs**:
+- Updated epic file with accurate task statuses
+- Newly unblocked tasks moved to ready
+- Current project status reflecting actual progress
+
+**Why this step exists**: Without it, internal tracking (`.coordinator/state.json`, worker progress files) diverges from the backlog and project status files. This caused 22 merged tasks to remain marked as "ready" in one real-world project.
 
 **Next Step**: Workflow complete
 

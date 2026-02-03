@@ -153,7 +153,29 @@ Output: Verification status (PASSED/FAILED)
 - Auto-continue: If all tests pass
 - Options: `done`, `investigate`, `revert`
 
-### Phase 6: Summary
+### Phase 6: Persist Progress
+
+Update source-of-truth documentation to reflect completed work.
+
+```
+Actions:
+1. For each completed task:
+   a. Update task status in the backlog epic file (ready → complete)
+   b. Recalculate epic-level progress (e.g., "22/28 complete" → "24/28 complete")
+   c. Unblock dependent tasks (blocked → ready) if blockers are now satisfied
+2. Update project status file (context/status.md):
+   a. Current project phase
+   b. Epic progress table
+   c. Recently completed work
+   d. Active/upcoming work summary
+3. Commit and push documentation updates
+
+Output: Backlog and project status files reflect actual progress
+```
+
+**Why this phase exists:** Internal tracking (`.coordinator/state.json`, worker progress files) is session-scoped and ephemeral. The backlog epic files and project status are the persistent source of truth that humans and future sessions rely on. Without this phase, completed tasks remain marked "ready" in backlog files — in one real-world case, 22 merged tasks were never updated in the backlog.
+
+### Phase 7: Summary
 
 Generate comprehensive completion report.
 
@@ -162,6 +184,7 @@ Output:
 - Tasks completed with PR numbers and commits
 - Metrics (workers spawned, PRs merged, tests added)
 - Verification status
+- Documentation updates applied
 - Remaining backlog tasks
 ```
 
@@ -282,6 +305,11 @@ Key integration points:
 **Problem**: Regressions go undetected
 **Fix**: Always run full test suite after merges complete
 
+### AP4: Skipping Documentation Updates
+**Pattern**: Relying on internal tracking (`.coordinator/state.json`, worker progress files) without persisting to backlog epic files and project status
+**Problem**: Completed tasks remain marked "ready" in the backlog; project status stays stale; future sessions see incorrect state and may attempt duplicate work
+**Fix**: Always run Phase 6 (Persist Progress) to update backlog epic files, unblock dependent tasks, and update project status before generating the summary report
+
 ---
 
 ## Example Interaction
@@ -369,4 +397,6 @@ Verification: PASSED
 - Implement tasks directly (workers do this)
 - Merge branches in parallel (always sequential)
 - Skip verification (always verify after merges)
+- Skip documentation updates (always persist progress to backlog epic files and project status)
+- Rely solely on internal tracking files as source of truth (`.coordinator/state.json` is ephemeral)
 - Continue after critical failures without user consent

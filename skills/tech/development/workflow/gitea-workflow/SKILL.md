@@ -66,6 +66,8 @@ pr-prep → [CHECKPOINT]
   ↓
 pr-complete
   ↓
+update-backlog & status
+  ↓
 END
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -218,6 +220,18 @@ Run: pr-complete [PR-NUMBER]
 Purpose: Merge PR, delete branch, remove worktree, update status
 Output: Task marked complete, cleanup done
 ```
+
+### Step 8: Update Backlog and Project Status
+
+Persist progress to source-of-truth documentation.
+
+```
+Run: Part of pr-complete (Phase 6)
+Purpose: Update epic file (task → complete), unblock dependents, update project status
+Output: Backlog and project status reflect actual progress
+```
+
+**Why this step matters:** Without it, completed tasks remain marked "ready" in backlog files and project status stays stale. Internal tracking files are session-scoped; the backlog and status files are the persistent source of truth.
 
 For detailed task-cycle instructions, see [references/phases/task-cycle.md](references/phases/task-cycle.md).
 

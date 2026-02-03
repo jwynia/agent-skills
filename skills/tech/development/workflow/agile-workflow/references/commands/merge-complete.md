@@ -125,6 +125,64 @@ git push origin main
 - Feature branch and worktree no longer exist
 - This is administrative bookkeeping
 
+### Phase 6: Update Backlog Epic File and Project Status
+
+**CRITICAL: Persist progress to source-of-truth documentation.**
+
+Without this phase, internal tracking (worker progress files, coordinator state) diverges from the backlog and project status files that humans and future sessions rely on.
+
+```bash
+# Ensure on main
+git checkout main
+```
+
+#### Step 1: Update task status in the backlog epic file
+
+```bash
+# Locate the epic file that contains this task
+# e.g., context-network/backlog/by-epic/E1-feature-name.md
+
+# Change the task's status from "ready" (or "in-progress") to "complete"
+# Update any completion metadata (date, commit hash)
+```
+
+#### Step 2: Update epic-level progress
+
+```bash
+# Recalculate the epic's completion count
+# e.g., "Status: In Progress (22/28 complete)" → "Status: In Progress (23/28 complete)"
+# If all tasks complete, update epic status to "Complete"
+```
+
+#### Step 3: Unblock dependent tasks
+
+```bash
+# Check if any tasks in the epic were blocked on the just-completed task
+# If so, update their status from "blocked" to "ready"
+# Example: If TASK-023 was blocked by TASK-022, and TASK-022 is now complete,
+#          change TASK-023 status to "ready"
+```
+
+#### Step 4: Update project status file
+
+```bash
+# Update context/status.md (or equivalent project status file) with:
+# - Current project phase
+# - Epic progress table (tasks completed / total per epic)
+# - Recently completed work
+# - Active/upcoming work summary
+```
+
+#### Step 5: Commit documentation updates
+
+```bash
+git add context-network/backlog/ context/status.md
+git commit -m "docs: Update backlog and project status after [TASK-ID] completion"
+git push origin main
+```
+
+**Why this phase exists:** Internal tracking files (`.coordinator/state.json`, worker progress files) are ephemeral and session-scoped. The backlog epic files and project status are the persistent source of truth. Skipping this phase causes documented state to drift from reality — future sessions will see stale "ready" statuses for already-completed tasks.
+
 ## Error Handling
 
 ### Merge Conflicts
@@ -172,6 +230,8 @@ git push origin --delete task/[TASK-ID]-description
 - [x] Worktree removed
 - [x] Task status updated
 - [x] Backlog indexes updated
+- [x] Epic file updated (task marked complete, dependents unblocked)
+- [x] Project status file updated
 
 ### Next Available Tasks
 [Top 3 ready tasks from backlog]

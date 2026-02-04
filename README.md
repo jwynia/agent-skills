@@ -122,7 +122,7 @@ Technical and development focused skills.
 #### AI (1)
 - **mastra-hono** - Mastra AI framework with Hono integration
 
-#### Development (15)
+#### Development (14)
 - **agile-coordinator** - Multi-agent task orchestration (git-only, platform-agnostic)
 - **agile-workflow** - Agile development workflow (git-only, platform-agnostic)
 - **architecture-decision** - ADR creation and trade-off analysis

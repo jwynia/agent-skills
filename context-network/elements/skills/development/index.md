@@ -15,6 +15,7 @@ This domain covers skills that help agents:
 | Skill | Category | Status | Description |
 |-------|----------|--------|-------------|
 | [agile-coordinator](agile-coordinator.md) | workflow | Complete | Multi-agent task orchestration for agile workflows |
+| electron-best-practices | best-practices | Complete | Electron + React desktop app development best practices |
 
 ## Categories
 
@@ -23,10 +24,15 @@ Skills for managing development workflows and processes.
 
 - **agile-coordinator**: Orchestrates multiple worker agents to implement groomed tasks from a backlog. Coordinates task assignment, progress monitoring, merge sequencing, and post-merge verification.
 
+### Best Practices
+Skills providing coding standards, architecture patterns, and tooling guidance for specific technology stacks.
+
+- **electron-best-practices**: Guides agents through Electron + React desktop app development including security patterns, type-safe IPC, packaging with code signing, and testing.
+
 ## Quick Stats
 
-- **Total Skills**: 1
-- **Complete**: 1
+- **Total Skills**: 2
+- **Complete**: 2
 - **In Progress**: 0
 - **Planning**: 0
 
@@ -35,6 +41,7 @@ Skills for managing development workflows and processes.
 | Skill | Path |
 |-------|------|
 | agile-coordinator | `skills/development/workflow/agile-coordinator/` |
+| electron-best-practices | `.claude/skills/electron-best-practices/` |
 
 ## Dependencies
 
@@ -51,6 +58,6 @@ Potential future skills in this domain:
 ## Metadata
 
 - **Created**: 2026-01-20
-- **Last Updated**: 2026-01-20
+- **Last Updated**: 2026-02-04
 - **Updated By**: Claude
-- **Skills Count**: 1
+- **Skills Count**: 2

@@ -8,11 +8,11 @@ Maintains a central registry of skills with their current status, location, and 
 
 ## Quick Stats
 
-- **Total Skills**: 10
+- **Total Skills**: 11
 - **Planning**: 0
 - **In Progress**: 0
 - **Validating**: 0
-- **Complete**: 10
+- **Complete**: 11
 
 ## Skills by Domain
 
@@ -29,6 +29,7 @@ See [development/index.md](development/index.md) for skills in this domain.
 | Skill | Category | Status | Description |
 |-------|----------|--------|-------------|
 | agile-coordinator | workflow | Complete | Multi-agent task orchestration for agile workflows |
+| electron-best-practices | best-practices | Complete | Electron + React desktop app development best practices |
 
 ### Document Processing
 
@@ -98,6 +99,7 @@ None yet
 | godot-best-practices | game-development | `skills/game-development/godot-best-practices/` |
 | godot-asset-generator | game-development | `skills/game-development/godot-asset-generator/` |
 | agile-coordinator | development | `skills/development/workflow/agile-coordinator/` |
+| electron-best-practices | development | `.claude/skills/electron-best-practices/` |
 
 ## Technical Requirements
 
@@ -145,6 +147,7 @@ This catalog should be updated:
 
 ## Change History
 
+- 2026-02-04: Added electron-best-practices skill to Development domain
 - 2026-01-20: Added agile-coordinator skill to Development domain
 - 2026-01-20: Added ebook-analysis skill to Document Processing domain
 - 2025-12-31: Added godot-asset-generator skill to Game Development

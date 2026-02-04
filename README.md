@@ -1,6 +1,6 @@
 # Agent Skills Collection
 
-**108 reusable [Agent Skills](https://agentskills.io)** for AI coding assistants. Each skill provides specialized knowledge and workflows that extend agent capabilities.
+**112 reusable [Agent Skills](https://agentskills.io)** for AI coding assistants. Each skill provides specialized knowledge and workflows that extend agent capabilities.
 
 ## Installing Skills
 
@@ -11,13 +11,13 @@ Use `npx skills add` to install skills:
 Skills are organized into three top-level categories for easy filtering:
 
 ```bash
-# Creative/narrative skills (~58 skills)
+# Creative/narrative skills (~57 skills)
 npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/creative
 
-# Technical/development skills (~23 skills)
+# Technical/development skills (~26 skills)
 npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/tech
 
-# General utilities (~25 skills)
+# General utilities (~29 skills)
 npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/general
 ```
 
@@ -33,24 +33,79 @@ npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/general/m
 npx skills add https://github.com/jwynia/agent-skills/tree/main/skills
 ```
 
-## Available Skills (108 total)
+## Available Skills (112 total)
 
-### Creative (~58 skills)
+### Creative (57 skills)
 Story/narrative focused skills for fiction writing, worldbuilding, and creative work.
 
-#### Fiction (54)
-Core storytelling, worldbuilding, character development, and narrative structure:
-- **story-sense** - Diagnose story problems
-- **story-coach** - Assistive writing guidance
-- **story-collaborator** - Active writing partnership
+#### Fiction - Core & Craft (10)
+Core diagnostics, writing partnerships, and sentence-level craft:
+- **story-sense** - Diagnose what any story needs regardless of current state
+- **story-coach** - Assistive writing guidance (guides but never writes)
+- **story-collaborator** - Active writing partnership (contributes prose alongside writer)
+- **story-analysis** - Systematically evaluate completed stories or chapters
+- **story-idea-generator** - Genre-first story concept generation
+- **prose-style** - Sentence-level craft diagnostics
+- **revision** - Edit pass guidance when revision feels overwhelming
+- **drafting** - First draft execution and block-breaking
+- **cliche-transcendence** - Transform predictable story elements into fresh versions
+- **genre-conventions** - Genre diagnostics and genre-specific element generation
+
+#### Fiction - Character (6)
+Character development, dialogue, and distinctive character creation:
+- **character-arc** - Character transformation arc design and troubleshooting
+- **character-naming** - Break LLM name defaults with external entropy
+- **dialogue** - Dialogue diagnostics for flat or same-voice characters
+- **memetic-depth** - Create perception of cultural depth through juxtaposition
+- **statistical-distance** - Transform clichéd elements by pushing toward statistical edges
+- **underdog-unit** - Stories about institutional outcasts given impossible mandates
+
+#### Fiction - Structure (12)
+Pacing, scene structure, outlines, and multi-level story management:
+- **scene-sequencing** - Pacing and scene-sequel rhythm
+- **endings** - Resolution diagnostics for weak or rushed endings
+- **key-moments** - Structure stories around essential emotional moments
+- **story-zoom** - Multi-level story synchronization across abstraction levels
+- **outline-coach** - Assistive outline coaching through questions
+- **outline-collaborator** - Active outline partnership
+- **reverse-outliner** - Reverse-engineer published books into structured outlines
+- **novel-revision** - Multi-level novel revision without cascade problems
+- **identity-denial** - Stories about protagonists refusing self-transformation
+- **moral-parallax** - Stories about systemic exploitation and moral distance
+- **perspectival-constellation** - Multi-POV stories through catalyst environments
+- **positional-revelation** - Stories about ordinary people becoming crucial through position
+
+#### Fiction - Worldbuilding (11)
+World-level systems, cultures, languages, and shared continuity:
 - **worldbuilding** - World-level story diagnostics
-- **character-arc** - Character transformation design
-- **dialogue** - Dialogue diagnostics
-- **scene-sequencing** - Pacing and scene structure
-- **prose-style** - Sentence-level craft
-- **revision** - Edit pass guidance
-- **endings** - Resolution diagnostics
-- And 44 more specialized fiction skills...
+- **systemic-worldbuilding** - Cascading consequences from speculative changes
+- **oblique-worldbuilding** - Worldbuilding quotes and epigraphs via documentary perspectives
+- **belief-systems** - Religious and belief system design
+- **economic-systems** - Currencies, trade networks, and resource economies
+- **governance-systems** - Political entities and governance structures
+- **settlement-design** - Cities, towns, and settlement design
+- **conlang** - Phonologically consistent constructed languages
+- **language-evolution** - Evolving language systems and linguistic history
+- **metabolic-cultures** - Cultures for closed-loop life support systems
+- **world-fates** - Long-term fate and fortune across shared worlds
+
+#### Fiction - Application (14)
+Specialized generators, adaptation tools, and applied storytelling:
+- **adaptation-synthesis** - Synthesize new works from extracted functional DNA
+- **dna-extraction** - Extract functional DNA from existing works (TV, film, books)
+- **media-adaptation** - Analyze existing media for transferable elements
+- **book-marketing** - Marketing copy diagnostics and platform-optimized blurbs
+- **chapter-drafter** - Autonomous chapter drafting with multi-skill editorial passes
+- **flash-fiction** - Flash fiction and micro fiction diagnostics
+- **interactive-fiction** - Branching narrative diagnostics
+- **game-facilitator** - Narrative RPG game master for collaborative storytelling
+- **table-tone** - Tonal delivery calibration for tabletop RPG sessions
+- **list-builder** - Comprehensive randomization lists for creative entropy
+- **multi-order-evolution** - Multi-generational societal evolution for sci-fi
+- **paradox-fables** - Fables embodying paradoxical wisdom
+- **sensitivity-check** - Representation evaluation and harm flagging
+- **shared-world** - Wiki-style world bible for collaborative fiction
+- **sleep-story** - Stories designed to help listeners fall asleep
 
 #### Humor (1)
 - **joke-engineering** - Humor diagnostics and improvement
@@ -61,21 +116,23 @@ Core storytelling, worldbuilding, character development, and narrative structure
 
 ---
 
-### Tech (~25 skills)
+### Tech (26 skills)
 Technical and development focused skills.
 
 #### AI (1)
 - **mastra-hono** - Mastra AI framework with Hono integration
 
-#### Development (12)
+#### Development (15)
 - **agile-coordinator** - Multi-agent task orchestration (git-only, platform-agnostic)
 - **agile-workflow** - Agile development workflow (git-only, platform-agnostic)
 - **architecture-decision** - ADR creation and trade-off analysis
 - **code-review** - Structured code review guidance
 - **devcontainer** - Development container configuration
+- **electron-best-practices** - Electron + React desktop app development best practices
 - **gitea-coordinator** - Multi-agent task orchestration for Gitea
 - **gitea-workflow** - Agile workflow for Gitea with tea CLI
 - **github-agile** - GitHub-driven agile workflows
+- **product-analysis** - Competitive product analysis and market evaluation
 - **requirements-analysis** - Requirements discovery and documentation
 - **system-design** - Software architecture and design
 - **task-decomposition** - Break down development tasks
@@ -100,7 +157,7 @@ Technical and development focused skills.
 
 ---
 
-### General (~25 skills)
+### General (29 skills)
 Universal utility skills for research, documents, and productivity.
 
 #### Analysis (1)
@@ -110,8 +167,9 @@ Universal utility skills for research, documents, and productivity.
 - **presentation-design** - Design effective presentations and slides
 - **speech-adaptation** - Transform written content for spoken delivery
 
-#### Document Processing (6)
+#### Document Processing (7)
 - **docx-generator** - Word document generation
+- **document-to-narration** - Convert documents to narrated video scripts with TTS audio
 - **ebook-analysis** - Parse ebooks and extract concepts
 - **pdf-generator** - PDF document generation
 - **pptx-generator** - PowerPoint presentation generation
@@ -152,8 +210,8 @@ Universal utility skills for research, documents, and productivity.
 ## Project Structure
 
 ```
-skills/                          # 106 skills in 3 top-level categories
-├── creative/                    # ~58 skills - Story/narrative focus
+skills/                          # 112 skills in main tree
+├── creative/                    # 57 skills - Story/narrative focus
 │   ├── fiction/                 # 54 skills
 │   │   ├── application/
 │   │   ├── character/
@@ -165,7 +223,7 @@ skills/                          # 106 skills in 3 top-level categories
 │   ├── humor/
 │   └── music/
 │
-├── tech/                        # ~25 skills - Technical/development
+├── tech/                        # 25 skills - Technical/development
 │   ├── ai/
 │   ├── development/
 │   │   ├── architecture/
@@ -180,26 +238,31 @@ skills/                          # 106 skills in 3 top-level categories
 │   │   └── godot/
 │   └── security/
 │
-└── general/                     # ~25 skills - Universal utilities
-    ├── analysis/
-    ├── communication/
-    ├── document-processing/
-    │   ├── analysis/
-    │   ├── pdf/
-    │   ├── presentation/
-    │   ├── spreadsheet/
-    │   └── word/
-    ├── education/
-    ├── ideation/
-    ├── meta/
-    ├── productivity/
-    ├── research/
-    │   ├── methodology/
-    │   ├── tools/
-    │   └── verification/
-    └── writing/
-        ├── analysis/
-        └── revision/
+├── general/                     # 28 skills - Universal utilities
+│   ├── analysis/
+│   ├── communication/
+│   ├── document-processing/
+│   │   ├── analysis/
+│   │   ├── pdf/
+│   │   ├── presentation/
+│   │   ├── spreadsheet/
+│   │   └── word/
+│   ├── education/
+│   ├── ideation/
+│   ├── meta/
+│   ├── productivity/
+│   ├── research/
+│   │   ├── methodology/
+│   │   ├── tools/
+│   │   └── verification/
+│   └── writing/
+│       ├── analysis/
+│       └── revision/
+│
+├── development/                 # 1 skill - Standalone development
+│   └── architecture/
+│
+└── education/                   # 1 skill - Standalone education
 
 reference/                       # agentskills.io spec and validation tools
 context-network/                 # Planning and coordination docs

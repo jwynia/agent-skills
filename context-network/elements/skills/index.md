@@ -8,11 +8,11 @@ Maintains a central registry of skills with their current status, location, and 
 
 ## Quick Stats
 
-- **Total Skills**: 11
+- **Total Skills**: 12
 - **Planning**: 0
 - **In Progress**: 0
 - **Validating**: 0
-- **Complete**: 11
+- **Complete**: 12
 
 ## Skills by Domain
 
@@ -30,6 +30,7 @@ See [development/index.md](development/index.md) for skills in this domain.
 |-------|----------|--------|-------------|
 | agile-coordinator | workflow | Complete | Multi-agent task orchestration for agile workflows |
 | electron-best-practices | best-practices | Complete | Electron + React desktop app development best practices |
+| scraper-builder | tooling | Complete | Generate PageObject pattern web scrapers with Playwright and Docker |
 
 ### Document Processing
 
@@ -100,6 +101,7 @@ None yet
 | godot-asset-generator | game-development | `skills/game-development/godot-asset-generator/` |
 | agile-coordinator | development | `skills/development/workflow/agile-coordinator/` |
 | electron-best-practices | development | `.claude/skills/electron-best-practices/` |
+| scraper-builder | development | `skills/tech/development/tooling/scraper-builder/` |
 
 ## Technical Requirements
 
@@ -142,11 +144,12 @@ This catalog should be updated:
 ## Metadata
 
 - **Created:** 2025-12-19
-- **Last Updated:** 2026-01-20
+- **Last Updated:** 2026-02-04
 - **Updated By:** Claude
 
 ## Change History
 
+- 2026-02-04: Added scraper-builder skill to Development domain
 - 2026-02-04: Added electron-best-practices skill to Development domain
 - 2026-01-20: Added agile-coordinator skill to Development domain
 - 2026-01-20: Added ebook-analysis skill to Document Processing domain

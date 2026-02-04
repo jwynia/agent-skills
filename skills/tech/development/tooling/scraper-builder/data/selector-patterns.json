@@ -1,0 +1,209 @@
+{
+  "product_card": {
+    "description": "Product cards in ecommerce listings",
+    "selectors": [
+      "[data-testid=\"product-card\"]",
+      ".product-card",
+      "[itemtype=\"http://schema.org/Product\"]",
+      "article.product",
+      ".product-item",
+      "[data-product-id]"
+    ],
+    "children": {
+      "title": [
+        "[data-testid=\"product-title\"]",
+        ".product-title",
+        "[itemprop=\"name\"]",
+        "h2.title",
+        "h3.product-name"
+      ],
+      "price": [
+        "[data-testid=\"product-price\"]",
+        ".product-price",
+        "[itemprop=\"price\"]",
+        ".price",
+        "span.amount"
+      ],
+      "image": [
+        "[data-testid=\"product-image\"] img",
+        ".product-image img",
+        "[itemprop=\"image\"]",
+        "img.product-img"
+      ],
+      "link": [
+        "[data-testid=\"product-link\"]",
+        "a.product-link",
+        "h2 a",
+        "a[href*=\"product\"]"
+      ],
+      "rating": [
+        "[data-testid=\"product-rating\"]",
+        ".product-rating",
+        "[itemprop=\"ratingValue\"]",
+        ".star-rating",
+        "[aria-label*=\"rating\"]"
+      ]
+    }
+  },
+  "pagination": {
+    "description": "Page navigation controls",
+    "selectors": [
+      "nav[aria-label=\"pagination\"]",
+      ".pagination",
+      "[data-testid=\"pagination\"]",
+      "ul.pager",
+      ".page-numbers"
+    ],
+    "children": {
+      "next": [
+        "a[rel=\"next\"]",
+        "[aria-label=\"Next page\"]",
+        "button:has-text(\"Next\")",
+        ".pagination-next",
+        "a.next"
+      ],
+      "previous": [
+        "a[rel=\"prev\"]",
+        "[aria-label=\"Previous page\"]",
+        "button:has-text(\"Previous\")",
+        ".pagination-prev",
+        "a.prev"
+      ],
+      "page_number": [
+        ".pagination a[href*=\"page=\"]",
+        ".page-numbers li a",
+        "[data-page]"
+      ],
+      "current": [
+        ".pagination .active",
+        "[aria-current=\"page\"]",
+        ".current-page"
+      ]
+    }
+  },
+  "data_table": {
+    "description": "Tabular data displays",
+    "selectors": [
+      "table[data-testid]",
+      "table.data-table",
+      ".table-responsive table",
+      "table.sortable",
+      "[role=\"grid\"]"
+    ],
+    "children": {
+      "header_row": [
+        "thead tr",
+        "tr:first-child",
+        "[role=\"row\"]:first-child"
+      ],
+      "header_cell": [
+        "thead th",
+        "th[scope=\"col\"]",
+        "[role=\"columnheader\"]"
+      ],
+      "body_row": [
+        "tbody tr",
+        "[role=\"row\"]"
+      ],
+      "cell": [
+        "tbody td",
+        "[role=\"cell\"]",
+        "[role=\"gridcell\"]"
+      ]
+    }
+  },
+  "search": {
+    "description": "Search input and results",
+    "selectors": [
+      "[data-testid=\"search\"]",
+      "form[role=\"search\"]",
+      ".search-form",
+      "#search-form"
+    ],
+    "children": {
+      "input": [
+        "input[type=\"search\"]",
+        "[data-testid=\"search-input\"]",
+        "input[name=\"q\"]",
+        "input[name=\"search\"]",
+        "input[placeholder*=\"search\" i]"
+      ],
+      "submit": [
+        "button[type=\"submit\"]",
+        "[data-testid=\"search-button\"]",
+        ".search-button"
+      ],
+      "results": [
+        "[data-testid=\"search-results\"]",
+        ".search-results",
+        "#search-results"
+      ],
+      "result_count": [
+        ".result-count",
+        "[data-testid=\"result-count\"]",
+        ".showing-results"
+      ]
+    }
+  },
+  "navigation": {
+    "description": "Site navigation elements",
+    "selectors": [
+      "nav[aria-label=\"main\"]",
+      "nav.main-nav",
+      "#main-navigation",
+      "header nav"
+    ],
+    "children": {
+      "menu_item": [
+        "nav a",
+        ".nav-link",
+        "[role=\"menuitem\"]"
+      ],
+      "dropdown": [
+        ".dropdown-menu",
+        "[role=\"menu\"]",
+        ".submenu"
+      ],
+      "breadcrumb": [
+        "nav[aria-label=\"breadcrumb\"]",
+        ".breadcrumb",
+        "ol.breadcrumbs"
+      ]
+    }
+  },
+  "form": {
+    "description": "Form elements and inputs",
+    "selectors": [
+      "form[data-testid]",
+      "form[name]",
+      "form[action]"
+    ],
+    "children": {
+      "text_input": [
+        "input[type=\"text\"]",
+        "input[type=\"email\"]",
+        "input[type=\"tel\"]",
+        "textarea"
+      ],
+      "select": [
+        "select",
+        "[role=\"listbox\"]",
+        ".custom-select"
+      ],
+      "checkbox": [
+        "input[type=\"checkbox\"]",
+        "[role=\"checkbox\"]"
+      ],
+      "submit": [
+        "button[type=\"submit\"]",
+        "input[type=\"submit\"]"
+      ],
+      "error": [
+        "[role=\"alert\"]",
+        ".form-error",
+        ".error-message",
+        ".invalid-feedback"
+      ]
+    }
+  }
+}

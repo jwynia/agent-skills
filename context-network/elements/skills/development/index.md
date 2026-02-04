@@ -16,6 +16,7 @@ This domain covers skills that help agents:
 |-------|----------|--------|-------------|
 | [agile-coordinator](agile-coordinator.md) | workflow | Complete | Multi-agent task orchestration for agile workflows |
 | electron-best-practices | best-practices | Complete | Electron + React desktop app development best practices |
+| scraper-builder | tooling | Complete | Generate PageObject pattern web scrapers with Playwright and Docker |
 
 ## Categories
 
@@ -29,10 +30,15 @@ Skills providing coding standards, architecture patterns, and tooling guidance f
 
 - **electron-best-practices**: Guides agents through Electron + React desktop app development including security patterns, type-safe IPC, packaging with code signing, and testing.
 
+### Tooling
+Generator skills that scaffold projects and generate code for specific technology domains.
+
+- **scraper-builder**: Generates complete PageObject pattern web scraper projects using Playwright and TypeScript with Docker deployment. Supports agent-browser site analysis for automated selector discovery.
+
 ## Quick Stats
 
-- **Total Skills**: 2
-- **Complete**: 2
+- **Total Skills**: 3
+- **Complete**: 3
 - **In Progress**: 0
 - **Planning**: 0
 
@@ -42,6 +48,7 @@ Skills providing coding standards, architecture patterns, and tooling guidance f
 |-------|------|
 | agile-coordinator | `skills/development/workflow/agile-coordinator/` |
 | electron-best-practices | `.claude/skills/electron-best-practices/` |
+| scraper-builder | `skills/tech/development/tooling/scraper-builder/` |
 
 ## Dependencies
 
@@ -60,4 +67,4 @@ Potential future skills in this domain:
 - **Created**: 2026-01-20
 - **Last Updated**: 2026-02-04
 - **Updated By**: Claude
-- **Skills Count**: 2
+- **Skills Count**: 3

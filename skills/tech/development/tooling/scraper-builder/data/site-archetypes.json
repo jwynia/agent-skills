@@ -1,0 +1,131 @@
+{
+  "ecommerce": {
+    "description": "Online stores with product listings, detail pages, and shopping carts",
+    "typical_pages": [
+      "ProductListingPage",
+      "ProductDetailPage",
+      "CategoryPage",
+      "SearchResultsPage"
+    ],
+    "typical_components": [
+      "Pagination",
+      "ProductCard",
+      "PriceDisplay",
+      "FilterSidebar",
+      "SortDropdown",
+      "BreadcrumbNav"
+    ],
+    "typical_data": {
+      "product": ["title", "price", "currency", "image_url", "description", "sku", "availability", "rating", "review_count"],
+      "category": ["name", "url", "product_count"],
+      "review": ["author", "rating", "date", "text"]
+    },
+    "common_patterns": ["infinite_scroll", "load_more_button", "numbered_pagination", "faceted_filters"]
+  },
+  "blog": {
+    "description": "Content sites with articles, posts, and archives",
+    "typical_pages": [
+      "ArticleListPage",
+      "ArticlePage",
+      "AuthorPage",
+      "TagPage"
+    ],
+    "typical_components": [
+      "Pagination",
+      "ArticleCard",
+      "TagCloud",
+      "AuthorBio",
+      "RelatedPosts"
+    ],
+    "typical_data": {
+      "article": ["title", "author", "date", "content", "excerpt", "tags", "category", "url", "image_url"],
+      "author": ["name", "bio", "avatar_url", "article_count"]
+    },
+    "common_patterns": ["numbered_pagination", "infinite_scroll", "tag_filtering", "date_archives"]
+  },
+  "directory": {
+    "description": "Business, service, or resource directories with listings and profiles",
+    "typical_pages": [
+      "ListingPage",
+      "ProfilePage",
+      "SearchPage",
+      "CategoryPage"
+    ],
+    "typical_components": [
+      "Pagination",
+      "ListingCard",
+      "FilterSidebar",
+      "MapView",
+      "ContactInfo"
+    ],
+    "typical_data": {
+      "listing": ["name", "address", "phone", "website", "category", "rating", "review_count", "description", "hours"],
+      "review": ["author", "rating", "date", "text"]
+    },
+    "common_patterns": ["numbered_pagination", "map_integration", "distance_sorting", "category_filtering"]
+  },
+  "job_board": {
+    "description": "Job listing sites with postings, search, and application tracking",
+    "typical_pages": [
+      "JobListingPage",
+      "JobDetailPage",
+      "CompanyPage",
+      "SearchResultsPage"
+    ],
+    "typical_components": [
+      "Pagination",
+      "JobCard",
+      "FilterSidebar",
+      "SalaryRange",
+      "CompanyInfo"
+    ],
+    "typical_data": {
+      "job": ["title", "company", "location", "salary_min", "salary_max", "currency", "type", "description", "posted_date", "url", "remote"],
+      "company": ["name", "industry", "size", "website", "description"]
+    },
+    "common_patterns": ["numbered_pagination", "faceted_filters", "saved_searches", "email_alerts"]
+  },
+  "real_estate": {
+    "description": "Property listing sites with homes, rentals, and commercial spaces",
+    "typical_pages": [
+      "PropertyListingPage",
+      "PropertyDetailPage",
+      "SearchResultsPage",
+      "AgentPage"
+    ],
+    "typical_components": [
+      "Pagination",
+      "PropertyCard",
+      "MapView",
+      "ImageGallery",
+      "FilterSidebar",
+      "PriceRange"
+    ],
+    "typical_data": {
+      "property": ["title", "price", "currency", "address", "bedrooms", "bathrooms", "sqft", "type", "status", "description", "image_urls", "agent", "listed_date"],
+      "agent": ["name", "phone", "email", "agency"]
+    },
+    "common_patterns": ["map_search", "numbered_pagination", "price_range_filter", "image_gallery"]
+  },
+  "social_media": {
+    "description": "Social platforms with user profiles, posts, and feeds",
+    "typical_pages": [
+      "FeedPage",
+      "ProfilePage",
+      "PostDetailPage",
+      "SearchResultsPage"
+    ],
+    "typical_components": [
+      "PostCard",
+      "CommentThread",
+      "UserAvatar",
+      "InfiniteScroll",
+      "ReactionBar"
+    ],
+    "typical_data": {
+      "post": ["author", "content", "date", "likes", "comments_count", "shares", "media_urls"],
+      "profile": ["username", "display_name", "bio", "followers", "following", "post_count", "avatar_url"]
+    },
+    "common_patterns": ["infinite_scroll", "lazy_loading", "virtual_scrolling", "dynamic_content"]
+  }
+}

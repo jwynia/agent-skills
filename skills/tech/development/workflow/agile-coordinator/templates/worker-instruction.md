@@ -25,7 +25,7 @@ Complete the FULL implementation cycle for this task:
 1. **Understand**: Read the task file for requirements and implementation plan
 2. **Implement**: Follow TDD - write tests first, then implement
 3. **Review**: Ensure code quality and test coverage
-4. **PR**: Create a pull request with your changes
+4. **Validate**: Run tests and verify build passes
 5. **Signal**: Update your progress file when ready for merge
 
 ## Execution
@@ -46,8 +46,8 @@ Handle all agile-workflow checkpoints automatically:
 | TASK_SELECTED | Continue (task is assigned to you) |
 | IMPL_COMPLETE | Continue if tests pass; fix and retry if not |
 | REVIEWS_DONE | Fix critical/high issues; defer medium/low |
-| PR_CREATED | Wait for CI to pass, then signal ready |
-| PR_MERGED | (Coordinator handles merge) |
+| MERGE_READY | Signal ready, coordinator handles merge |
+| MERGED | (Coordinator handles merge) |
 
 ## Progress Reporting
 
@@ -75,13 +75,13 @@ Update `status` to one of:
 - `failed` - Encountered unrecoverable error
 
 Update `phase` to reflect current phase:
-- `started` → `implement` → `review` → `pr-prep` → `awaiting-ci` → `ready-to-merge`
+- `started` → `implement` → `review` → `merge-prep` → `ready-to-merge`
 
 ## IMPORTANT: Merge Protocol
 
-**DO NOT merge your PR yourself.**
+**DO NOT merge your branch yourself.**
 
-When your PR is created and CI passes:
+When your implementation is complete and tests pass:
 1. Update progress status to `ready-to-merge`
 2. Stop and wait
 3. The coordinator will handle the merge
@@ -102,8 +102,7 @@ The coordinator will decide whether to retry or skip.
 Your task is complete when:
 - All tests pass
 - Code reviews pass (no critical/high issues)
-- PR is created
-- CI passes
+- Build succeeds
 - Progress file shows `ready-to-merge`
 
 BEGIN IMPLEMENTATION

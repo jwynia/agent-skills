@@ -1,17 +1,17 @@
 # Agent Skills Directory
 
-This directory contains **106 skills** organized into three top-level categories for easy filtering.
+This directory contains **112 skills** organized into three main categories plus standalone directories for easy filtering.
 
 ## Quick Install
 
 ```bash
-# Browse creative/narrative skills
+# Browse creative/narrative skills (57)
 npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/creative
 
-# Browse technical/development skills
+# Browse technical/development skills (25)
 npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/tech
 
-# Browse general utilities
+# Browse general utilities (28)
 npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/general
 ```
 
@@ -19,25 +19,25 @@ npx skills add https://github.com/jwynia/agent-skills/tree/main/skills/general
 
 ```
 skills/
-├── creative/                    # ~58 skills - Story/narrative focus
+├── creative/                    # 57 skills - Story/narrative focus
 │   ├── fiction/                 # 54 skills
-│   │   ├── application/
-│   │   ├── character/
-│   │   ├── core/
-│   │   ├── craft/
-│   │   ├── orchestrators/
-│   │   ├── structure/
-│   │   └── worldbuilding/
-│   ├── humor/
+│   │   ├── application/        # 14 skills
+│   │   ├── character/          # 6 skills
+│   │   ├── core/               # 5 skills
+│   │   ├── craft/              # 5 skills
+│   │   ├── orchestrators/      # 1 skill
+│   │   ├── structure/          # 12 skills
+│   │   └── worldbuilding/      # 11 skills
+│   ├── humor/                  # 1 skill
 │   │   └── joke-engineering/
-│   └── music/
+│   └── music/                  # 2 skills
 │       ├── lyric-diagnostic/
 │       └── musical-dna/
 │
-├── tech/                        # ~23 skills - Technical/development
-│   ├── ai/
+├── tech/                        # 25 skills - Technical/development
+│   ├── ai/                     # 1 skill
 │   │   └── mastra-hono/
-│   ├── development/             # 10 skills
+│   ├── development/             # 13 skills
 │   │   ├── architecture/
 │   │   ├── quality/
 │   │   ├── tooling/
@@ -54,37 +54,44 @@ skills/
 │       ├── secrets-scan/
 │       └── security-scan/
 │
-└── general/                     # ~25 skills - Universal utilities
-    ├── analysis/
-    │   └── technology-impact/
-    ├── communication/           # 2 skills
-    │   ├── presentation-design/
-    │   └── speech-adaptation/
-    ├── document-processing/     # 6 skills
-    │   ├── analysis/
-    │   ├── pdf/
-    │   ├── presentation/
-    │   ├── spreadsheet/
-    │   └── word/
-    ├── education/               # 2 skills
-    │   ├── competency/
-    │   └── gentle-teaching/
-    ├── ideation/                # 2 skills
-    │   ├── brainstorming/
-    │   └── naming/
-    ├── meta/                    # 3 skills
-    │   ├── context-network/
-    │   ├── context-retrospective/
-    │   └── skill-builder/
-    ├── productivity/            # 1 skill
-    │   └── task-breakdown/
-    ├── research/                # 7 skills
-    │   ├── methodology/
-    │   ├── tools/
-    │   └── verification/
-    └── writing/                 # 4 skills
-        ├── analysis/
-        └── revision/
+├── general/                     # 28 skills - Universal utilities
+│   ├── analysis/               # 1 skill
+│   │   └── technology-impact/
+│   ├── communication/           # 2 skills
+│   │   ├── presentation-design/
+│   │   └── speech-adaptation/
+│   ├── document-processing/     # 6 skills
+│   │   ├── analysis/
+│   │   ├── pdf/
+│   │   ├── presentation/
+│   │   ├── spreadsheet/
+│   │   └── word/
+│   ├── education/               # 2 skills
+│   │   ├── competency/
+│   │   └── gentle-teaching/
+│   ├── ideation/                # 2 skills
+│   │   ├── brainstorming/
+│   │   └── naming/
+│   ├── meta/                    # 3 skills
+│   │   ├── context-network/
+│   │   ├── context-retrospective/
+│   │   └── skill-builder/
+│   ├── productivity/            # 1 skill
+│   │   └── task-breakdown/
+│   ├── research/                # 7 skills
+│   │   ├── methodology/
+│   │   ├── tools/
+│   │   └── verification/
+│   └── writing/                 # 4 skills
+│       ├── analysis/
+│       └── revision/
+│
+├── development/                 # 1 skill (standalone)
+│   └── architecture/
+│       └── product-analysis/
+│
+└── education/                   # 1 skill (standalone)
+    └── document-to-narration/
 ```
 
 Each skill folder contains:

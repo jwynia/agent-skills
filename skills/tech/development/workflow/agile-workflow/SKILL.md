@@ -1,16 +1,20 @@
 ---
 name: agile-workflow
-description: "Orchestrate agile development workflows by invoking commands in sequence with checkpoint-based flow control. This skill should be used when the user asks to 'run the workflow', 'continue working', 'what's next', 'complete the task cycle', 'start my day', 'end the sprint', 'implement the next task', or wants guided step-by-step development assistance. Keywords: workflow, orchestrate, agile, task cycle, sprint, daily, implement, review, PR, standup, retrospective."
+description: "Orchestrate agile development workflows by invoking commands in sequence with checkpoint-based flow control. This skill should be used when the user asks to 'run the workflow', 'continue working', 'what's next', 'complete the task cycle', 'start my day', 'end the sprint', 'implement the next task', or wants guided step-by-step development assistance. Platform-agnostic git-only workflow without PR integration. Keywords: workflow, orchestrate, agile, task cycle, sprint, daily, implement, review, merge, standup, retrospective, git."
 license: MIT
-compatibility: Requires git, GitHub CLI (gh), and a context network with backlog structure.
+compatibility: Requires git and a context network with backlog structure. Works with any git hosting provider.
 metadata:
   author: agent-skills
-  version: "1.0"
+  version: "2.0"
 ---
 
 # Agile Workflow Orchestrator
 
 A skill that guides agents through structured agile development workflows by intelligently invoking commands in sequence. Uses checkpoint-based flow control to auto-progress between steps while pausing at key decision points.
+
+**Note:** This is a platform-agnostic, git-only workflow. For PR-based workflows with specific platforms, use:
+- `gitea-workflow` for Gitea repositories
+- `github-agile` for GitHub repositories
 
 ## When to Use This Skill
 
@@ -31,7 +35,6 @@ Do NOT use this skill when:
 
 Before using this skill:
 - **Git repository** initialized with worktree support
-- **GitHub CLI** installed and authenticated (`gh auth status`)
 - **Context network** with backlog structure at `context-network/backlog/`
 - Task status files at `context-network/backlog/by-status/*.md`
 
@@ -58,9 +61,11 @@ review-tests                                    audit --sprint
   ↓
 apply-recommendations (if issues)
   ↓
-pr-prep → [CHECKPOINT]
+merge-prep → [CHECKPOINT]
   ↓
-pr-complete
+merge-complete
+  ↓
+update-backlog & status
   ↓
 END
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -77,8 +82,7 @@ The skill determines current workflow state automatically. No manual tracking ne
 | Worktree exists | `git worktree list` | Task in progress |
 | Task branch active | `git branch --show-current` matches `task/*` | Active implementation |
 | Uncommitted changes | `git status --porcelain` | Active coding |
-| PR exists | `gh pr list --head [branch]` | In review |
-| PR merged | `gh pr view --json state` | Ready for cleanup |
+| Branch merged | `git branch --merged main` | Ready for cleanup |
 
 ### State Matrix
 
@@ -90,9 +94,8 @@ Check                           → State           → Next Step
 No worktree, no in-progress     → IDLE            → sync, next
 Worktree exists, uncommitted    → IMPLEMENTING    → continue implement
 Worktree exists, all committed  → READY_REVIEW    → review-code
-PR open, checks pending         → AWAITING_CI     → wait or address
-PR open, checks pass            → READY_MERGE     → pr-complete
-PR merged, worktree exists      → CLEANUP         → pr-complete
+Reviews complete, ready to merge→ MERGE_READY     → merge-prep
+Branch merged, worktree exists  → CLEANUP         → merge-complete
 ─────────────────────────────────────────────────────────────
 ```
 
@@ -189,31 +192,43 @@ Purpose: Apply quick fixes now, defer complex changes to tasks
 Output: Applied fixes + created follow-up tasks
 ```
 
-### Step 6: Prepare PR
+### Step 6: Prepare Merge
 
-Create pull request with full documentation.
-
-```
-Run: pr-prep
-Purpose: Validate, document, and create PR
-Output: PR created with description, tests verified
-```
-
-**CHECKPOINT: PR_CREATED**
-- Display PR URL and CI status
-- Wait for CI checks to complete
-- On CI pass + approval: continue to merge
-- On CI fail: stop, address issues
-
-### Step 7: Complete PR
-
-Merge and cleanup.
+Validate and prepare for merge to main.
 
 ```
-Run: pr-complete [PR-NUMBER]
-Purpose: Merge PR, delete branch, remove worktree, update status
+Run: merge-prep
+Purpose: Validate implementation, run final checks, prepare for merge
+Output: Ready to merge to main
+```
+
+**CHECKPOINT: MERGE_READY**
+- Display validation results
+- Show files that will be merged
+- On all checks pass: continue to merge
+- On failure: stop, address issues
+
+### Step 7: Complete Merge
+
+Merge to main and cleanup.
+
+```
+Run: merge-complete
+Purpose: Merge to main, delete branch, remove worktree, update status
 Output: Task marked complete, cleanup done
 ```
+
+### Step 8: Update Backlog and Project Status
+
+Persist progress to source-of-truth documentation.
+
+```
+Run: Part of merge-complete (Phase 6)
+Purpose: Update epic file (task → complete), unblock dependents, update project status
+Output: Backlog and project status reflect actual progress
+```
+
+**Why this step matters:** Without it, completed tasks remain marked "ready" in backlog files and project status stays stale. Internal tracking files are session-scoped; the backlog and status files are the persistent source of truth.
 
 For detailed task-cycle instructions, see [references/phases/task-cycle.md](references/phases/task-cycle.md).
 
@@ -306,7 +321,7 @@ Some checkpoints can auto-continue when conditions are met:
 |------------|------------------|
 | IMPL_COMPLETE | All tests pass, build succeeds |
 | REVIEWS_DONE | No critical or high severity issues |
-| PR_CREATED | CI passes, required approvals obtained |
+| MERGE_READY | All validation checks pass |
 
 For detailed checkpoint handling, see [references/checkpoint-handling.md](references/checkpoint-handling.md).
 
@@ -323,8 +338,8 @@ Each workflow step uses embedded command instructions:
 | review-code | [references/commands/review-code.md](references/commands/review-code.md) | Code quality review |
 | review-tests | [references/commands/review-tests.md](references/commands/review-tests.md) | Test quality review |
 | apply-recommendations | [references/commands/apply-recommendations.md](references/commands/apply-recommendations.md) | Triage and apply fixes |
-| pr-prep | [references/commands/pr-prep.md](references/commands/pr-prep.md) | PR creation |
-| pr-complete | [references/commands/pr-complete.md](references/commands/pr-complete.md) | PR merge and cleanup |
+| merge-prep | [references/commands/merge-prep.md](references/commands/merge-prep.md) | Merge preparation |
+| merge-complete | [references/commands/merge-complete.md](references/commands/merge-complete.md) | Merge and cleanup |
 | discovery | [references/commands/discovery.md](references/commands/discovery.md) | Learning capture |
 | retrospective | [references/commands/retrospective.md](references/commands/retrospective.md) | Post-work analysis |
 | maintenance | [references/commands/maintenance.md](references/commands/maintenance.md) | Context network cleanup |
@@ -378,17 +393,19 @@ Agent: Creating worktree at .worktrees/TASK-042/
        ║  [continue] [stop]                        ║
        ╚═══════════════════════════════════════════╝
 
-[Flow continues through review, PR, merge...]
+[Flow continues through review, merge...]
 ```
 
 ## Limitations
 
 - Requires context network with specific backlog structure
-- GitHub-centric (uses `gh` CLI for PR operations)
+- Git-only workflow (no PR integration - for PR workflows use gitea-workflow or github-agile)
 - Single-task focus (parallel task work not orchestrated)
-- Manual intervention needed when CI fails or conflicts occur
+- Best suited for solo development or trusted team direct-to-main workflows
 
 ## Related Skills
 
+- **gitea-workflow** - For Gitea repositories with PR integration
+- **github-agile** - For GitHub repositories with PR integration
 - **skill-maker** - Create new skills following agentskills.io spec
 - **research-workflow** - For research tasks before implementation

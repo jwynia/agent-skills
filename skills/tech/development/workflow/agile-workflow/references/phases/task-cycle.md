@@ -1,10 +1,10 @@
 # Task Cycle Phase Reference
 
-Complete flow for implementing a single task from selection to merge.
+Complete flow for implementing a single task from selection to merge (git-only version).
 
 ## Overview
 
-The task cycle is the primary workflow for development work. It takes a task from the ready queue through implementation, review, and merge.
+The task cycle is the primary workflow for development work. It takes a task from the ready queue through implementation, review, and merge directly to main.
 
 ```
 TASK CYCLE FLOW
@@ -70,21 +70,26 @@ TASK CYCLE FLOW
               │
               ▼
 ┌─────────────┐
-│   pr-prep   │ ─── Validate, document, create PR
+│ merge-prep  │ ─── Validate, prepare for merge
 └──────┬──────┘
        │
        ▼
 ╔═══════════════════════════════════════════════════════╗
-║  CHECKPOINT: PR_CREATED                               ║
-║  • Display PR URL and CI status                       ║
-║  • Wait for CI checks                                 ║
-║  • Wait for approvals                                 ║
+║  CHECKPOINT: MERGE_READY                              ║
+║  • Display validation results                         ║
+║  • Confirm ready to merge to main                     ║
 ╚═══════════════════════════════════════════════════════╝
        │
        ▼
-┌─────────────┐
-│ pr-complete │ ─── Merge, cleanup worktree, update status
-└──────┬──────┘
+┌───────────────┐
+│ merge-complete│ ─── Merge, cleanup worktree, update task status
+└──────┬────────┘
+       │
+       ▼
+┌───────────────────┐
+│ update-backlog    │ ─── Update epic file, unblock dependents,
+│ & project status  │     update project status
+└──────┬────────────┘
        │
        ▼
     END
@@ -270,72 +275,98 @@ TASK CYCLE FLOW
 - Created follow-up tasks
 - Updated validation status
 
-**Next Step**: Proceed to PR prep
+**Next Step**: Proceed to merge prep
 
 ---
 
-### Step 6: PR Prep (Create Pull Request)
+### Step 6: Merge Prep (Validate for Merge)
 
-**Command**: `pr-prep`
+**Command**: `merge-prep`
 
-**Purpose**: Validate and create pull request.
+**Purpose**: Validate implementation and prepare for merge.
 
 **Actions**:
 1. Run full validation suite
-2. Generate PR description
-3. Push to remote
-4. Create PR via GitHub CLI
-5. Update task status to in-review
+2. Update from main branch
+3. Verify no merge conflicts
+4. Generate merge documentation
+5. Confirm ready to merge
 
 **Outputs**:
-- PR number and URL
-- CI status
-- Review request
+- Validation results
+- Conflict check status
+- Ready for merge confirmation
 
-**Triggers Checkpoint**: PR_CREATED
+**Triggers Checkpoint**: MERGE_READY
 
 ---
 
-### Checkpoint: PR_CREATED
+### Checkpoint: MERGE_READY
 
 **Display**:
 ```
 ╔═══════════════════════════════════════════════════════╗
-║  CHECKPOINT: PR Created                               ║
+║  CHECKPOINT: Ready to Merge                           ║
 ╠═══════════════════════════════════════════════════════╣
-║  PR: #123 - [TASK-ID]: [Task Title]                   ║
-║  URL: https://github.com/org/repo/pull/123            ║
+║  Task: [TASK-ID] - [Task Title]                       ║
+║  Branch: task/[TASK-ID]-description                   ║
 ║                                                       ║
-║  CI Status: Running...                                ║
-║  Approvals: 0/1 required                              ║
+║  Validation:                                          ║
+║  - Tests: PASSED (15/15)                              ║
+║  - Lint: PASSED                                       ║
+║  - Build: PASSED                                      ║
+║  - Conflicts: None                                    ║
 ║                                                       ║
-║  Waiting for CI and approval...                       ║
-║  [check status] [stop]                                ║
+║  Ready to merge to main?                              ║
+║  [merge] [stop]                                       ║
 ╚═══════════════════════════════════════════════════════╝
 ```
 
-**Auto-Continue Condition**: CI passes AND required approvals obtained
+**Auto-Continue Condition**: All validation passes
 
 ---
 
-### Step 7: PR Complete (Merge and Cleanup)
+### Step 7: Merge Complete (Merge and Cleanup)
 
-**Command**: `pr-complete [PR-NUMBER]`
+**Command**: `merge-complete`
 
-**Purpose**: Merge PR and clean up.
+**Purpose**: Merge to main and clean up.
 
 **Actions**:
-1. Verify CI and approvals
-2. Squash merge to main
-3. Delete feature branch
-4. Remove worktree
-5. Update task status to completed
-6. Update backlog indexes
+1. Squash merge to main
+2. Delete feature branch
+3. Remove worktree
+4. Update task status to completed
+5. Update backlog indexes
 
 **Outputs**:
 - Merge confirmation
 - Cleanup status
 - Task completion record
+
+**Next Step**: Update backlog and project status
+
+---
+
+### Step 8: Update Backlog Epic File and Project Status
+
+**Command**: Part of `merge-complete` (Phase 6)
+
+**Purpose**: Persist progress to the source-of-truth documentation files so future sessions see accurate state.
+
+**Actions**:
+1. Update task status in the backlog epic file (ready → complete)
+2. Recalculate epic-level progress counts
+3. Unblock dependent tasks (blocked → ready) if their blockers are now complete
+4. Update project status file (context/status.md) with current phase, epic progress, and recent changes
+5. Commit and push documentation updates
+
+**Outputs**:
+- Updated epic file with accurate task statuses
+- Newly unblocked tasks moved to ready
+- Current project status reflecting actual progress
+
+**Why this step exists**: Without it, internal tracking (`.coordinator/state.json`, worker progress files) diverges from the backlog and project status files. This caused 22 merged tasks to remain marked as "ready" in one real-world project.
 
 **Next Step**: Workflow complete
 
@@ -348,14 +379,8 @@ TASK CYCLE FLOW
 - Must fix tests before proceeding
 - Cannot skip to review
 
-### CI Failures
-- Stop at PR_CREATED checkpoint
-- Fix in worktree
-- Push updates
-- Wait for CI to re-run
-
 ### Merge Conflicts
-- Stop at PR_CREATED checkpoint
+- Stop at MERGE_READY checkpoint
 - Pull latest main into worktree
 - Resolve conflicts
 - Push updates
@@ -375,7 +400,7 @@ TASK CYCLE FLOW
 | Implement | 30 min - 4 hours |
 | Reviews | 5-15 minutes |
 | Apply Recommendations | 5-30 minutes |
-| PR Prep | 5-10 minutes |
-| PR Complete | 2-5 minutes |
+| Merge Prep | 2-5 minutes |
+| Merge Complete | 2-5 minutes |
 
 Total: Variable based on task complexity

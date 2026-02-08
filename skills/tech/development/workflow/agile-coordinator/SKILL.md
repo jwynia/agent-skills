@@ -2,7 +2,7 @@
 name: agile-coordinator
 description: "Orchestrate multiple worker agents to implement groomed tasks. Use when multiple ready tasks need implementation, when you want autonomous multi-task execution, or when coordinating batch development work. Keywords: coordinator, orchestrator, multi-task, parallel, workers, batch, autonomous."
 license: MIT
-compatibility: Requires git, GitHub CLI (gh), context network with backlog structure, and Claude Code's Task tool.
+compatibility: Requires git, context network with backlog structure, and Claude Code's Task tool. Works with any git hosting provider.
 metadata:
   author: agent-skills
   version: "1.0"
@@ -107,13 +107,13 @@ For SEQUENTIAL mode:
 For PARALLEL mode:
   1. Spawn workers up to max_workers
   2. Monitor all workers concurrently
-  3. As workers complete: queue their PRs for merge
+  3. As workers complete: queue their branches for merge
   4. Spawn next worker if tasks remain
   5. Continue until all tasks processed
 ```
 
 **Checkpoint: WORKER_COMPLETE** (per worker)
-- Display: Worker summary, PR number, next action
+- Display: Worker summary, branch name, next action
 - Auto-continue: If successful and --autonomous
 - Options: `continue`, `retry`, `skip`, `stop`
 
@@ -123,14 +123,14 @@ Execute merges sequentially to avoid conflicts.
 
 ```
 Actions:
-1. For each completed PR in merge queue:
+1. For each completed task in merge queue:
    a. git checkout main && git pull
-   b. Merge PR (via gh pr merge or git merge)
+   b. Merge branch (git merge --squash)
    c. Verify merge succeeded
    d. Delete feature branch
 2. If conflict: pause and alert user
 
-Output: All PRs merged to main
+Output: All branches merged to main
 ```
 
 ### Phase 5: Verification
@@ -153,7 +153,29 @@ Output: Verification status (PASSED/FAILED)
 - Auto-continue: If all tests pass
 - Options: `done`, `investigate`, `revert`
 
-### Phase 6: Summary
+### Phase 6: Persist Progress
+
+Update source-of-truth documentation to reflect completed work.
+
+```
+Actions:
+1. For each completed task:
+   a. Update task status in the backlog epic file (ready → complete)
+   b. Recalculate epic-level progress (e.g., "22/28 complete" → "24/28 complete")
+   c. Unblock dependent tasks (blocked → ready) if blockers are now satisfied
+2. Update project status file (context/status.md):
+   a. Current project phase
+   b. Epic progress table
+   c. Recently completed work
+   d. Active/upcoming work summary
+3. Commit and push documentation updates
+
+Output: Backlog and project status files reflect actual progress
+```
+
+**Why this phase exists:** Internal tracking (`.coordinator/state.json`, worker progress files) is session-scoped and ephemeral. The backlog epic files and project status are the persistent source of truth that humans and future sessions rely on. Without this phase, completed tasks remain marked "ready" in backlog files — in one real-world case, 22 merged tasks were never updated in the backlog.
+
+### Phase 7: Summary
 
 Generate comprehensive completion report.
 
@@ -162,6 +184,7 @@ Output:
 - Tasks completed with PR numbers and commits
 - Metrics (workers spawned, PRs merged, tests added)
 - Verification status
+- Documentation updates applied
 - Remaining backlog tasks
 ```
 
@@ -191,8 +214,8 @@ Workers report progress via file system:
   "worker_id": "worker-1",
   "task_id": "TASK-006",
   "status": "in_progress|completed|failed|ready-to-merge",
-  "phase": "implement|review|pr-prep|pr-complete",
-  "pr_number": null,
+  "phase": "implement|review|merge-prep|merge-complete",
+  "commit": null,
   "branch": "task/TASK-006-description",
   "last_update": "2026-01-20T10:15:00Z",
   "milestones": [
@@ -273,7 +296,7 @@ Key integration points:
 **Fix**: Always merge sequentially, pull before each merge
 
 ### AP2: Worker Self-Merge
-**Pattern**: Workers merge their own PRs
+**Pattern**: Workers merge their own branches
 **Problem**: Race conditions, uncoordinated merges
 **Fix**: Workers signal ready-to-merge, coordinator executes merges
 
@@ -281,6 +304,11 @@ Key integration points:
 **Pattern**: Skipping post-merge verification
 **Problem**: Regressions go undetected
 **Fix**: Always run full test suite after merges complete
+
+### AP4: Skipping Documentation Updates
+**Pattern**: Relying on internal tracking (`.coordinator/state.json`, worker progress files) without persisting to backlog epic files and project status
+**Problem**: Completed tasks remain marked "ready" in the backlog; project status stays stale; future sessions see incorrect state and may attempt duplicate work
+**Fix**: Always run Phase 6 (Persist Progress) to update backlog epic files, unblock dependent tasks, and update project status before generating the summary report
 
 ---
 
@@ -306,17 +334,17 @@ User: continue
 Coordinator: Starting TASK-006...
 [Spawns Worker 1]
 
-**Milestone**: TASK-006 - PR #123 created, CI passing
+**Milestone**: TASK-006 - Implementation complete, tests passing
 
-Coordinator: Merging PR #123...
+Coordinator: Merging task/TASK-006-persistence...
 **Milestone**: TASK-006 complete (commit abc123)
 
 Coordinator: Starting TASK-007...
 [Spawns Worker 2]
 
-**Milestone**: TASK-007 - PR #124 created, CI passing
+**Milestone**: TASK-007 - Implementation complete, tests passing
 
-Coordinator: Merging PR #124...
+Coordinator: Merging task/TASK-007-tests...
 **Milestone**: TASK-007 complete (commit def456)
 
 Coordinator: Running verification...
@@ -326,8 +354,8 @@ Coordinator: Running verification...
 
 ## Summary
 Tasks completed: 2
-- TASK-006: PR #123 merged (commit abc123)
-- TASK-007: PR #124 merged (commit def456)
+- TASK-006: merged (commit abc123)
+- TASK-007: merged (commit def456)
 
 Verification: PASSED
 ```
@@ -340,7 +368,7 @@ Verification: PASSED
 | Source Skill | Trigger | Action |
 |--------------|---------|--------|
 | requirements-elaboration | Tasks groomed | Coordinator can execute |
-| github-agile | Backlog ready | Coordinator discovers tasks |
+| backlog manager | Backlog ready | Coordinator discovers tasks |
 
 ### Outbound (To Other Skills)
 | This Action | Triggers Skill | For |
@@ -352,7 +380,7 @@ Verification: PASSED
 | Skill | Relationship |
 |-------|--------------|
 | agile-workflow | Workers execute this skill |
-| github-agile | Manages backlog this reads |
+| context-network | Manages backlog this reads |
 
 ---
 
@@ -367,6 +395,8 @@ Verification: PASSED
 ## What You Do NOT Do
 
 - Implement tasks directly (workers do this)
-- Merge PRs in parallel (always sequential)
+- Merge branches in parallel (always sequential)
 - Skip verification (always verify after merges)
+- Skip documentation updates (always persist progress to backlog epic files and project status)
+- Rely solely on internal tracking files as source of truth (`.coordinator/state.json` is ephemeral)
 - Continue after critical failures without user consent

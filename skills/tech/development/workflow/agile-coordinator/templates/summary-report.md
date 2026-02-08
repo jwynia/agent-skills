@@ -109,6 +109,23 @@ None
 
 ---
 
+### Documentation Updates
+
+| Update | Status |
+|--------|--------|
+{{#each COMPLETED_TASKS}}
+| {{TASK_ID}} backlog epic file | {{EPIC_FILE_UPDATED}} |
+{{/each}}
+| Dependent tasks unblocked | {{DEPENDENTS_UNBLOCKED}} |
+| Project status file (context/status.md) | {{PROJECT_STATUS_UPDATED}} |
+| Documentation commit | {{DOCS_COMMIT_SHA}} |
+
+{{#if DOCUMENTATION_SKIPPED}}
+**WARNING**: Documentation updates were skipped for: {{DOCUMENTATION_SKIPPED_REASON}}
+{{/if}}
+
+---
+
 ### Backlog Status
 
 | Status | Count |
@@ -222,6 +239,18 @@ None
 | Coverage | 82% |
 
 **Verdict**: VERIFIED
+
+---
+
+### Documentation Updates
+
+| Update | Status |
+|--------|--------|
+| TASK-006 backlog epic file | Updated |
+| TASK-007 backlog epic file | Updated |
+| Dependent tasks unblocked | 0 tasks |
+| Project status file (context/status.md) | Updated |
+| Documentation commit | a1b2c3d |
 
 ---
 

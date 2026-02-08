@@ -44,35 +44,35 @@ Worker investigates root cause
 Attempt 3: All tests pass
 ```
 
-### 3. CI Failure
+### 3. Build/Test Failure in Review
 
-**Cause**: GitHub Actions or other CI fails after PR created.
+**Cause**: Tests or build fail after implementation complete.
 
 **Detection**:
-- `gh pr checks` shows failing status
-- Worker progress shows `phase: awaiting-ci` for extended time
+- Test suite fails during review phase
+- Build fails during validation
 
 **Recovery**:
 - Worker should return to implementation phase
-- Fix the issue, push updates
-- CI re-runs automatically
+- Fix the issue, run tests locally
+- Re-run review when tests pass
 - If repeated failures, mark as failed
 
 ### 4. Merge Conflict
 
-**Cause**: PR cannot merge due to conflicts with main.
+**Cause**: Branch cannot merge due to conflicts with main.
 
 **Detection**:
-- `gh pr merge` fails with conflict error
-- PR shows conflict status on GitHub
+- `git merge` fails with conflict markers
+- `git merge --squash` fails with conflict error
 
 **Recovery Options**:
 
 | Option | Action |
 |--------|--------|
-| Auto-resolve | Rebase PR branch onto main, resolve simple conflicts |
+| Auto-resolve | Rebase feature branch onto main, resolve simple conflicts |
 | Manual | Pause for human intervention |
-| Skip | Skip this PR, may break subsequent merges |
+| Skip | Skip this branch, may break subsequent merges |
 
 See [merge-coordination.md](merge-coordination.md) for details.
 

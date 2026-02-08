@@ -52,7 +52,7 @@ happens on the latest main.
 
 ## Merge Queue
 
-The coordinator maintains a merge queue for PRs ready to merge.
+The coordinator maintains a merge queue for branches ready to merge.
 
 ### Queue Structure
 
@@ -60,14 +60,12 @@ The coordinator maintains a merge queue for PRs ready to merge.
 {
   "merge_queue": [
     {
-      "pr_number": 123,
       "task_id": "TASK-006",
       "worker_id": "worker-1",
       "branch": "task/TASK-006-persistence",
       "added_at": "2026-01-20T10:15:00Z"
     },
     {
-      "pr_number": 124,
       "task_id": "TASK-007",
       "worker_id": "worker-2",
       "branch": "task/TASK-007-tests",
@@ -81,7 +79,7 @@ The coordinator maintains a merge queue for PRs ready to merge.
 
 ```
 While merge_queue not empty:
-  1. Take first PR from queue
+  1. Take first branch from queue
   2. git checkout main && git pull
   3. Attempt merge
   4. If success:
@@ -95,27 +93,35 @@ While merge_queue not empty:
 
 ## Merge Execution
 
-### Using GitHub CLI
-
-```bash
-# Squash merge (recommended)
-gh pr merge 123 --squash --delete-branch
-
-# Or merge commit
-gh pr merge 123 --merge --delete-branch
-
-# Or rebase
-gh pr merge 123 --rebase --delete-branch
-```
-
-### Using Git Directly
+### Squash Merge (Recommended)
 
 ```bash
 # Ensure on latest main
 git checkout main
 git pull --rebase origin main
 
-# Merge the PR branch
+# Squash merge the feature branch
+git merge --squash task/TASK-006-persistence
+
+# Commit with task reference
+git commit -m "feat(TASK-006): Persistent message status storage"
+
+# Push to origin
+git push origin main
+
+# Delete feature branch
+git branch -d task/TASK-006-persistence
+git push origin --delete task/TASK-006-persistence
+```
+
+### Regular Merge
+
+```bash
+# Ensure on latest main
+git checkout main
+git pull --rebase origin main
+
+# Merge the feature branch
 git merge --no-ff task/TASK-006-persistence
 
 # Push to origin
@@ -131,15 +137,14 @@ git push origin --delete task/TASK-006-persistence
 ### Detection
 
 Conflicts are detected when:
-- `gh pr merge` fails with conflict error
 - `git merge` fails with conflict markers
-- PR shows "This branch has conflicts" on GitHub
+- `git merge --squash` fails with conflict error
 
 ### Resolution Options
 
 ```
 ╔════════════════════════════════════════════════════════════════╗
-║  MERGE CONFLICT: PR #124 (TASK-007)                            ║
+║  MERGE CONFLICT: task/TASK-007-tests                           ║
 ╠════════════════════════════════════════════════════════════════╣
 ║                                                                 ║
 ║  Conflicting files:                                             ║
@@ -149,7 +154,7 @@ Conflicts are detected when:
 ║  Options:                                                       ║
 ║  [resolve] - Attempt automatic resolution                       ║
 ║  [manual] - Exit for manual conflict resolution                 ║
-║  [skip] - Skip this PR, continue with others                    ║
+║  [skip] - Skip this branch, continue with others                ║
 ║  [abort] - Stop merge process entirely                          ║
 ╚════════════════════════════════════════════════════════════════╝
 ```
@@ -159,7 +164,7 @@ Conflicts are detected when:
 For simple conflicts, the coordinator can attempt:
 
 ```bash
-# Checkout the PR branch
+# Checkout the feature branch
 git checkout task/TASK-007-tests
 
 # Rebase onto latest main
@@ -169,10 +174,9 @@ git rebase origin/main
 # - For auto-generated files: accept theirs/ours
 # - For code: use merge tool or abort
 
-# Force push updated branch
-git push --force-with-lease
-
-# PR will update, CI re-runs
+# After resolution, checkout main and merge
+git checkout main
+git merge --squash task/TASK-007-tests
 ```
 
 ### Manual Resolution
@@ -222,6 +226,6 @@ git push --force-with-lease origin main  # DANGEROUS
 1. **Always pull before merge**: Ensure you have the latest main
 2. **Use squash merge**: Creates cleaner history
 3. **Delete branches after merge**: Prevents branch pollution
-4. **Verify CI passes**: Don't merge if CI is failing
+4. **Run tests before merge**: Ensure tests pass before merging
 5. **One merge at a time**: Never attempt parallel merges
 6. **Keep merge queue visible**: Log what's pending

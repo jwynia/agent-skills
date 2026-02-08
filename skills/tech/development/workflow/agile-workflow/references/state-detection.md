@@ -1,6 +1,6 @@
 # State Detection Reference
 
-Algorithms for detecting current workflow state.
+Algorithms for detecting current workflow state using git-only signals.
 
 ## Overview
 
@@ -45,25 +45,15 @@ The agile-workflow skill determines current state automatically by examining mul
 | Modified files | Active coding in progress |
 | Staged files | Preparing to commit |
 
-### 4. PR Status
+### 4. Branch Merge Status
 
-**Commands**:
-```bash
-# Check if PR exists for current branch
-gh pr list --head $(git branch --show-current)
-
-# Get PR state if exists
-gh pr view --json state,mergeable,reviews
-```
+**Command**: `git branch --merged main`
 
 **Interpretation**:
-| PR State | Indicates |
-|----------|-----------|
-| No PR found | Pre-PR (implementing or ready for prep) |
-| PR open, checks pending | Awaiting CI |
-| PR open, checks passed | Ready for review/merge |
-| PR merged | Ready for cleanup |
-| PR closed (not merged) | Abandoned or needs rework |
+| Result | Indicates |
+|--------|-----------|
+| Branch listed | Already merged to main |
+| Branch not listed | Not yet merged |
 
 ### 5. Task Status Files
 
@@ -72,7 +62,6 @@ gh pr view --json state,mergeable,reviews
 **Files**:
 - `ready.md` - Tasks available to start
 - `in-progress.md` - Tasks being worked on
-- `in-review.md` - Tasks with open PRs
 - `completed.md` - Finished tasks
 
 **Check**: Look for current task ID in these files.
@@ -83,26 +72,23 @@ gh pr view --json state,mergeable,reviews
 COMBINED STATE DETECTION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Worktree   Branch      Git Status   PR State    → Workflow State
+Worktree   Branch      Git Status   Merged?     → Workflow State
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 None       main        clean        N/A         → IDLE
                                                   Ready to start
 
-Exists     task/*      dirty        None        → IMPLEMENTING
+Exists     task/*      dirty        No          → IMPLEMENTING
                                                   Active coding
 
-Exists     task/*      clean        None        → READY_FOR_REVIEW
+Exists     task/*      clean        No          → READY_FOR_REVIEW
                                                   Can run reviews
 
-Exists     task/*      clean        Open/Run    → AWAITING_CI
-                                                  Wait for checks
+Exists     task/*      clean        No          → MERGE_READY
+                                  (after review)  Ready to merge
 
-Exists     task/*      clean        Open/Pass   → READY_FOR_MERGE
-                                                  Can merge PR
-
-Exists     task/*      any          Merged      → CLEANUP_NEEDED
-                                                  Run pr-complete
+Exists     task/*      any          Yes         → CLEANUP_NEEDED
+                                                  Run merge-complete
 
 None       main        clean        N/A         → COMPLETED
                                                   (with recent merge)
@@ -134,28 +120,19 @@ function detectState():
   if hasUncommitted:
     return IMPLEMENTING
 
-  # Step 5: Check PR status
-  prInfo = ghPrList(branch)
+  # Step 5: Check if already merged
+  mergedBranches = gitBranchMerged("main")
 
-  if no PR exists:
-    return READY_FOR_REVIEW
-
-  if prInfo.merged:
+  if branch in mergedBranches:
     return CLEANUP_NEEDED
 
-  if prInfo.checksRunning:
-    return AWAITING_CI
+  # Step 6: Check task status file for review state
+  taskStatus = readTaskStatusFile(taskId)
 
-  if prInfo.checksPassed and prInfo.approved:
-    return READY_FOR_MERGE
+  if taskStatus == "reviewed":
+    return MERGE_READY
 
-  if prInfo.checksPassed:
-    return AWAITING_APPROVAL
-
-  if prInfo.checksFailed:
-    return CI_FAILED
-
-  return IN_REVIEW
+  return READY_FOR_REVIEW
 ```
 
 ## State to Action Mapping
@@ -165,10 +142,8 @@ function detectState():
 | IDLE | Start new task | `next` |
 | IMPLEMENTING | Continue coding | Resume in worktree |
 | READY_FOR_REVIEW | Run reviews | `review-code`, `review-tests` |
-| AWAITING_CI | Wait or check | `gh pr checks` |
-| READY_FOR_MERGE | Merge PR | `pr-complete` |
-| CLEANUP_NEEDED | Complete merge | `pr-complete` |
-| CI_FAILED | Fix issues | Return to worktree |
+| MERGE_READY | Merge to main | `merge-complete` |
+| CLEANUP_NEEDED | Complete merge | `merge-complete` |
 
 ## Edge Cases
 
@@ -182,7 +157,7 @@ If multiple task worktrees exist:
 ### Stale Worktree
 
 Worktree exists but task marked complete:
-1. PR was merged outside workflow
+1. Branch was merged outside workflow
 2. Clean up worktree
 3. Return to IDLE
 
@@ -192,13 +167,6 @@ Task branch exists on remote but no local worktree:
 1. Task was started on different machine
 2. Offer to create worktree from branch
 3. Or start fresh
-
-### PR Closed Without Merge
-
-PR exists but was closed (not merged):
-1. Task may have been abandoned
-2. Check task status file
-3. Offer to reopen or start fresh
 
 ## Resumption Context
 
@@ -218,11 +186,6 @@ Progress:
 - Tests: [passing/failing/none]
 - Last commit: [message] ([time ago])
 
-PR Status: [if exists]
-- Number: #[number]
-- CI: [status]
-- Reviews: [count]
-
 Recommended Action: [what to do next]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -241,8 +204,8 @@ git branch --show-current
 # Check for uncommitted changes
 git status --short
 
-# Check PR status
-gh pr status
+# Check if branch is merged
+git branch --merged main
 
 # Check task status files
 cat context-network/backlog/by-status/in-progress.md

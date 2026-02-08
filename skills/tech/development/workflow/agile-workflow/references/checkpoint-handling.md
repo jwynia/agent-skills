@@ -22,7 +22,7 @@ Verify a condition before proceeding.
 
 **Examples**:
 - IMPL_COMPLETE: All tests passing?
-- PR_CREATED: CI passing?
+- MERGE_READY: All validations passing?
 
 ### Information Checkpoints
 
@@ -130,53 +130,54 @@ If all conditions met, can auto-continue with brief countdown.
 
 ---
 
-### PR_CREATED
+### MERGE_READY
 
-**Triggers after**: `pr-prep` command
+**Triggers after**: `merge-prep` command
 
 **Display**:
 ```
 ╔═══════════════════════════════════════════════════════╗
-║  CHECKPOINT: PR Created                               ║
+║  CHECKPOINT: Ready to Merge                           ║
 ╠═══════════════════════════════════════════════════════╣
-║  PR: #[number] - [title]                              ║
-║  URL: [github url]                                    ║
+║  Task: [TASK-ID] - [title]                            ║
+║  Branch: task/[TASK-ID]-description                   ║
 ║                                                       ║
-║  CI Status: [Running/Passed/Failed]                   ║
-║  Approvals: [X]/[Y] required                          ║
+║  Validation:                                          ║
+║  - Tests: PASSED                                      ║
+║  - Lint: PASSED                                       ║
+║  - Build: PASSED                                      ║
 ║                                                       ║
-║  [Status-specific message]                            ║
+║  Ready to merge to main?                              ║
 ╚═══════════════════════════════════════════════════════╝
 ```
 
 **User Options**:
-- `check` → Refresh CI/approval status
-- `merge` → Proceed to merge (if ready)
-- `stop` → Exit (PR remains open)
+- `merge` → Proceed to merge
+- `stop` → Exit (branch remains)
 
 **Auto-Continue Condition**:
-- CI passed AND
-- Required approvals obtained
+- All validation checks passed
 
 **Blocking Conditions**:
-- CI failed → Must fix
-- Missing approvals → Must wait
+- Tests failed → Must fix
+- Build failed → Must fix
 
 ---
 
-### PR_MERGED
+### MERGED
 
-**Triggers after**: `pr-complete` merge step
+**Triggers after**: `merge-complete` merge step
 
 **Display**:
 ```
 ╔═══════════════════════════════════════════════════════╗
-║  CHECKPOINT: PR Merged                                ║
+║  CHECKPOINT: Merged                                   ║
 ╠═══════════════════════════════════════════════════════╣
 ║  Task: [TASK-ID] - [Title]                            ║
-║  PR: #[number] - Merged ✓                             ║
+║  Commit: [commit-hash]                                ║
 ║                                                       ║
 ║  Cleanup:                                             ║
+║  - [x] Merged to main                                 ║
 ║  - [x] Branch deleted                                 ║
 ║  - [x] Worktree removed                               ║
 ║  - [x] Task marked complete                           ║
@@ -263,7 +264,7 @@ checkpoints:
   verbose: false               # Show detailed checkpoint info
   require_confirmation:
     - TASK_SELECTED            # Always confirm these
-    - PR_CREATED
+    - MERGE_READY
 ```
 
 ### Per-Invocation Override

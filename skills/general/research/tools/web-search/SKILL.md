@@ -6,6 +6,9 @@ compatibility: Works with any agent that has WebSearch capability
 metadata:
   author: jwynia
   version: "1.0"
+  type: utility
+  mode: generative
+  domain: research
 ---
 
 # Web Search

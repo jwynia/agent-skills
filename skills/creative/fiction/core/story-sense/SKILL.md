@@ -6,6 +6,9 @@ compatibility: Works with any fiction format. Entry point for fiction diagnostic
 metadata:
   author: jwynia
   version: "1.0"
+  type: diagnostic
+  mode: diagnostic
+  domain: fiction
 ---
 
 # Story Sense: Diagnostic Skill

@@ -6,6 +6,9 @@ compatibility: Requires Docker Desktop or compatible container runtime. Works wi
 metadata:
   author: jwynia
   version: "1.0"
+  type: diagnostic
+  mode: diagnostic+generative
+  domain: development
 ---
 
 # Devcontainer Diagnostic

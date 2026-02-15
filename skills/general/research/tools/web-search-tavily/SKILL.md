@@ -6,6 +6,9 @@ compatibility: Requires TAVILY_API_KEY environment variable and internet access
 metadata:
   author: agent-skills
   version: "1.0"
+  type: utility
+  mode: generative
+  domain: research
 ---
 
 # Web Search (Tavily API)

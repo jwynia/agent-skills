@@ -1,13 +1,16 @@
-# Media Meta-Analysis
+---
+name: media-meta-analysis
+description: Synthesize multiple media analyses into cross-source patterns and insights. Use when you need to cross-reference analyses, find patterns across sources, or perform meta-analysis of media content.
+license: MIT
+metadata:
+  author: jwynia
+  version: "1.0"
+  type: utility
+  mode: evaluative
+  domain: research
+---
 
-type: utility
-mode: generative
-triggers:
-  - "synthesize multiple sources"
-  - "cross-reference analyses"
-  - "find patterns across sources"
-  - "meta-analysis"
-  - "compare media sources"
+# Media Meta-Analysis
 
 ## Purpose
 

@@ -5,6 +5,9 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
+  type: utility
+  mode: application
+  domain: fiction
 ---
 
 # Game Facilitator: Narrative RPG Skill

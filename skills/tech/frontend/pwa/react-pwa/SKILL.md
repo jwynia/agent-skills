@@ -6,6 +6,9 @@ compatibility: Requires Deno for scripts. Works with React 18+ and Vite 5+.
 metadata:
   author: agent-skills
   version: "1.0"
+  type: utility
+  mode: assistive
+  domain: development
 ---
 
 # React PWA

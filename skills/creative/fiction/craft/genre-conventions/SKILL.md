@@ -5,6 +5,9 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
+  type: diagnostic
+  mode: diagnostic+generative
+  domain: fiction
 ---
 
 # Genre Conventions: Diagnostic and Generative Skill

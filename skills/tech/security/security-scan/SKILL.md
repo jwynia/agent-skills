@@ -1,12 +1,18 @@
+---
+name: security-scan
+description: Scan code for security vulnerabilities including OWASP Top 10, secrets, and misconfigurations. Use when you need comprehensive security analysis of a codebase.
+license: MIT
+metadata:
+  author: jwynia
+  version: "1.0"
+  type: utility
+  mode: evaluative
+  domain: development
+---
+
 # Security Scan
 
 Comprehensive security vulnerability detection for codebases.
-
----
-description: Scan code for security vulnerabilities including OWASP Top 10, secrets, and misconfigurations
-version: 1.0.0
-tags: [security, owasp, vulnerabilities, sast, secrets]
----
 
 ## Quick Start
 

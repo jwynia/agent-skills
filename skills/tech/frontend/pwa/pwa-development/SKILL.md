@@ -6,6 +6,9 @@ compatibility: Works with React, Svelte/SvelteKit, Vite, Next.js.
 metadata:
   author: jwynia
   version: "1.0"
+  type: utility
+  mode: assistive
+  domain: development
 ---
 
 # PWA Development

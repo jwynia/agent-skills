@@ -6,6 +6,9 @@ compatibility: Works with any project. Integrates with github-agile for tracking
 metadata:
   author: jwynia
   version: "1.0"
+  type: utility
+  mode: assistive
+  domain: development
 ---
 
 # Task Decomposition Diagnostic

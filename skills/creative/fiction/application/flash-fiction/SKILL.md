@@ -1,14 +1,16 @@
-# Flash Fiction Diagnostic
+---
+name: flash-fiction
+description: Diagnose and fix problems in flash fiction and micro fiction. Use when flash fiction feels weak, when writing stories under 1500 words, when working with micro fiction, sudden fiction, or compressed narrative forms.
+license: MIT
+metadata:
+  author: jwynia
+  version: "1.0"
+  type: diagnostic
+  mode: evaluative
+  domain: fiction
+---
 
-type: diagnostic
-mode: evaluative
-triggers:
-  - "flash fiction feels weak"
-  - "story under 1500 words"
-  - "micro fiction"
-  - "sudden fiction"
-  - "short short story"
-  - "compressed narrative"
+# Flash Fiction Diagnostic
 
 ## Purpose
 

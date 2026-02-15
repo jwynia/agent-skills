@@ -6,6 +6,9 @@ compatibility: Works with shadcn/ui, Tailwind CSS v3/v4, React, Next.js.
 metadata:
   author: jwynia
   version: "1.0"
+  type: utility
+  mode: generative
+  domain: development
 ---
 
 # shadcn/Tailwind Layouts

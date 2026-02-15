@@ -5,6 +5,9 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
+  type: diagnostic
+  mode: evaluative
+  domain: fiction
 ---
 
 # Sensitivity Check: Evaluative Skill

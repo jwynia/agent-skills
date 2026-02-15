@@ -6,6 +6,9 @@ compatibility: Requires git, Gitea Tea CLI (tea), and a context network with bac
 metadata:
   author: agent-skills
   version: "1.0"
+  type: orchestrator
+  mode: generative
+  domain: agile-software
 ---
 
 # Gitea Workflow Orchestrator

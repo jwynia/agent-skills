@@ -25,6 +25,9 @@ metadata:
     prose-style: 10
   max_iterations: 3
   global_max_iterations: 50
+  type: orchestrator
+  mode: generative
+  domain: fiction
 ---
 
 # Chapter Drafter: Orchestrator Skill

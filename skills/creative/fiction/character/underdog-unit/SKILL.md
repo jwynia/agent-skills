@@ -5,6 +5,9 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
+  type: generator
+  mode: generative
+  domain: fiction
 ---
 
 # Underdog Unit: Narrative Formula Skill

@@ -6,6 +6,9 @@ compatibility: Node.js 22.13.0+ required for v1 Beta
 metadata:
   author: agent-skills
   version: "1.0"
+  type: utility
+  mode: assistive
+  domain: development
 ---
 
 # Mastra + Hono Development

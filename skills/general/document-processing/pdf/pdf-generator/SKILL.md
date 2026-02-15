@@ -6,6 +6,9 @@ compatibility: Requires Deno with --allow-read, --allow-write permissions
 metadata:
   author: agent-skills
   version: "1.0"
+  type: generator
+  mode: generative
+  domain: documents
 ---
 
 # PDF Generator

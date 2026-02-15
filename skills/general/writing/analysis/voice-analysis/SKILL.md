@@ -5,6 +5,9 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
+  type: utility
+  mode: evaluative
+  domain: fiction
 ---
 
 # Voice & Tone Analysis

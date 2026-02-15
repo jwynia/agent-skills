@@ -6,6 +6,9 @@ compatibility: Works with any project. Integrates with system-design for ADR tem
 metadata:
   author: jwynia
   version: "1.0"
+  type: diagnostic
+  mode: diagnostic+evaluative
+  domain: agile-software
 ---
 
 # Architecture Decision

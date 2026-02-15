@@ -1,12 +1,18 @@
+---
+name: secrets-scan
+description: Detect API keys, passwords, tokens, and other secrets in code. Use when you need to find hardcoded credentials and sensitive data in source code.
+license: MIT
+metadata:
+  author: jwynia
+  version: "1.0"
+  type: utility
+  mode: evaluative
+  domain: development
+---
+
 # Secrets Scan
 
 Deep detection of hardcoded credentials and sensitive data in source code.
-
----
-description: Detect API keys, passwords, tokens, and other secrets in code
-version: 1.0.0
-tags: [security, secrets, credentials, api-keys]
----
 
 ## Quick Start
 

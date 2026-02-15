@@ -7,6 +7,9 @@ metadata:
   version: "1.1"
   sources:
     - "Steven Johnson, Where Good Ideas Come From (2010)"
+  type: utility
+  mode: generative
+  domain: creativity
 ---
 
 # Brainstorming: Ideation Skill

@@ -5,6 +5,9 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
+  type: diagnostic
+  mode: assistive
+  domain: fiction
 ---
 
 # Outline Coach: Assistive Structural Guidance Skill

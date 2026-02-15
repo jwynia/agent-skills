@@ -6,6 +6,9 @@ compatibility: Works with any programming language. Integrates with github-agile
 metadata:
   author: jwynia
   version: "1.0"
+  type: diagnostic
+  mode: evaluative
+  domain: development
 ---
 
 # Code Review Diagnostic

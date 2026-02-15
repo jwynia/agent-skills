@@ -1,13 +1,16 @@
-# RevealJS Presenter Skill
-
-## Metadata
-
-```yaml
-name: revealjs-presentation
-description: "Generate RevealJS HTML presentations with reliable layout, professional typography, and effective visual communication. Use when creating slide decks, pitch presentations, technical talks, or any reveal.js output."
-version: "1.0"
+---
+name: revealjs-presenter
+description: Generate RevealJS HTML presentations with reliable layout, professional typography, and effective visual communication. Use when creating slide decks, pitch presentations, technical talks, or any reveal.js output.
 license: MIT
-```
+metadata:
+  author: jwynia
+  version: "1.0"
+  type: generator
+  mode: generative
+  domain: documents
+---
+
+# RevealJS Presenter Skill
 
 ## When to Use This Skill
 

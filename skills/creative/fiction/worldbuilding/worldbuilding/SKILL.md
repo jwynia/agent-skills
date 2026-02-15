@@ -6,6 +6,9 @@ compatibility: Works with any fiction genre. Pairs with story-sense for routing.
 metadata:
   author: jwynia
   version: "1.0"
+  type: diagnostic
+  mode: diagnostic
+  domain: worldbuilding
 ---
 
 # Worldbuilding: Diagnostic Skill

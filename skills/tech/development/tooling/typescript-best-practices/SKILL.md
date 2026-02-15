@@ -6,6 +6,9 @@ compatibility: Requires Deno for analysis scripts. Applicable to any TypeScript 
 metadata:
   author: agent-skills
   version: "1.0"
+  type: utility
+  mode: assistive
+  domain: development
 ---
 
 # TypeScript Best Practices

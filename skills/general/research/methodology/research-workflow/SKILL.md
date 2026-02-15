@@ -6,6 +6,9 @@ compatibility: Designed for Claude Code and similar products. Web search capabil
 metadata:
   author: agent-skills
   version: "1.0"
+  type: orchestrator
+  mode: assistive
+  domain: research
 ---
 
 # Research Workflow

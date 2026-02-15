@@ -1,12 +1,18 @@
+---
+name: config-scan
+description: Detect security misconfigurations in config files, Docker, and IaC. Use when reviewing configuration security for containers, Kubernetes, Terraform, or application settings.
+license: MIT
+metadata:
+  author: jwynia
+  version: "1.0"
+  type: utility
+  mode: evaluative
+  domain: development
+---
+
 # Config Scan
 
 Security review of configuration files and infrastructure as code.
-
----
-description: Detect security misconfigurations in config files, Docker, and IaC
-version: 1.0.0
-tags: [security, configuration, docker, iac, terraform, kubernetes]
----
 
 ## Quick Start
 

@@ -7,6 +7,9 @@ metadata:
   author: agent-skills
   version: "1.0"
   godot_version: "4.x"
+  type: generator
+  mode: generative
+  domain: gamedev
 ---
 
 # Godot Asset Generator

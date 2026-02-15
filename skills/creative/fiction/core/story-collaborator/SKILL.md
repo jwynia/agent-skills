@@ -5,6 +5,9 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
+  type: diagnostic
+  mode: collaborative
+  domain: fiction
 ---
 
 # Story Collaborator: Active Writing Partner Skill

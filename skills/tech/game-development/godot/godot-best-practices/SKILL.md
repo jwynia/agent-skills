@@ -7,6 +7,9 @@ metadata:
   author: agent-skills
   version: "1.0"
   godot_version: "4.x"
+  type: utility
+  mode: assistive
+  domain: gamedev
 ---
 
 # Godot 4.x GDScript Best Practices

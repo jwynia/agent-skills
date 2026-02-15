@@ -6,6 +6,9 @@ compatibility: Requires git and a context network with backlog structure. Works 
 metadata:
   author: agent-skills
   version: "2.0"
+  type: orchestrator
+  mode: generative
+  domain: agile-software
 ---
 
 # Agile Workflow Orchestrator

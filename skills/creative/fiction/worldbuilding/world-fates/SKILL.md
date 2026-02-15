@@ -6,6 +6,9 @@ metadata:
   author: jwynia
   version: "1.0"
   level: meta-campaign
+  type: utility
+  mode: generative
+  domain: worldbuilding
 ---
 
 # World-Fates: The Wheel of Fortune

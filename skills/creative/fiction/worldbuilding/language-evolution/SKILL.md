@@ -5,6 +5,9 @@ license: MIT
 metadata:
   author: jwynia
   version: "1.0"
+  type: generator
+  mode: generative
+  domain: worldbuilding
 ---
 
 # Language Evolution: Linguistic Development Skill

@@ -1,0 +1,8 @@
+import { describe, it, expect } from 'vitest';
+import { process as processInput } from './index.js';
+
+describe('{{packageName}}', () => {
+	it('processes input', () => {
+		expect(processInput('test')).toBe('Processed: test');
+	});
+});

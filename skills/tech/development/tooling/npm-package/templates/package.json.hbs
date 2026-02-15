@@ -1,0 +1,40 @@
+{
+  "name": "{{packageName}}",
+  "version": "0.0.0",
+  "description": "{{description}}",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bunup",
+    "dev": "bunup --watch",
+    "lint": "biome check . && eslint src/",
+    "lint:fix": "biome check --write . && eslint src/ --fix",
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "bun run lint && bun run typecheck && bun run test && bun run build",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "bun run build && npm publish --provenance --access public"
+  },
+  "keywords": [],
+  "author": "{{author}}",
+  "license": "{{license}}",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

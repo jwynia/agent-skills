@@ -1,6 +1,6 @@
 # Agent Skills Directory
 
-This directory contains **112 skills** organized into three main categories plus standalone directories for easy filtering.
+This directory contains **114 skills** organized into three main categories plus standalone directories for easy filtering.
 
 ## Quick Install
 
@@ -34,10 +34,10 @@ skills/
 │       ├── lyric-diagnostic/
 │       └── musical-dna/
 │
-├── tech/                        # 25 skills - Technical/development
+├── tech/                        # 27 skills - Technical/development
 │   ├── ai/                     # 1 skill
 │   │   └── mastra-hono/
-│   ├── development/             # 13 skills
+│   ├── development/             # 15 skills
 │   │   ├── architecture/
 │   │   ├── quality/
 │   │   ├── tooling/

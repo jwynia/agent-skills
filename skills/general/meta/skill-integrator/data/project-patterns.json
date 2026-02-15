@@ -1,0 +1,88 @@
+{
+  "_meta": {
+    "description": "Project type detection rules for skill-integrator",
+    "usage": "Each pattern has indicator files, file extensions, and resulting domains",
+    "version": "1.0"
+  },
+  "software.typescript": {
+    "indicators": ["package.json", "tsconfig.json"],
+    "requiredIndicators": 2,
+    "extensions": [".ts", ".tsx", ".js", ".jsx"],
+    "domains": ["web", "typescript", "software"],
+    "techStack": ["node", "typescript"]
+  },
+  "software.rust": {
+    "indicators": ["Cargo.toml"],
+    "requiredIndicators": 1,
+    "extensions": [".rs"],
+    "domains": ["rust", "systems", "software"],
+    "techStack": ["rust", "cargo"]
+  },
+  "software.python": {
+    "indicators": ["pyproject.toml", "setup.py", "requirements.txt", "Pipfile"],
+    "requiredIndicators": 1,
+    "extensions": [".py"],
+    "domains": ["python", "software"],
+    "techStack": ["python"]
+  },
+  "software.go": {
+    "indicators": ["go.mod"],
+    "requiredIndicators": 1,
+    "extensions": [".go"],
+    "domains": ["go", "systems", "software"],
+    "techStack": ["go"]
+  },
+  "software.godot": {
+    "indicators": ["project.godot"],
+    "requiredIndicators": 1,
+    "extensions": [".gd", ".tscn", ".tres"],
+    "domains": ["gamedev", "godot", "software"],
+    "techStack": ["godot", "gdscript"]
+  },
+  "software.electron": {
+    "indicators": ["package.json", "electron-builder.yml"],
+    "requiredIndicators": 2,
+    "extensions": [".ts", ".tsx", ".js", ".jsx"],
+    "domains": ["desktop", "electron", "web", "software"],
+    "techStack": ["electron", "node", "typescript"]
+  },
+  "software.react": {
+    "indicators": ["package.json"],
+    "requiredIndicators": 1,
+    "packageJsonDeps": ["react", "react-dom"],
+    "extensions": [".tsx", ".jsx", ".ts", ".js"],
+    "domains": ["web", "react", "frontend", "software"],
+    "techStack": ["react", "node", "typescript"]
+  },
+  "creative.fiction": {
+    "indicators": [".fiction"],
+    "requiredIndicators": 0,
+    "extensions": [".md", ".txt"],
+    "domains": ["fiction", "narrative", "creative"],
+    "techStack": [],
+    "skillSignals": ["character-arc", "dialogue", "worldbuilding", "story-sense", "scene-sequencing"]
+  },
+  "creative.writing": {
+    "indicators": [],
+    "requiredIndicators": 0,
+    "extensions": [".md", ".txt"],
+    "domains": ["writing", "creative"],
+    "techStack": [],
+    "highMdRatio": true
+  },
+  "documentation": {
+    "indicators": ["docs/", "wiki/"],
+    "requiredIndicators": 0,
+    "extensions": [".md"],
+    "domains": ["docs", "writing"],
+    "techStack": [],
+    "highMdRatio": true
+  },
+  "infrastructure": {
+    "indicators": [".claude/skills/", "CLAUDE.md", ".context-network.md"],
+    "requiredIndicators": 2,
+    "extensions": [".md", ".ts", ".json"],
+    "domains": ["infrastructure", "skills", "meta"],
+    "techStack": ["deno", "typescript"]
+  }
+}

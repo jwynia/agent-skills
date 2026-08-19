@@ -32,7 +32,7 @@ interface AssetSpec {
 }
 
 interface BatchSpec {
-  provider: "dalle" | "replicate" | "fal";
+  provider: "dalle" | "replicate" | "fal" | "atlas";
   model?: string;
   style?: string;
   basePrompt?: string;
@@ -220,7 +220,7 @@ Optional:
 
 Batch Spec Format:
   {
-    "provider": "dalle" | "replicate" | "fal",
+    "provider": "dalle" | "replicate" | "fal" | "atlas",
     "model": "optional-model-name",
     "style": "pixel-art" | "hand-drawn" | "painterly" | "vector",
     "basePrompt": "prefix added to all prompts",

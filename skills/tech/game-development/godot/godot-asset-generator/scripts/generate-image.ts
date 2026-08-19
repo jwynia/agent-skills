@@ -3,7 +3,7 @@
 /**
  * Image Generation CLI - Unified API Wrapper
  *
- * Generate images using DALL-E 3, Replicate, or fal.ai APIs.
+ * Generate images using DALL-E 3, Replicate, fal.ai, or Atlas Cloud APIs.
  * Provides a consistent interface across providers with style presets.
  *
  * Usage:
@@ -14,6 +14,7 @@
  *   OPENAI_API_KEY - Required for DALL-E 3
  *   REPLICATE_API_TOKEN - Required for Replicate
  *   FAL_KEY - Required for fal.ai
+ *   ATLASCLOUD_API_KEY - Required for Atlas Cloud
  *
  * Permissions:
  *   --allow-env: Read API key environment variables
@@ -50,7 +51,7 @@ const STYLE_PRESETS: Record<string, { prefix: string; suffix: string; negative?:
 };
 
 // === Types ===
-type Provider = "dalle" | "replicate" | "fal";
+type Provider = "dalle" | "replicate" | "fal" | "atlas";
 
 interface GenerationOptions {
   provider: Provider;
@@ -254,6 +255,92 @@ async function generateFal(options: GenerationOptions): Promise<string> {
   return btoa(String.fromCharCode(...new Uint8Array(imageBuffer)));
 }
 
+// === Provider: Atlas Cloud ===
+const ATLAS_API_BASE = "https://api.atlascloud.ai/api/v1";
+const ATLAS_DEFAULT_MODEL = "black-forest-labs/flux-schnell";
+const ATLAS_MAX_POLL_ATTEMPTS = 36;
+const ATLAS_MAX_POLL_INTERVAL_MS = 5000;
+
+interface AtlasPrediction {
+  id?: string;
+  status?: string;
+  output?: string[];
+  outputs?: string[];
+  error?: string;
+  logs?: string;
+}
+
+async function generateAtlas(options: GenerationOptions): Promise<string> {
+  const apiKey = Deno.env.get("ATLASCLOUD_API_KEY");
+  if (!apiKey) {
+    throw new Error("ATLASCLOUD_API_KEY environment variable is not set");
+  }
+
+  const model = options.model || ATLAS_DEFAULT_MODEL;
+  const response = await fetch(`${ATLAS_API_BASE}/model/generateImage`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model,
+      prompt: options.prompt,
+      size: (options.size || "1024x1024").replace("x", "*"),
+      num_images: 1,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Atlas Cloud API error (${response.status}): ${await response.text()}`);
+  }
+
+  const submission = await response.json();
+  let prediction: AtlasPrediction = submission.data || submission;
+
+  for (let attempt = 0; attempt < ATLAS_MAX_POLL_ATTEMPTS; attempt++) {
+    if (["succeeded", "completed"].includes(prediction.status || "")) break;
+    if (prediction.status === "failed") {
+      throw new Error(
+        `Atlas Cloud generation failed: ${prediction.error || prediction.logs || "unknown error"}`,
+      );
+    }
+    if (!prediction.id) {
+      throw new Error("Atlas Cloud response did not include a prediction ID");
+    }
+
+    const pollResponse = await fetch(`${ATLAS_API_BASE}/model/prediction/${prediction.id}`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+    if (!pollResponse.ok) {
+      throw new Error(`Failed to poll Atlas Cloud prediction (${pollResponse.status})`);
+    }
+
+    const pollResult = await pollResponse.json();
+    prediction = pollResult.data || pollResult;
+    if (!["succeeded", "completed", "failed"].includes(prediction.status || "")) {
+      const delay = Math.min(1000 * 2 ** attempt, ATLAS_MAX_POLL_INTERVAL_MS);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+
+  if (!["succeeded", "completed"].includes(prediction.status || "")) {
+    throw new Error("Atlas Cloud generation timed out");
+  }
+
+  const imageUrl = prediction.output?.[0] || prediction.outputs?.[0];
+  if (!imageUrl) {
+    throw new Error("No image URL in Atlas Cloud response");
+  }
+
+  const imageResponse = await fetch(imageUrl);
+  if (!imageResponse.ok) {
+    throw new Error(`Failed to download Atlas Cloud image (${imageResponse.status})`);
+  }
+  const imageBuffer = await imageResponse.arrayBuffer();
+  return btoa(String.fromCharCode(...new Uint8Array(imageBuffer)));
+}
+
 // === Core Generation Function ===
 export async function generateImage(options: GenerationOptions): Promise<GenerationResult> {
   const startTime = Date.now();
@@ -284,6 +371,9 @@ export async function generateImage(options: GenerationOptions): Promise<Generat
         break;
       case "fal":
         base64Image = await generateFal(enhancedOptions);
+        break;
+      case "atlas":
+        base64Image = await generateAtlas(enhancedOptions);
         break;
       default:
         throw new Error(`Unknown provider: ${options.provider}`);
@@ -326,6 +416,8 @@ function getDefaultModel(provider: Provider): string {
       return "stability-ai/sdxl";
     case "fal":
       return "fal-ai/flux/schnell";
+    case "atlas":
+      return ATLAS_DEFAULT_MODEL;
   }
 }
 
@@ -338,7 +430,7 @@ Usage:
   deno run --allow-env --allow-net --allow-write scripts/generate-image.ts [options]
 
 Required Options:
-  --provider <name>   Provider: dalle, replicate, or fal
+  --provider <name>   Provider: dalle, replicate, fal, or atlas
   --prompt <text>     Generation prompt
   --output <path>     Output file path (.png)
 
@@ -355,6 +447,7 @@ Environment Variables:
   OPENAI_API_KEY       Required for DALL-E 3
   REPLICATE_API_TOKEN  Required for Replicate
   FAL_KEY              Required for fal.ai
+  ATLASCLOUD_API_KEY   Required for Atlas Cloud
 
 Style Presets:
   pixel-art    16-bit pixel art with clean pixels
@@ -381,6 +474,10 @@ Examples:
   ./scripts/generate-image.ts --provider replicate \\
     --prompt "pixel art sword" \\
     --negative "blurry, realistic" --output ./sword.png
+
+  # Atlas Cloud with the default Flux Schnell model
+  ./scripts/generate-image.ts --provider atlas \\
+    --prompt "pixel art potion" --output ./potion.png
 `);
 }
 
@@ -433,7 +530,7 @@ async function main(args: string[]): Promise<void> {
 
   // Validate required options
   if (!options.provider) {
-    console.error("Error: --provider is required (dalle, replicate, or fal)");
+    console.error("Error: --provider is required (dalle, replicate, fal, or atlas)");
     Deno.exit(1);
   }
   if (!options.prompt) {
@@ -446,8 +543,10 @@ async function main(args: string[]): Promise<void> {
   }
 
   // Validate provider
-  if (!["dalle", "replicate", "fal"].includes(options.provider)) {
-    console.error(`Error: Invalid provider '${options.provider}'. Use: dalle, replicate, or fal`);
+  if (!["dalle", "replicate", "fal", "atlas"].includes(options.provider)) {
+    console.error(
+      `Error: Invalid provider '${options.provider}'. Use: dalle, replicate, fal, or atlas`,
+    );
     Deno.exit(1);
   }
 

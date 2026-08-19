@@ -1,8 +1,8 @@
 ---
 name: godot-asset-generator
-description: "Generate game assets using AI image generation APIs (DALL-E, Replicate, fal.ai) and prepare them for Godot. Covers the full art pipeline from concept art and style guides to final sprites, sprite sheets, and import configuration. This skill should be used when creating game art, generating sprites, making tilesets, creating UI elements, or preparing assets for Godot import. Keywords: game assets, AI art, DALL-E, Replicate, fal.ai, sprite sheet, tileset, Godot, pixel art, character sprite, game art, texture, animation frames."
+description: "Generate game assets using AI image generation APIs (DALL-E, Replicate, fal.ai, Atlas Cloud) and prepare them for Godot. Covers the full art pipeline from concept art and style guides to final sprites, sprite sheets, and import configuration. This skill should be used when creating game art, generating sprites, making tilesets, creating UI elements, or preparing assets for Godot import. Keywords: game assets, AI art, DALL-E, Replicate, fal.ai, Atlas Cloud, sprite sheet, tileset, Godot, pixel art, character sprite, game art, texture, animation frames."
 license: MIT
-compatibility: Requires Deno runtime. API keys for chosen provider (OPENAI_API_KEY, REPLICATE_API_TOKEN, or FAL_KEY).
+compatibility: Requires Deno runtime. API keys for chosen provider (OPENAI_API_KEY, REPLICATE_API_TOKEN, FAL_KEY, or ATLASCLOUD_API_KEY).
 metadata:
   author: agent-skills
   version: "1.0"
@@ -40,6 +40,7 @@ Do NOT use this skill when:
   - `OPENAI_API_KEY` for DALL-E 3
   - `REPLICATE_API_TOKEN` for Replicate (SDXL, Flux)
   - `FAL_KEY` for fal.ai
+  - `ATLASCLOUD_API_KEY` for Atlas Cloud
 
 **Optional:**
 - ImageMagick for advanced image processing
@@ -133,6 +134,7 @@ Prepare assets for Godot import:
 | DALL-E 3 | Consistency, high detail | Excellent | $$$ | Medium |
 | Replicate | Style control, variations | Very Good | $$ | Medium |
 | fal.ai | Fast iteration, testing | Good | $ | Fast |
+| Atlas Cloud | Unified access to multiple image models | Model-dependent | $ | Model-dependent |
 
 ### DALL-E 3 (OpenAI)
 
@@ -169,6 +171,18 @@ Best for rapid iteration and testing prompts.
 - Fastest inference
 - Good for prototyping
 - Lower cost per image
+
+### Atlas Cloud
+
+Use Atlas Cloud as an optional unified provider. The default model is Flux Schnell, and you can
+select another current Atlas Cloud image model with `--model`.
+
+```bash
+--provider atlas --model black-forest-labs/flux-schnell
+```
+
+Set `ATLASCLOUD_API_KEY` before running the script. Atlas Cloud submissions are sent once, then the
+script polls the prediction endpoint with a bounded wait before downloading the completed image.
 
 ## Prompting by Art Style
 
@@ -220,7 +234,7 @@ Generate a single image from any supported provider.
 deno run --allow-env --allow-net --allow-write scripts/generate-image.ts [options]
 
 Options:
-  --provider <name>   Provider: dalle, replicate, fal (required)
+  --provider <name>   Provider: dalle, replicate, fal, atlas (required)
   --prompt <text>     Generation prompt (required)
   --output <path>     Output file path (required)
   --model <name>      Specific model (optional, provider-dependent)

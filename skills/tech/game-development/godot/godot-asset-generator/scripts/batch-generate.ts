@@ -32,7 +32,7 @@ interface AssetSpec {
 }
 
 interface BatchSpec {
-  provider: "dalle" | "replicate" | "fal";
+  provider: "dalle" | "replicate" | "fal" | "muapi";
   model?: string;
   style?: string;
   basePrompt?: string;
@@ -84,7 +84,7 @@ export async function batchGenerate(
     delay?: number;
     resume?: boolean;
     progressFile?: string;
-  } = {}
+  } = {},
 ): Promise<BatchResult> {
   const startTime = Date.now();
   const concurrency = options.concurrency ?? 2;
@@ -129,7 +129,9 @@ export async function batchGenerate(
 
       const outputPath = `${outputDir}/${asset.name}.png`;
 
-      console.log(`[${i + batch.indexOf(asset) + 1}/${assetsToProcess.length}] Generating: ${asset.name}`);
+      console.log(
+        `[${i + batch.indexOf(asset) + 1}/${assetsToProcess.length}] Generating: ${asset.name}`,
+      );
 
       const result = await generateImage({
         provider: spec.provider,
@@ -220,7 +222,7 @@ Optional:
 
 Batch Spec Format:
   {
-    "provider": "dalle" | "replicate" | "fal",
+    "provider": "dalle" | "replicate" | "fal" | "muapi",
     "model": "optional-model-name",
     "style": "pixel-art" | "hand-drawn" | "painterly" | "vector",
     "basePrompt": "prefix added to all prompts",

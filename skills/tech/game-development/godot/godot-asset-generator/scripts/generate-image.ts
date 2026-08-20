@@ -3,7 +3,7 @@
 /**
  * Image Generation CLI - Unified API Wrapper
  *
- * Generate images using DALL-E 3, Replicate, or fal.ai APIs.
+ * Generate images using DALL-E 3, Replicate, fal.ai, or MuAPI APIs.
  * Provides a consistent interface across providers with style presets.
  *
  * Usage:
@@ -14,6 +14,7 @@
  *   OPENAI_API_KEY - Required for DALL-E 3
  *   REPLICATE_API_TOKEN - Required for Replicate
  *   FAL_KEY - Required for fal.ai
+ *   MUAPI_API_KEY - Required for MuAPI
  *
  * Permissions:
  *   --allow-env: Read API key environment variables
@@ -50,7 +51,7 @@ const STYLE_PRESETS: Record<string, { prefix: string; suffix: string; negative?:
 };
 
 // === Types ===
-type Provider = "dalle" | "replicate" | "fal";
+type Provider = "dalle" | "replicate" | "fal" | "muapi";
 
 interface GenerationOptions {
   provider: Provider;
@@ -132,7 +133,8 @@ async function generateReplicate(options: GenerationOptions): Promise<string> {
     throw new Error("REPLICATE_API_TOKEN environment variable is not set");
   }
 
-  const model = options.model || "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b";
+  const model = options.model ||
+    "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b";
 
   // Parse size
   const [width, height] = (options.size || "1024x1024").split("x").map(Number);
@@ -254,6 +256,169 @@ async function generateFal(options: GenerationOptions): Promise<string> {
   return btoa(String.fromCharCode(...new Uint8Array(imageBuffer)));
 }
 
+// === Provider: MuAPI ===
+const MUAPI_API_BASE = "https://api.muapi.ai/api/v1";
+const MUAPI_DEFAULT_MODEL = "flux-dev-image";
+const MUAPI_MAX_POLL_ATTEMPTS = 60;
+const MUAPI_POLL_INTERVAL_MS = 2000;
+
+type Fetcher = typeof fetch;
+type Sleeper = (milliseconds: number) => Promise<void>;
+
+interface MuAPIPayload {
+  [key: string]: unknown;
+}
+
+function asMuAPIPayload(value: unknown): MuAPIPayload {
+  if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+    return value as MuAPIPayload;
+  }
+  return {};
+}
+
+function unwrapMuAPI(value: unknown): MuAPIPayload {
+  const payload = asMuAPIPayload(value);
+  const data = asMuAPIPayload(payload.data);
+  return Object.keys(data).length > 0 ? data : payload;
+}
+
+function readMuAPIOutputs(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === "string");
+}
+
+function parseMuAPISize(size: string): string {
+  const match = /^(\d{3,4})x(\d{3,4})$/.exec(size);
+  if (!match) {
+    throw new Error("MuAPI size must use WxH with each dimension between 512 and 1536");
+  }
+
+  const width = Number(match[1]);
+  const height = Number(match[2]);
+  if (width < 512 || width > 1536 || height < 512 || height > 1536) {
+    throw new Error("MuAPI size must use WxH with each dimension between 512 and 1536");
+  }
+  return `${width}*${height}`;
+}
+
+function validateMuAPIModel(model: string): string {
+  if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(model)) {
+    throw new Error("MuAPI model must be a lowercase endpoint slug");
+  }
+  return model;
+}
+
+async function muAPIError(response: Response): Promise<Error> {
+  const detail = await response.text();
+  return new Error(`MuAPI API error (${response.status}): ${detail || response.statusText}`);
+}
+
+function bytesToBase64(bytes: Uint8Array): string {
+  let binary = "";
+  const chunkSize = 0x8000;
+  for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+  }
+  return btoa(binary);
+}
+
+async function downloadMuAPIImage(imageUrl: string, fetcher: Fetcher): Promise<string> {
+  if (!imageUrl.startsWith("https://")) {
+    throw new Error("MuAPI returned a non-HTTPS image URL");
+  }
+
+  const response = await fetcher(imageUrl);
+  if (!response.ok) {
+    throw new Error(`Failed to download MuAPI image (${response.status})`);
+  }
+
+  const imageBytes = new Uint8Array(await response.arrayBuffer());
+  if (imageBytes.length === 0) {
+    throw new Error("MuAPI returned an empty image");
+  }
+  return bytesToBase64(imageBytes);
+}
+
+export async function generateMuAPI(
+  options: GenerationOptions,
+  fetcher: Fetcher = fetch,
+  sleeper: Sleeper = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)),
+): Promise<string> {
+  const apiKey = Deno.env.get("MUAPI_API_KEY");
+  if (!apiKey) {
+    throw new Error("MUAPI_API_KEY environment variable is not set");
+  }
+
+  const model = validateMuAPIModel(options.model || MUAPI_DEFAULT_MODEL);
+  const size = parseMuAPISize(options.size || "1024x1024");
+  const submitResponse = await fetcher(`${MUAPI_API_BASE}/${model}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "x-api-key": apiKey,
+    },
+    body: JSON.stringify({
+      prompt: options.prompt,
+      image: "",
+      size,
+      num_inference_steps: 28,
+      seed: -1,
+      guidance_scale: 3.5,
+      num_images: 1,
+      enable_base64_output: false,
+      enable_safety_checker: true,
+    }),
+  });
+
+  if (!submitResponse.ok) {
+    throw await muAPIError(submitResponse);
+  }
+
+  const submitPayload: unknown = await submitResponse.json();
+  const submittedRoot = asMuAPIPayload(submitPayload);
+  let prediction = unwrapMuAPI(submitPayload);
+  let outputs = readMuAPIOutputs(prediction.outputs);
+  let status = String(prediction.status || "").toLowerCase();
+
+  if (status === "completed" && outputs.length > 0) {
+    return downloadMuAPIImage(outputs[0], fetcher);
+  }
+
+  const requestIdValue = prediction.request_id || prediction.id || submittedRoot.request_id ||
+    submittedRoot.id;
+  if (typeof requestIdValue !== "string" || requestIdValue.length === 0) {
+    throw new Error("MuAPI response did not include a request ID");
+  }
+
+  for (let attempt = 0; attempt < MUAPI_MAX_POLL_ATTEMPTS; attempt++) {
+    status = String(prediction.status || "").toLowerCase();
+    outputs = readMuAPIOutputs(prediction.outputs);
+    if (status === "completed") {
+      if (outputs.length === 0) throw new Error("MuAPI prediction completed without an image URL");
+      return downloadMuAPIImage(outputs[0], fetcher);
+    }
+    if (["failed", "cancelled", "canceled"].includes(status)) {
+      const detail = prediction.error || prediction.message || "unknown error";
+      throw new Error(`MuAPI generation ${status}: ${detail}`);
+    }
+    if (attempt > 0) {
+      await sleeper(Math.min(MUAPI_POLL_INTERVAL_MS * 2 ** Math.min(attempt - 1, 3), 10000));
+    }
+
+    const pollResponse = await fetcher(
+      `${MUAPI_API_BASE}/predictions/${encodeURIComponent(requestIdValue)}/result`,
+      { headers: { Accept: "application/json", "x-api-key": apiKey } },
+    );
+    if (!pollResponse.ok) {
+      throw await muAPIError(pollResponse);
+    }
+    prediction = unwrapMuAPI(await pollResponse.json());
+  }
+
+  throw new Error(`MuAPI generation timed out after ${MUAPI_MAX_POLL_ATTEMPTS} polls`);
+}
+
 // === Core Generation Function ===
 export async function generateImage(options: GenerationOptions): Promise<GenerationResult> {
   const startTime = Date.now();
@@ -284,6 +449,9 @@ export async function generateImage(options: GenerationOptions): Promise<Generat
         break;
       case "fal":
         base64Image = await generateFal(enhancedOptions);
+        break;
+      case "muapi":
+        base64Image = await generateMuAPI(enhancedOptions);
         break;
       default:
         throw new Error(`Unknown provider: ${options.provider}`);
@@ -326,6 +494,8 @@ function getDefaultModel(provider: Provider): string {
       return "stability-ai/sdxl";
     case "fal":
       return "fal-ai/flux/schnell";
+    case "muapi":
+      return MUAPI_DEFAULT_MODEL;
   }
 }
 
@@ -338,7 +508,7 @@ Usage:
   deno run --allow-env --allow-net --allow-write scripts/generate-image.ts [options]
 
 Required Options:
-  --provider <name>   Provider: dalle, replicate, or fal
+  --provider <name>   Provider: dalle, replicate, fal, or muapi
   --prompt <text>     Generation prompt
   --output <path>     Output file path (.png)
 
@@ -355,6 +525,7 @@ Environment Variables:
   OPENAI_API_KEY       Required for DALL-E 3
   REPLICATE_API_TOKEN  Required for Replicate
   FAL_KEY              Required for fal.ai
+  MUAPI_API_KEY        Required for MuAPI
 
 Style Presets:
   pixel-art    16-bit pixel art with clean pixels
@@ -381,6 +552,10 @@ Examples:
   ./scripts/generate-image.ts --provider replicate \\
     --prompt "pixel art sword" \\
     --negative "blurry, realistic" --output ./sword.png
+
+  # MuAPI Flux Dev
+  ./scripts/generate-image.ts --provider muapi \\
+    --prompt "pixel art potion" --output ./potion.png
 `);
 }
 
@@ -433,7 +608,7 @@ async function main(args: string[]): Promise<void> {
 
   // Validate required options
   if (!options.provider) {
-    console.error("Error: --provider is required (dalle, replicate, or fal)");
+    console.error("Error: --provider is required (dalle, replicate, fal, or muapi)");
     Deno.exit(1);
   }
   if (!options.prompt) {
@@ -446,14 +621,18 @@ async function main(args: string[]): Promise<void> {
   }
 
   // Validate provider
-  if (!["dalle", "replicate", "fal"].includes(options.provider)) {
-    console.error(`Error: Invalid provider '${options.provider}'. Use: dalle, replicate, or fal`);
+  if (!["dalle", "replicate", "fal", "muapi"].includes(options.provider)) {
+    console.error(
+      `Error: Invalid provider '${options.provider}'. Use: dalle, replicate, fal, or muapi`,
+    );
     Deno.exit(1);
   }
 
   // Validate style
   if (options.style && !STYLE_PRESETS[options.style]) {
-    console.error(`Error: Invalid style '${options.style}'. Use: ${Object.keys(STYLE_PRESETS).join(", ")}`);
+    console.error(
+      `Error: Invalid style '${options.style}'. Use: ${Object.keys(STYLE_PRESETS).join(", ")}`,
+    );
     Deno.exit(1);
   }
 

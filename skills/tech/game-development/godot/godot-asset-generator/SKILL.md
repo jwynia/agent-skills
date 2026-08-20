@@ -1,8 +1,8 @@
 ---
 name: godot-asset-generator
-description: "Generate game assets using AI image generation APIs (DALL-E, Replicate, fal.ai) and prepare them for Godot. Covers the full art pipeline from concept art and style guides to final sprites, sprite sheets, and import configuration. This skill should be used when creating game art, generating sprites, making tilesets, creating UI elements, or preparing assets for Godot import. Keywords: game assets, AI art, DALL-E, Replicate, fal.ai, sprite sheet, tileset, Godot, pixel art, character sprite, game art, texture, animation frames."
+description: "Generate game assets using AI image generation APIs (DALL-E, Replicate, fal.ai, MuAPI) and prepare them for Godot. Covers the full art pipeline from concept art and style guides to final sprites, sprite sheets, and import configuration. This skill should be used when creating game art, generating sprites, making tilesets, creating UI elements, or preparing assets for Godot import. Keywords: game assets, AI art, DALL-E, Replicate, fal.ai, MuAPI, sprite sheet, tileset, Godot, pixel art, character sprite, game art, texture, animation frames."
 license: MIT
-compatibility: Requires Deno runtime. API keys for chosen provider (OPENAI_API_KEY, REPLICATE_API_TOKEN, or FAL_KEY).
+compatibility: Requires Deno runtime. API keys for chosen provider (OPENAI_API_KEY, REPLICATE_API_TOKEN, FAL_KEY, or MUAPI_API_KEY).
 metadata:
   author: agent-skills
   version: "1.0"
@@ -40,6 +40,7 @@ Do NOT use this skill when:
   - `OPENAI_API_KEY` for DALL-E 3
   - `REPLICATE_API_TOKEN` for Replicate (SDXL, Flux)
   - `FAL_KEY` for fal.ai
+  - `MUAPI_API_KEY` for MuAPI
 
 **Optional:**
 - ImageMagick for advanced image processing
@@ -133,6 +134,7 @@ Prepare assets for Godot import:
 | DALL-E 3 | Consistency, high detail | Excellent | $$$ | Medium |
 | Replicate | Style control, variations | Very Good | $$ | Medium |
 | fal.ai | Fast iteration, testing | Good | $ | Fast |
+| MuAPI | Unified hosted image API | Model-dependent | Per-image | Async |
 
 ### DALL-E 3 (OpenAI)
 
@@ -169,6 +171,22 @@ Best for rapid iteration and testing prompts.
 - Fastest inference
 - Good for prototyping
 - Lower cost per image
+
+### MuAPI (Flux Dev)
+
+Use MuAPI when you want a hosted unified image API with asynchronous task processing. The default
+endpoint is `flux-dev-image`; set `MUAPI_API_KEY` before running the script. MuAPI charges per
+generation, and the helper submits once, polls the result with a bounded wait, and downloads the
+completed HTTPS image without forwarding the API key.
+
+```bash
+--provider muapi --model flux-dev-image
+```
+
+- Size: 512–1536 pixels per side, for example `1024x1024`
+- API key: `MUAPI_API_KEY`
+- Docs: [MuAPI API reference](https://muapi.ai/docs/api-reference)
+- Endpoint details: [Flux Dev](https://muapi.ai/docs/flux-dev)
 
 ## Prompting by Art Style
 
@@ -220,7 +238,7 @@ Generate a single image from any supported provider.
 deno run --allow-env --allow-net --allow-write scripts/generate-image.ts [options]
 
 Options:
-  --provider <name>   Provider: dalle, replicate, fal (required)
+  --provider <name>   Provider: dalle, replicate, fal, muapi (required)
   --prompt <text>     Generation prompt (required)
   --output <path>     Output file path (required)
   --model <name>      Specific model (optional, provider-dependent)
